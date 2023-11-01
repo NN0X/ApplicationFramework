@@ -1,0 +1,9 @@
+﻿  application.cpp
+  context.cpp
+D:\Dev\ApplicationFramework\source\context.cpp(84,59): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+D:\Dev\ApplicationFramework\source\context.cpp(101,63): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+D:\Dev\ApplicationFramework\source\context.cpp(118,63): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+  main.cpp
+  Generowanie kodu...
+glfw3.lib(win32_window.obj) : warning LNK4099: nie znaleziono pliku PDB „” z elementem „glfw3.lib(win32_window.obj)” lub w pozycji „”; obiekt zostanie skonsolidowany bez informacji debugowania
+  ApplicationFramework.vcxproj -> D:\Dev\ApplicationFramework\build\ApplicationFramework.exe
