@@ -37,7 +37,6 @@ class Object2D : public Object
 {
 private:
     dVector2 position;
-    dVector2 center;
     dVector2 scale;
     double rotation;
     fMatrix4 translationM;
@@ -69,60 +68,8 @@ public:
     void setPosition(dVector2 position);
     void setScale(dVector2 scale);
     void setRotation(double rotation);
-};
 
-class Object3D : public Object
-{
-private:
-    dVector3 position;
-    dVector3 center;
-    dVector3 scale;
-    dVector3 rotation;
-    fMatrix4 translationM;
-    fMatrix4 rotationM;
-    fMatrix4 scaleM;
-    GLuint vertices;
-    GLuint attributes;
-    GLuint texture;
-    GLuint shader;
-    int sizeOfVertices;
-    int sizeOfIndices;
-
-public:
-    Object3D(std::vector<double> &vertices, std::string texturePath, std::string vertexPath, std::string fragmentPath);
-    Object3D(dVector3 position, dVector3 scale, dVector3 rotation, std::vector<double> &vertices, std::string texturePath, std::string vertexPath, std::string fragmentPath);
-
-    void transformPosition(dVector3 position);
-    void transformScale(dVector3 scale);
-    void transformRotation(dVector3 rotation);
-
-    void draw(fMatrix4 cameraM);
-
-    void genVertices(std::vector<double> &vertices);
-    void genTexture(std::string texturePath);
-    void genShader(std::string vertexPath, std::string fragmentPath);
-    void genAttributes();
-
-    void setPosition(dVector3 position);
-    void setScale(dVector3 scale);
-    void setRotation(dVector3 rotation);
-
-    dVector3 getScale();
-};
-
-class Camera : public Object
-{
-private:
-    dVector3 position;
-    dVector3 rotation;
-    fMatrix4 projectionM;
-    fMatrix4 viewM;
-
-public:
-    Camera(dVector3 position, dVector3 rotation, double fov, double aspectRatio, double near, double far);
-
-    void transformPosition(dVector3 position);
-    void transformRotation(dVector3 rotation);
-
-    fMatrix4 getCameraMatrix();
+    dVector2 getPosition();
+    dVector2 getScale();
+    double getRotation();
 };

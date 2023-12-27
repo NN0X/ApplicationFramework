@@ -12,12 +12,33 @@ dVector2 Vector::add(dVector2 vector1, dVector2 vector2)
     return result;
 }
 
+dVector2 Vector::subtract(dVector2 vector1, dVector2 vector2)
+{
+    dVector2 result;
+
+    result.x = vector1.x - vector2.x;
+    result.y = vector1.y - vector2.y;
+
+    return result;
+}
+
 dVector2 Vector::multiply(dVector2 vector1, dVector2 vector2)
 {
     dVector2 result;
 
     result.x = vector1.x * vector2.x;
     result.y = vector1.y * vector2.y;
+
+    return result;
+}
+
+dVector2 Vector::normalize(dVector2 vector)
+{
+    dVector2 result;
+
+    double length = sqrt(pow(vector.x, 2) + pow(vector.y, 2));
+    result.x = vector.x / length;
+    result.y = vector.y / length;
 
     return result;
 }

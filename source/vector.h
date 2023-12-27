@@ -40,7 +40,9 @@ struct dVector4
 namespace Vector
 {
     dVector2 add(dVector2 vector1, dVector2 vector2);
+    dVector2 subtract(dVector2 vector1, dVector2 vector2);
     dVector2 multiply(dVector2 vector1, dVector2 vector2);
+    dVector2 normalize(dVector2 vector);
 
     dVector3 add(dVector3 vector1, dVector3 vector2);
     dVector3 subtract(dVector3 vector1, dVector3 vector2);

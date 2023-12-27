@@ -33,17 +33,9 @@ public:
 
     dVector2 getMousePosition();
 
-    void addCamera(const Camera &camera);
-    Camera *getCamera(int index);
-    void destroyCamera(int index);
-
     void addObject2D(const Object2D &object);
     Object2D *getObject2D(int index);
     void destroyObject2D(int index);
-
-    void addObject3D(const Object3D &object);
-    Object3D *getObject3D(int index);
-    void destroyObject3D(int index);
 
     void draw();
 

@@ -68,21 +68,6 @@ dVector2 Application::getMousePosition()
     return inputManager.getMousePosition();
 }
 
-void Application::addCamera(const Camera &camera)
-{
-    contexts[currentContext].addCamera(camera);
-}
-
-Camera *Application::getCamera(int index)
-{
-    return contexts[currentContext].getCamera(index);
-}
-
-void Application::destroyCamera(int index)
-{
-    contexts[currentContext].destroyCamera(index);
-}
-
 void Application::addObject2D(const Object2D &object)
 {
     contexts[currentContext].addObject2D(object);
@@ -96,21 +81,6 @@ Object2D *Application::getObject2D(int index)
 void Application::destroyObject2D(int index)
 {
     contexts[currentContext].destroyObject2D(index);
-}
-
-void Application::addObject3D(const Object3D &object)
-{
-    contexts[currentContext].addObject3D(object);
-}
-
-Object3D *Application::getObject3D(int index)
-{
-    return contexts[currentContext].getObject3D(index);
-}
-
-void Application::destroyObject3D(int index)
-{
-    contexts[currentContext].destroyObject3D(index);
 }
 
 void Application::draw()

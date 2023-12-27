@@ -1,6 +1,6 @@
 ﻿#include "utility.h"
 
-std::vector<double> Utility::loadOBJ(std::string path)
+/*std::vector<double> Utility::loadOBJ(std::string path)
 {
     std::vector<std::string> data;
     std::string dataline;
@@ -79,50 +79,4 @@ std::vector<double> Utility::loadOBJ(std::string path)
     }
 
     return objData;
-}
-
-dVector2 Utility::getCenter2(const std::vector<double> &vertices)
-{
-    dVector2 center = {0, 0};
-
-    // point1 i, i+1, data, data
-    // point2 i+4, i+5, data, data
-    // point3 i+8, i+9, data, data
-
-    int vertexCount = 0;
-    for (int i = 0; i < vertices.size(); i += 12)
-    {
-        center.x += vertices[i] + vertices[i + 4] + vertices[i + 8];
-        center.y += vertices[i + 1] + vertices[i + 5] + vertices[i + 9];
-        vertexCount++;
-    }
-
-    center.x /= vertexCount;
-    center.y /= vertexCount;
-
-    return center;
-}
-
-dVector3 Utility::getCenter3(const std::vector<double> &vertices)
-{
-    dVector3 center = {0, 0, 0};
-
-    // point1 i, i+1, i+2, data, data
-    // point2 i+5, i+6, i+7, data, data
-    // point3 i+10, i+11, i+12, data, data
-
-    int vertexCount = 0;
-    for (int i = 0; i < vertices.size(); i += 15)
-    {
-        center.x += vertices[i] + vertices[i + 5] + vertices[i + 10];
-        center.y += vertices[i + 1] + vertices[i + 6] + vertices[i + 11];
-        center.z += vertices[i + 2] + vertices[i + 7] + vertices[i + 12];
-        vertexCount++;
-    }
-
-    center.x /= vertexCount;
-    center.y /= vertexCount;
-    center.z /= vertexCount;
-
-    return center;
-}
+}*/

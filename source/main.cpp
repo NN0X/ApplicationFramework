@@ -5,7 +5,6 @@ TODO:
     ADD PARENT TRANSFORMS IN DRAW() FUNCTION
     REWRITE NDL AS LIB or DLL
     DITCH VISUAL STUDIO
-    SETUP GITHUB
 */
 
 #include <iostream>
@@ -25,7 +24,7 @@ TODO:
 
 int main()
 {
-    Application *app = new Application({1000, 1000}, "Application", false, false, true);
+    Application *app = new Application({800, 800}, "Application", false, false, true);
 
     std::vector<double> vertices2d = {
         0.5, 0.5, 1.0, 1.0,   //
@@ -40,31 +39,43 @@ int main()
     object2d.setScale({0.5, 0.5});
     object2d.setPosition({0.5, 0});
 
-    std::vector<double> vertices3d;
-
-    vertices3d = Utility::loadOBJ("../resources/meshes/cube.obj");
-
-    Object3D object3d = Object3D(vertices3d, "../resources/textures/logo.png", "../resources/shaders/default3dVertex.glsl", "../resources/shaders/default3dFragment.glsl");
-    object3d.setPosition({0.5, 0, 0});
-    object3d.setScale({0.25, 0.25, 0.25});
-
-    // FIX
-    Camera camera = Camera({0, 0, 0}, {0, 0, 0}, 45, 1, 0.1, 1000);
-    // FIX
-
     int frames = 0;
     double start = glfwGetTime();
 
-    // app->addCamera(camera);
     app->addObject2D(object2d);
-    // app->addObject3D(object3d);
 
     while (!glfwWindowShouldClose(app->getWindow()))
     {
         if (app->isKeyPressed(KEY_ESCAPE))
             glfwSetWindowShouldClose(app->getWindow(), true);
 
-        // app->getObject3D(0)->transformRotation({0.001, 0.001, 0.001});
+        if (app->isKeyPressed(KEY_W))
+            app->getObject2D(0)->transformPosition({0, 0.001});
+
+        if (app->isKeyPressed(KEY_S))
+            app->getObject2D(0)->transformPosition({0, -0.001});
+
+        if (app->isKeyPressed(KEY_A))
+            app->getObject2D(0)->transformPosition({-0.001, 0});
+
+        if (app->isKeyPressed(KEY_D))
+            app->getObject2D(0)->transformPosition({0.001, 0});
+
+        if (app->getObject2D(0)->getPosition().x > 2 + app->getObject2D(0)->getScale().x)
+            app->getObject2D(0)->setPosition({-2 - app->getObject2D(0)->getScale().x, app->getObject2D(0)->getPosition().y});
+
+        if (app->getObject2D(0)->getPosition().x < -2 - app->getObject2D(0)->getScale().x)
+            app->getObject2D(0)->setPosition({2 + app->getObject2D(0)->getScale().x, app->getObject2D(0)->getPosition().y});
+
+        if (app->getObject2D(0)->getPosition().y > 2 + app->getObject2D(0)->getScale().y)
+            app->getObject2D(0)->setPosition({app->getObject2D(0)->getPosition().x, -2 - app->getObject2D(0)->getScale().y});
+
+        if (app->getObject2D(0)->getPosition().y < -2 - app->getObject2D(0)->getScale().y)
+            app->getObject2D(0)->setPosition({app->getObject2D(0)->getPosition().x, 2 + app->getObject2D(0)->getScale().y});
+
+        if (app->isKeyPressed(KEY_I))
+            app->getObject2D(0)->getPosition().print();
+
         app->update();
         frames++;
     }
