@@ -38,6 +38,7 @@ class Object2D : public Object
 private:
     dVector2 position;
     dVector2 scale;
+    std::vector<dVector2> hitbox;
     double rotation;
     fMatrix4 translationM;
     fMatrix4 rotationM;
@@ -61,14 +62,18 @@ public:
     void draw();
 
     void genVertices(std::vector<double> &vertices);
+    void genHitbox(std::vector<double> &vertices);
     void genTexture(std::string texturePath);
     void genShader(std::string vertexPath, std::string fragmentPath);
     void genAttributes();
+
+    bool inHitbox(dVector2 point);
 
     void setPosition(dVector2 position);
     void setScale(dVector2 scale);
     void setRotation(double rotation);
 
+    std::vector<dVector2> getHitbox();
     dVector2 getPosition();
     dVector2 getScale();
     double getRotation();

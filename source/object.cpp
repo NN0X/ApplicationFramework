@@ -49,6 +49,7 @@ Object2D::Object2D(std::vector<double> &vertices, iVector2 windowSize, std::stri
     projectionM.orthographic(0, windowSize.x, 0, windowSize.y, -1, 1);
 
     genVertices(vertices);
+    genHitbox(vertices);
     genAttributes();
     genShader(vertexPath, fragmentPath);
     genTexture(texturePath);
@@ -77,6 +78,7 @@ Object2D::Object2D(dVector2 position, dVector2 scale, double rotation, std::vect
     projectionM.orthographic(0, windowSize.x, 0, windowSize.y, -1, 1);
 
     genVertices(vertices);
+    genHitbox(vertices);
     genAttributes();
     genShader(vertexPath, fragmentPath);
     genTexture(texturePath);
@@ -123,6 +125,14 @@ void Object2D::genVertices(std::vector<double> &vertices)
     glBindBuffer(GL_ARRAY_BUFFER, this->vertices);
     glBufferData(GL_ARRAY_BUFFER, sizeOfVertices * sizeof(double), &vertices[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Object2D::genHitbox(std::vector<double> &vertices)
+{
+    for (int i = 0; i < vertices.size(); i += 4)
+    {
+        hitbox.push_back({vertices[i], vertices[i + 1]});
+    }
 }
 
 void Object2D::genTexture(std::string path)
@@ -203,6 +213,23 @@ void Object2D::genAttributes()
     glBindVertexArray(0);
 }
 
+bool Object2D::inHitbox(dVector2 point)
+{
+    int i, j;
+    bool in = false;
+    for (i = 0, j = hitbox.size() - 1; i < hitbox.size(); j = i++)
+    {
+        double x = hitbox[i].x * scale.x * 2 + position.x;
+        double y = hitbox[i].y * scale.y * 2 + position.y;
+        double x2 = hitbox[j].x * scale.x * 2 + position.x;
+        double y2 = hitbox[j].y * scale.y * 2 + position.y;
+
+        if ((y > point.y) != (y2 > point.y) && (point.x < (x2 - x) * (point.y - y) / (y2 - y) + x))
+            in = !in;
+    }
+    return in;
+}
+
 void Object2D::setPosition(dVector2 position)
 {
     translationM.translate({position.x - this->position.x, position.y - this->position.y, 0.0});
@@ -221,6 +248,7 @@ void Object2D::setRotation(double rotation)
     rotationM.rotate(0.0, 0.0, rotation * PI / 180);
 }
 
+std::vector<dVector2> Object2D::getHitbox() { return hitbox; }
 dVector2 Object2D::getPosition() { return position; }
 dVector2 Object2D::getScale() { return scale; }
 double Object2D::getRotation() { return rotation; }

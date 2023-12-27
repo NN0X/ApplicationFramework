@@ -1,6 +1,5 @@
 /*
 TODO:
-    ADD GUI INPUT
     ADD SOUND
     ADD PARENT TRANSFORMS IN DRAW() FUNCTION
     REWRITE NDL AS LIB or DLL
@@ -61,17 +60,8 @@ int main()
         if (app->isKeyPressed(KEY_D))
             app->getObject2D(0)->transformPosition({0.001, 0});
 
-        if (app->getObject2D(0)->getPosition().x > 2 + app->getObject2D(0)->getScale().x)
-            app->getObject2D(0)->setPosition({-2 - app->getObject2D(0)->getScale().x, app->getObject2D(0)->getPosition().y});
-
-        if (app->getObject2D(0)->getPosition().x < -2 - app->getObject2D(0)->getScale().x)
-            app->getObject2D(0)->setPosition({2 + app->getObject2D(0)->getScale().x, app->getObject2D(0)->getPosition().y});
-
-        if (app->getObject2D(0)->getPosition().y > 2 + app->getObject2D(0)->getScale().y)
-            app->getObject2D(0)->setPosition({app->getObject2D(0)->getPosition().x, -2 - app->getObject2D(0)->getScale().y});
-
-        if (app->getObject2D(0)->getPosition().y < -2 - app->getObject2D(0)->getScale().y)
-            app->getObject2D(0)->setPosition({app->getObject2D(0)->getPosition().x, 2 + app->getObject2D(0)->getScale().y});
+        if (app->isMousePressed(MOUSE_LEFT))
+            app->getObject2D(0)->inHitbox(Vector::convertCoordinateSystem(Vector::clamp(app->getMousePosition(), {0, 0}, {800, 800}), {0, 0}, {800, 800}, {-2, 2}, {2, -2}));
 
         app->update();
         frames++;

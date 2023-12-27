@@ -1,3 +1,2 @@
 ﻿  main.cpp
-glfw3.lib(input.obj) : warning LNK4099: nie znaleziono pliku PDB „” z elementem „glfw3.lib(input.obj)” lub w pozycji „”; obiekt zostanie skonsolidowany bez informacji debugowania
   ApplicationFramework.vcxproj -> D:\Dev\ApplicationFramework\build\ApplicationFramework.exe

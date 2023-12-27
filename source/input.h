@@ -8,126 +8,132 @@
 #include "vector.h"
 #include "matrix.h"
 
-#define KEY_SPACE 0
-#define KEY_APOSTROPHE 1
-#define KEY_COMMA 2
-#define KEY_MINUS 3
-#define KEY_PERIOD 4
-#define KEY_SLASH 5
-#define KEY_0 6
-#define KEY_1 7
-#define KEY_2 8
-#define KEY_3 9
-#define KEY_4 10
-#define KEY_5 11
-#define KEY_6 12
-#define KEY_7 13
-#define KEY_8 14
-#define KEY_9 15
-#define KEY_SEMICOLON 16
-#define KEY_EQUAL 17
-#define KEY_A 18
-#define KEY_B 19
-#define KEY_C 20
-#define KEY_D 21
-#define KEY_E 22
-#define KEY_F 23
-#define KEY_G 24
-#define KEY_H 25
-#define KEY_I 26
-#define KEY_J 27
-#define KEY_K 28
-#define KEY_L 29
-#define KEY_M 30
-#define KEY_N 31
-#define KEY_O 32
-#define KEY_P 33
-#define KEY_Q 34
-#define KEY_R 35
-#define KEY_S 36
-#define KEY_T 37
-#define KEY_U 38
-#define KEY_V 39
-#define KEY_W 40
-#define KEY_X 41
-#define KEY_Y 42
-#define KEY_Z 43
-#define KEY_LEFT_BRACKET 44
-#define KEY_BACKSLASH 45
-#define KEY_RIGHT_BRACKET 46
-#define KEY_GRAVE_ACCENT 47
-#define KEY_ESCAPE 48
-#define KEY_ENTER 49
-#define KEY_TAB 50
-#define KEY_BACKSPACE 51
-#define KEY_INSERT 52
-#define KEY_DELETE 53
-#define KEY_RIGHT 54
-#define KEY_LEFT 55
-#define KEY_DOWN 56
-#define KEY_UP 57
-#define KEY_PAGE_UP 58
-#define KEY_PAGE_DOWN 59
-#define KEY_HOME 60
-#define KEY_END 61
-#define KEY_CAPS_LOCK 62
-#define KEY_SCROLL_LOCK 63
-#define KEY_NUM_LOCK 64
-#define KEY_PRINT_SCREEN 65
-#define KEY_F1 66
-#define KEY_F2 67
-#define KEY_F3 68
-#define KEY_F4 69
-#define KEY_F5 70
-#define KEY_F6 71
-#define KEY_F7 72
-#define KEY_F8 73
-#define KEY_F9 74
-#define KEY_F10 75
-#define KEY_F11 76
-#define KEY_F12 77
-#define KEY_F13 78
-#define KEY_F14 79
-#define KEY_F15 80
-#define KEY_F16 81
-#define KEY_F17 82
-#define KEY_F18 83
-#define KEY_F19 84
-#define KEY_F20 85
-#define KEY_F21 86
-#define KEY_F22 87
-#define KEY_F23 88
-#define KEY_F24 89
-#define KEY_F25 90
-#define KEY_KP_0 91
-#define KEY_KP_1 92
-#define KEY_KP_2 93
-#define KEY_KP_3 94
-#define KEY_KP_4 95
-#define KEY_KP_5 96
-#define KEY_KP_6 97
-#define KEY_KP_7 98
-#define KEY_KP_8 99
-#define KEY_KP_9 100
-#define KEY_KP_DECIMAL 101
-#define KEY_KP_DIVIDE 102
-#define KEY_KP_MULTIPLY 103
-#define KEY_KP_SUBTRACT 104
-#define KEY_KP_ADD 105
-#define KEY_KP_ENTER 106
-#define KEY_KP_EQUAL 107
-#define KEY_LEFT_SHIFT 108
-#define KEY_LEFT_CONTROL 109
-#define KEY_LEFT_ALT 110
-#define KEY_LEFT_SUPER 111
-#define KEY_RIGHT_SHIFT 112
-#define KEY_RIGHT_CONTROL 113
-#define KEY_RIGHT_ALT 114
-#define KEY_RIGHT_SUPER 115
+enum KeyCodes
+{
+    KEY_SPACE = 0,
+    KEY_APOSTROPHE,
+    KEY_COMMA,
+    KEY_MINUS,
+    KEY_PERIOD,
+    KEY_SLASH,
+    KEY_0,
+    KEY_1,
+    KEY_2,
+    KEY_3,
+    KEY_4,
+    KEY_5,
+    KEY_6,
+    KEY_7,
+    KEY_8,
+    KEY_9,
+    KEY_SEMICOLON,
+    KEY_EQUAL,
+    KEY_A,
+    KEY_B,
+    KEY_C,
+    KEY_D,
+    KEY_E,
+    KEY_F,
+    KEY_G,
+    KEY_H,
+    KEY_I,
+    KEY_J,
+    KEY_K,
+    KEY_L,
+    KEY_M,
+    KEY_N,
+    KEY_O,
+    KEY_P,
+    KEY_Q,
+    KEY_R,
+    KEY_S,
+    KEY_T,
+    KEY_U,
+    KEY_V,
+    KEY_W,
+    KEY_X,
+    KEY_Y,
+    KEY_Z,
+    KEY_LEFT_BRACKET,
+    KEY_BACKSLASH,
+    KEY_RIGHT_BRACKET,
+    KEY_GRAVE_ACCENT,
+    KEY_ESCAPE,
+    KEY_ENTER,
+    KEY_TAB,
+    KEY_BACKSPACE,
+    KEY_INSERT,
+    KEY_DELETE,
+    KEY_RIGHT,
+    KEY_LEFT,
+    KEY_DOWN,
+    KEY_UP,
+    KEY_PAGE_UP,
+    KEY_PAGE_DOWN,
+    KEY_HOME,
+    KEY_END,
+    KEY_CAPS_LOCK,
+    KEY_SCROLL_LOCK,
+    KEY_NUM_LOCK,
+    KEY_PRINT_SCREEN,
+    KEY_F1,
+    KEY_F2,
+    KEY_F3,
+    KEY_F4,
+    KEY_F5,
+    KEY_F6,
+    KEY_F7,
+    KEY_F8,
+    KEY_F9,
+    KEY_F10,
+    KEY_F11,
+    KEY_F12,
+    KEY_F13,
+    KEY_F14,
+    KEY_F15,
+    KEY_F16,
+    KEY_F17,
+    KEY_F18,
+    KEY_F19,
+    KEY_F20,
+    KEY_F21,
+    KEY_F22,
+    KEY_F23,
+    KEY_F24,
+    KEY_F25,
+    KEY_KP_0,
+    KEY_KP_1,
+    KEY_KP_2,
+    KEY_KP_3,
+    KEY_KP_4,
+    KEY_KP_5,
+    KEY_KP_6,
+    KEY_KP_7,
+    KEY_KP_8,
+    KEY_KP_9,
+    KEY_KP_DECIMAL,
+    KEY_KP_DIVIDE,
+    KEY_KP_MULTIPLY,
+    KEY_KP_SUBTRACT,
+    KEY_KP_ADD,
+    KEY_KP_ENTER,
+    KEY_KP_EQUAL,
+    KEY_LEFT_SHIFT,
+    KEY_LEFT_CONTROL,
+    KEY_LEFT_ALT,
+    KEY_LEFT_SUPER,
+    KEY_RIGHT_SHIFT,
+    KEY_RIGHT_CONTROL,
+    KEY_RIGHT_ALT,
+    KEY_RIGHT_SUPER
+};
 
-#define MOUSE_LEFT 0
-#define MOUSE_RIGHT 1
-#define MOUSE_MIDDLE 2
+enum MouseCodes
+{
+    MOUSE_LEFT = 0,
+    MOUSE_RIGHT,
+    MOUSE_MIDDLE
+};
 
 #define KEY_NUMBER 116
 #define MOUSE_NUMBER 7
