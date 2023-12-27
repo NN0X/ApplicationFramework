@@ -16,13 +16,13 @@ struct fMatrix4
 
     void empty();
     void identity();
-    void orthographic(double left, double right, double bottom, double top, double near, double far);
     void transpose();
     void translate(dVector3 vector);
     void add(fMatrix4 matrix);
     void multiply(fMatrix4 matrix);
     void scale(dVector3 vector);
     void rotate(double xAngle, double yAngle, double zAngle);
+    void orthographic(double left, double right, double bottom, double top, double near, double far);
     void print();
 };
 

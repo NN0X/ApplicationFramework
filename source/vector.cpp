@@ -2,6 +2,16 @@
 
 // Vector
 
+dVector2 Vector::convert(iVector2 vector)
+{
+    dVector2 result;
+
+    result.x = vector.x;
+    result.y = vector.y;
+
+    return result;
+}
+
 dVector2 Vector::add(dVector2 vector1, dVector2 vector2)
 {
     dVector2 result;

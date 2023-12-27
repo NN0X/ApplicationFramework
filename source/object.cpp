@@ -101,7 +101,7 @@ void Object2D::transformScale(dVector2 scale)
 void Object2D::transformRotation(double rotation)
 {
     this->rotation += rotation;
-    rotationM.rotate(0.0, 0.0, this->rotation * PI / 180);
+    rotationM.rotate(0.0, 0.0, rotation * PI / 180);
 }
 
 void Object2D::draw()
@@ -219,10 +219,10 @@ bool Object2D::inHitbox(dVector2 point)
     bool in = false;
     for (i = 0, j = hitbox.size() - 1; i < hitbox.size(); j = i++)
     {
-        double x = hitbox[i].x * scale.x * 2 + position.x;
-        double y = hitbox[i].y * scale.y * 2 + position.y;
-        double x2 = hitbox[j].x * scale.x * 2 + position.x;
-        double y2 = hitbox[j].y * scale.y * 2 + position.y;
+        double x = (hitbox[i].x * cos(rotation * PI / 180) - hitbox[i].y * sin(rotation * PI / 180)) * scale.x * 2 + position.x * 2;
+        double y = (hitbox[i].x * sin(rotation * PI / 180) + hitbox[i].y * cos(rotation * PI / 180)) * scale.y * 2 + position.y * 2;
+        double x2 = (hitbox[j].x * cos(rotation * PI / 180) - hitbox[j].y * sin(rotation * PI / 180)) * scale.x * 2 + position.x * 2;
+        double y2 = (hitbox[j].x * sin(rotation * PI / 180) + hitbox[j].y * cos(rotation * PI / 180)) * scale.y * 2 + position.y * 2;
 
         if ((y > point.y) != (y2 > point.y) && (point.x < (x2 - x) * (point.y - y) / (y2 - y) + x))
             in = !in;

@@ -1,5 +1,6 @@
 /*
 TODO:
+    FIX COORDINATES BASED ON WINDOW SIZE
     ADD SOUND
     ADD PARENT TRANSFORMS IN DRAW() FUNCTION
     REWRITE NDL AS LIB or DLL
@@ -21,6 +22,11 @@ TODO:
 #include "utility.h"
 #include "application.h"
 
+#define WQHD 2560, 1440
+#define FHD 1920, 1080
+#define HD 1280, 720
+#define SD 640, 480
+
 int main()
 {
     Application *app = new Application({800, 800}, "Application", false, false, true);
@@ -38,10 +44,15 @@ int main()
     object2d.setScale({0.5, 0.5});
     object2d.setPosition({0.5, 0});
 
+    Object2D exitButton = Object2D(vertices2d, app->getSize(), "../resources/textures/default.png", "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
+    exitButton.setScale({0.1, 0.1});
+    exitButton.setPosition({0.95, 0.95});
+
     int frames = 0;
     double start = glfwGetTime();
 
     app->addObject2D(object2d);
+    app->addObject2D(exitButton);
 
     while (!glfwWindowShouldClose(app->getWindow()))
     {
@@ -60,8 +71,14 @@ int main()
         if (app->isKeyPressed(KEY_D))
             app->getObject2D(0)->transformPosition({0.001, 0});
 
-        if (app->isMousePressed(MOUSE_LEFT))
-            app->getObject2D(0)->inHitbox(Vector::convertCoordinateSystem(Vector::clamp(app->getMousePosition(), {0, 0}, {800, 800}), {0, 0}, {800, 800}, {-2, 2}, {2, -2}));
+        if (app->isKeyPressed(KEY_Q))
+            app->getObject2D(0)->transformRotation(0.01);
+
+        if (app->isKeyPressed(KEY_E))
+            app->getObject2D(0)->transformRotation(-0.01);
+
+        if (app->isMousePressed(MOUSE_LEFT) && app->getObject2D(1)->inHitbox(Vector::convertCoordinateSystem(Vector::clamp(app->getMousePosition(), {0, 0}, Vector::convert(app->getSize())), {0, 0}, Vector::convert(app->getSize()), {-2, 2}, {2, -2})))
+            glfwSetWindowShouldClose(app->getWindow(), true);
 
         app->update();
         frames++;

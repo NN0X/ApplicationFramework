@@ -195,31 +195,6 @@ void fMatrix4::identity()
     m[3][3] = 1;
 }
 
-void fMatrix4::orthographic(double left, double right, double bottom, double top, double near, double far)
-{
-    fMatrix4 result;
-
-    std::vector<double> vector = {left, right, bottom, top};
-    double max = *max_element(vector.begin(), vector.end());
-
-    left = left * 2 / max - 1;
-    right = right * 2 / max - 1;
-    bottom = bottom * 2 / max - 1;
-    top = top * 2 / max - 1;
-
-    result.identity();
-
-    result.m[0][0] = 2.0 / (right - left);
-    result.m[1][1] = 2.0 / (top - bottom);
-    result.m[2][2] = -2.0 / (far - near);
-
-    result.m[3][0] = -(right + left) / (right - left);
-    result.m[3][1] = -(top + bottom) / (top - bottom);
-    result.m[3][2] = -(far + near) / (far - near);
-
-    *this = result;
-}
-
 void fMatrix4::transpose()
 {
     fMatrix4 result;
@@ -347,6 +322,25 @@ void fMatrix4::rotate(double xAngle, double yAngle, double zAngle)
     matrix = Matrix::multiply(matrix, matrixZ);
 
     this->multiply(matrix);
+}
+
+void fMatrix4::orthographic(double left, double right, double bottom, double top, double near, double far)
+{
+    fMatrix4 result;
+    std::vector<double> vector = {left, right, bottom, top};
+    double max = *max_element(vector.begin(), vector.end());
+    left = left * 2 / max - 1;
+    right = right * 2 / max - 1;
+    bottom = bottom * 2 / max - 1;
+    top = top * 2 / max - 1;
+    result.identity();
+    result.m[0][0] = 2.0 / (right - left);
+    result.m[1][1] = 2.0 / (top - bottom);
+    result.m[2][2] = -2.0 / (far - near);
+    result.m[3][0] = -(right + left) / (right - left);
+    result.m[3][1] = -(top + bottom) / (top - bottom);
+    result.m[3][2] = -(far + near) / (far - near);
+    *this = result;
 }
 
 void fMatrix4::print()

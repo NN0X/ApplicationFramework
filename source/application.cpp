@@ -17,9 +17,9 @@ Application::Application(iVector2 size, std::string title, bool fullscreen, bool
 
     if (fullscreen)
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
-    else if (resizable)
+    if (resizable)
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-    else if (!decorated)
+    if (!decorated)
         glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
     window = glfwCreateWindow(size.x, size.y, title.data(), NULL, NULL);
