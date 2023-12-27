@@ -43,6 +43,31 @@ dVector2 Vector::normalize(dVector2 vector)
     return result;
 }
 
+dVector2 Vector::clamp(dVector2 vector, dVector2 min, dVector2 max)
+{
+    if (vector.x < min.x)
+        vector.x = min.x;
+
+    if (vector.x > max.x)
+        vector.x = max.x;
+
+    if (vector.y < min.y)
+        vector.y = min.y;
+
+    if (vector.y > max.y)
+        vector.y = max.y;
+
+    return vector;
+}
+
+dVector2 Vector::convertCoordinateSystem(dVector2 vector, dVector2 originMin, dVector2 originMax, dVector2 targetMin, dVector2 targetMax)
+{
+    vector.x = (vector.x - originMin.x) / (originMax.x - originMin.x) * (targetMax.x - targetMin.x) + targetMin.x;
+    vector.y = (vector.y - originMin.y) / (originMax.y - originMin.y) * (targetMax.y - targetMin.y) + targetMin.y;
+
+    return vector;
+}
+
 dVector3 Vector::add(dVector3 vector1, dVector3 vector2)
 {
     dVector3 result;
@@ -131,6 +156,27 @@ void dVector2::normalize()
     double length = sqrt(pow(x, 2) + pow(y, 2));
     x /= length;
     y /= length;
+}
+
+void dVector2::clamp(dVector2 min, dVector2 max)
+{
+    if (x < min.x)
+        x = min.x;
+
+    if (x > max.x)
+        x = max.x;
+
+    if (y < min.y)
+        y = min.y;
+
+    if (y > max.y)
+        y = max.y;
+}
+
+void dVector2::convertCoordinateSystem(dVector2 originMin, dVector2 originMax, dVector2 targetMin, dVector2 targetMax)
+{
+    x = (x - originMin.x) / (originMax.x - originMin.x) * (targetMax.x - targetMin.x) + targetMin.x;
+    y = (y - originMin.y) / (originMax.y - originMin.y) * (targetMax.y - targetMin.y) + targetMin.y;
 }
 
 void dVector2::print()

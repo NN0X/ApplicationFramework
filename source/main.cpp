@@ -73,9 +73,6 @@ int main()
         if (app->getObject2D(0)->getPosition().y < -2 - app->getObject2D(0)->getScale().y)
             app->getObject2D(0)->setPosition({app->getObject2D(0)->getPosition().x, 2 + app->getObject2D(0)->getScale().y});
 
-        if (app->isKeyPressed(KEY_I))
-            app->getObject2D(0)->getPosition().print();
-
         app->update();
         frames++;
     }

@@ -16,6 +16,8 @@ struct dVector2
 
     void opposite();
     void normalize();
+    void clamp(dVector2 min, dVector2 max);
+    void convertCoordinateSystem(dVector2 originMin, dVector2 originMax, dVector2 targetMin, dVector2 targetMax);
     void print();
 };
 
@@ -43,6 +45,8 @@ namespace Vector
     dVector2 subtract(dVector2 vector1, dVector2 vector2);
     dVector2 multiply(dVector2 vector1, dVector2 vector2);
     dVector2 normalize(dVector2 vector);
+    dVector2 clamp(dVector2 vector, dVector2 min, dVector2 max);
+    dVector2 convertCoordinateSystem(dVector2 vector, dVector2 originMin, dVector2 originMax, dVector2 targetMin, dVector2 targetMax);
 
     dVector3 add(dVector3 vector1, dVector3 vector2);
     dVector3 subtract(dVector3 vector1, dVector3 vector2);

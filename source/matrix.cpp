@@ -4,14 +4,25 @@ fMatrix4 Matrix::transpose(fMatrix4 matrix)
 {
     fMatrix4 result;
 
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = i; j < 4; j++)
-        {
-            result.m[i][j] = matrix.m[j][i];
-            result.m[j][i] = matrix.m[i][j];
-        }
-    }
+    result.m[0][0] = matrix.m[0][0];
+    result.m[0][1] = matrix.m[1][0];
+    result.m[0][2] = matrix.m[2][0];
+    result.m[0][3] = matrix.m[3][0];
+
+    result.m[1][0] = matrix.m[0][1];
+    result.m[1][1] = matrix.m[1][1];
+    result.m[1][2] = matrix.m[2][1];
+    result.m[1][3] = matrix.m[3][1];
+
+    result.m[2][0] = matrix.m[0][2];
+    result.m[2][1] = matrix.m[1][2];
+    result.m[2][2] = matrix.m[2][2];
+    result.m[2][3] = matrix.m[3][2];
+
+    result.m[3][0] = matrix.m[0][3];
+    result.m[3][1] = matrix.m[1][3];
+    result.m[3][2] = matrix.m[2][3];
+    result.m[3][3] = matrix.m[3][3];
 
     return result;
 }
@@ -29,13 +40,25 @@ fMatrix4 Matrix::translate(fMatrix4 matrix, dVector3 vector)
 
 fMatrix4 Matrix::add(fMatrix4 matrix1, fMatrix4 matrix2)
 {
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            matrix1.m[i][j] += matrix2.m[i][j];
-        }
-    }
+    matrix1.m[0][0] += matrix2.m[0][0];
+    matrix1.m[0][1] += matrix2.m[0][1];
+    matrix1.m[0][2] += matrix2.m[0][2];
+    matrix1.m[0][3] += matrix2.m[0][3];
+
+    matrix1.m[1][0] += matrix2.m[1][0];
+    matrix1.m[1][1] += matrix2.m[1][1];
+    matrix1.m[1][2] += matrix2.m[1][2];
+    matrix1.m[1][3] += matrix2.m[1][3];
+
+    matrix1.m[2][0] += matrix2.m[2][0];
+    matrix1.m[2][1] += matrix2.m[2][1];
+    matrix1.m[2][2] += matrix2.m[2][2];
+    matrix1.m[2][3] += matrix2.m[2][3];
+
+    matrix1.m[3][0] += matrix2.m[3][0];
+    matrix1.m[3][1] += matrix2.m[3][1];
+    matrix1.m[3][2] += matrix2.m[3][2];
+    matrix1.m[3][3] += matrix2.m[3][3];
 
     return matrix1;
 }
@@ -44,17 +67,25 @@ fMatrix4 Matrix::multiply(fMatrix4 matrix1, fMatrix4 matrix2)
 {
     fMatrix4 result;
 
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            result.m[i][j] = 0;
-            for (int k = 0; k < 4; k++)
-            {
-                result.m[i][j] += matrix1.m[j][k] * matrix2.m[k][i];
-            }
-        }
-    }
+    result.m[0][0] = matrix1.m[0][0] * matrix2.m[0][0] + matrix1.m[0][1] * matrix2.m[1][0] + matrix1.m[0][2] * matrix2.m[2][0] + matrix1.m[0][3] * matrix2.m[3][0];
+    result.m[0][1] = matrix1.m[0][0] * matrix2.m[0][1] + matrix1.m[0][1] * matrix2.m[1][1] + matrix1.m[0][2] * matrix2.m[2][1] + matrix1.m[0][3] * matrix2.m[3][1];
+    result.m[0][2] = matrix1.m[0][0] * matrix2.m[0][2] + matrix1.m[0][1] * matrix2.m[1][2] + matrix1.m[0][2] * matrix2.m[2][2] + matrix1.m[0][3] * matrix2.m[3][2];
+    result.m[0][3] = matrix1.m[0][0] * matrix2.m[0][3] + matrix1.m[0][1] * matrix2.m[1][3] + matrix1.m[0][2] * matrix2.m[2][3] + matrix1.m[0][3] * matrix2.m[3][3];
+
+    result.m[1][0] = matrix1.m[1][0] * matrix2.m[0][0] + matrix1.m[1][1] * matrix2.m[1][0] + matrix1.m[1][2] * matrix2.m[2][0] + matrix1.m[1][3] * matrix2.m[3][0];
+    result.m[1][1] = matrix1.m[1][0] * matrix2.m[0][1] + matrix1.m[1][1] * matrix2.m[1][1] + matrix1.m[1][2] * matrix2.m[2][1] + matrix1.m[1][3] * matrix2.m[3][1];
+    result.m[1][2] = matrix1.m[1][0] * matrix2.m[0][2] + matrix1.m[1][1] * matrix2.m[1][2] + matrix1.m[1][2] * matrix2.m[2][2] + matrix1.m[1][3] * matrix2.m[3][2];
+    result.m[1][3] = matrix1.m[1][0] * matrix2.m[0][3] + matrix1.m[1][1] * matrix2.m[1][3] + matrix1.m[1][2] * matrix2.m[2][3] + matrix1.m[1][3] * matrix2.m[3][3];
+
+    result.m[2][0] = matrix1.m[2][0] * matrix2.m[0][0] + matrix1.m[2][1] * matrix2.m[1][0] + matrix1.m[2][2] * matrix2.m[2][0] + matrix1.m[2][3] * matrix2.m[3][0];
+    result.m[2][1] = matrix1.m[2][0] * matrix2.m[0][1] + matrix1.m[2][1] * matrix2.m[1][1] + matrix1.m[2][2] * matrix2.m[2][1] + matrix1.m[2][3] * matrix2.m[3][1];
+    result.m[2][2] = matrix1.m[2][0] * matrix2.m[0][2] + matrix1.m[2][1] * matrix2.m[1][2] + matrix1.m[2][2] * matrix2.m[2][2] + matrix1.m[2][3] * matrix2.m[3][2];
+    result.m[2][3] = matrix1.m[2][0] * matrix2.m[0][3] + matrix1.m[2][1] * matrix2.m[1][3] + matrix1.m[2][2] * matrix2.m[2][3] + matrix1.m[2][3] * matrix2.m[3][3];
+
+    result.m[3][0] = matrix1.m[3][0] * matrix2.m[0][0] + matrix1.m[3][1] * matrix2.m[1][0] + matrix1.m[3][2] * matrix2.m[2][0] + matrix1.m[3][3] * matrix2.m[3][0];
+    result.m[3][1] = matrix1.m[3][0] * matrix2.m[0][1] + matrix1.m[3][1] * matrix2.m[1][1] + matrix1.m[3][2] * matrix2.m[2][1] + matrix1.m[3][3] * matrix2.m[3][1];
+    result.m[3][2] = matrix1.m[3][0] * matrix2.m[0][2] + matrix1.m[3][1] * matrix2.m[1][2] + matrix1.m[3][2] * matrix2.m[2][2] + matrix1.m[3][3] * matrix2.m[3][2];
+    result.m[3][3] = matrix1.m[3][0] * matrix2.m[0][3] + matrix1.m[3][1] * matrix2.m[1][3] + matrix1.m[3][2] * matrix2.m[2][3] + matrix1.m[3][3] * matrix2.m[3][3];
 
     return result;
 }
@@ -112,25 +143,48 @@ fMatrix4::fMatrix4()
 
 fMatrix4::fMatrix4(std::vector<std::vector<double>> matrix)
 {
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            m[i][j] = matrix[i][j];
-        }
-    }
+    m[0][0] = matrix[0][0];
+    m[0][1] = matrix[0][1];
+    m[0][2] = matrix[0][2];
+    m[0][3] = matrix[0][3];
+
+    m[1][0] = matrix[1][0];
+    m[1][1] = matrix[1][1];
+    m[1][2] = matrix[1][2];
+    m[1][3] = matrix[1][3];
+
+    m[2][0] = matrix[2][0];
+    m[2][1] = matrix[2][1];
+    m[2][2] = matrix[2][2];
+    m[2][3] = matrix[2][3];
+
+    m[3][0] = matrix[3][0];
+    m[3][1] = matrix[3][1];
+    m[3][2] = matrix[3][2];
+    m[3][3] = matrix[3][3];
 }
 
 void fMatrix4::empty()
 {
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = i; j < 4; j++)
-        {
-            m[i][j] = 0;
-            m[j][i] = 0;
-        }
-    }
+    m[0][0] = 0;
+    m[0][1] = 0;
+    m[0][2] = 0;
+    m[0][3] = 0;
+
+    m[1][0] = 0;
+    m[1][1] = 0;
+    m[1][2] = 0;
+    m[1][3] = 0;
+
+    m[2][0] = 0;
+    m[2][1] = 0;
+    m[2][2] = 0;
+    m[2][3] = 0;
+
+    m[3][0] = 0;
+    m[3][1] = 0;
+    m[3][2] = 0;
+    m[3][3] = 0;
 }
 
 void fMatrix4::identity()
@@ -170,14 +224,25 @@ void fMatrix4::transpose()
 {
     fMatrix4 result;
 
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = i; j < 4; j++)
-        {
-            result.m[i][j] = m[j][i];
-            result.m[j][i] = m[i][j];
-        }
-    }
+    result.m[0][0] = m[0][0];
+    result.m[0][1] = m[1][0];
+    result.m[0][2] = m[2][0];
+    result.m[0][3] = m[3][0];
+
+    result.m[1][0] = m[0][1];
+    result.m[1][1] = m[1][1];
+    result.m[1][2] = m[2][1];
+    result.m[1][3] = m[3][1];
+
+    result.m[2][0] = m[0][2];
+    result.m[2][1] = m[1][2];
+    result.m[2][2] = m[2][2];
+    result.m[2][3] = m[3][2];
+
+    result.m[3][0] = m[0][3];
+    result.m[3][1] = m[1][3];
+    result.m[3][2] = m[2][3];
+    result.m[3][3] = m[3][3];
 
     *this = result;
 }
@@ -191,30 +256,50 @@ void fMatrix4::translate(dVector3 vector)
 
 void fMatrix4::add(fMatrix4 matrix)
 {
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            m[i][j] += matrix.m[i][j];
-        }
-    }
+    m[0][0] += matrix.m[0][0];
+    m[0][1] += matrix.m[0][1];
+    m[0][2] += matrix.m[0][2];
+    m[0][3] += matrix.m[0][3];
+
+    m[1][0] += matrix.m[1][0];
+    m[1][1] += matrix.m[1][1];
+    m[1][2] += matrix.m[1][2];
+    m[1][3] += matrix.m[1][3];
+
+    m[2][0] += matrix.m[2][0];
+    m[2][1] += matrix.m[2][1];
+    m[2][2] += matrix.m[2][2];
+    m[2][3] += matrix.m[2][3];
+
+    m[3][0] += matrix.m[3][0];
+    m[3][1] += matrix.m[3][1];
+    m[3][2] += matrix.m[3][2];
+    m[3][3] += matrix.m[3][3];
 }
 
 void fMatrix4::multiply(fMatrix4 matrix)
 {
     fMatrix4 result;
 
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            result.m[i][j] = 0;
-            for (int k = 0; k < 4; k++)
-            {
-                result.m[i][j] += m[j][k] * matrix.m[k][i];
-            }
-        }
-    }
+    result.m[0][0] = m[0][0] * matrix.m[0][0] + m[0][1] * matrix.m[1][0] + m[0][2] * matrix.m[2][0] + m[0][3] * matrix.m[3][0];
+    result.m[0][1] = m[0][0] * matrix.m[0][1] + m[0][1] * matrix.m[1][1] + m[0][2] * matrix.m[2][1] + m[0][3] * matrix.m[3][1];
+    result.m[0][2] = m[0][0] * matrix.m[0][2] + m[0][1] * matrix.m[1][2] + m[0][2] * matrix.m[2][2] + m[0][3] * matrix.m[3][2];
+    result.m[0][3] = m[0][0] * matrix.m[0][3] + m[0][1] * matrix.m[1][3] + m[0][2] * matrix.m[2][3] + m[0][3] * matrix.m[3][3];
+
+    result.m[1][0] = m[1][0] * matrix.m[0][0] + m[1][1] * matrix.m[1][0] + m[1][2] * matrix.m[2][0] + m[1][3] * matrix.m[3][0];
+    result.m[1][1] = m[1][0] * matrix.m[0][1] + m[1][1] * matrix.m[1][1] + m[1][2] * matrix.m[2][1] + m[1][3] * matrix.m[3][1];
+    result.m[1][2] = m[1][0] * matrix.m[0][2] + m[1][1] * matrix.m[1][2] + m[1][2] * matrix.m[2][2] + m[1][3] * matrix.m[3][2];
+    result.m[1][3] = m[1][0] * matrix.m[0][3] + m[1][1] * matrix.m[1][3] + m[1][2] * matrix.m[2][3] + m[1][3] * matrix.m[3][3];
+
+    result.m[2][0] = m[2][0] * matrix.m[0][0] + m[2][1] * matrix.m[1][0] + m[2][2] * matrix.m[2][0] + m[2][3] * matrix.m[3][0];
+    result.m[2][1] = m[2][0] * matrix.m[0][1] + m[2][1] * matrix.m[1][1] + m[2][2] * matrix.m[2][1] + m[2][3] * matrix.m[3][1];
+    result.m[2][2] = m[2][0] * matrix.m[0][2] + m[2][1] * matrix.m[1][2] + m[2][2] * matrix.m[2][2] + m[2][3] * matrix.m[3][2];
+    result.m[2][3] = m[2][0] * matrix.m[0][3] + m[2][1] * matrix.m[1][3] + m[2][2] * matrix.m[2][3] + m[2][3] * matrix.m[3][3];
+
+    result.m[3][0] = m[3][0] * matrix.m[0][0] + m[3][1] * matrix.m[1][0] + m[3][2] * matrix.m[2][0] + m[3][3] * matrix.m[3][0];
+    result.m[3][1] = m[3][0] * matrix.m[0][1] + m[3][1] * matrix.m[1][1] + m[3][2] * matrix.m[2][1] + m[3][3] * matrix.m[3][1];
+    result.m[3][2] = m[3][0] * matrix.m[0][2] + m[3][1] * matrix.m[1][2] + m[3][2] * matrix.m[2][2] + m[3][3] * matrix.m[3][2];
+    result.m[3][3] = m[3][0] * matrix.m[0][3] + m[3][1] * matrix.m[1][3] + m[3][2] * matrix.m[2][3] + m[3][3] * matrix.m[3][3];
 
     *this = result;
 }
