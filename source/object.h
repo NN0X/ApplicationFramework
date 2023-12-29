@@ -69,12 +69,14 @@ public:
 
     bool inHitbox(dVector2 point);
 
-    void setPosition(dVector2 position);
+    void setPositionWorld(dVector2 position);
+    void setPositionWindow(dVector2 position, iVector2 windowSize);
     void setScale(dVector2 scale);
     void setRotation(double rotation);
 
     std::vector<dVector2> getHitbox();
-    dVector2 getPosition();
+    dVector2 getPositionWorld();
+    dVector2 getPositionWindow(iVector2 windowSize);
     dVector2 getScale();
     double getRotation();
 };

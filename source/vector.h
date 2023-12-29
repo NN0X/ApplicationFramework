@@ -48,7 +48,7 @@ namespace Vector
     dVector2 multiply(dVector2 vector1, dVector2 vector2);
     dVector2 normalize(dVector2 vector);
     dVector2 clamp(dVector2 vector, dVector2 min, dVector2 max);
-    dVector2 convertCoordinateSystem(dVector2 vector, dVector2 originMin, dVector2 originMax, dVector2 targetMin, dVector2 targetMax);
+    dVector2 convertCoordinateSystem(dVector2 vector, dVector2 originPointA, dVector2 originPointB, dVector2 targetPointA, dVector2 targetPointB);
 
     dVector3 add(dVector3 vector1, dVector3 vector2);
     dVector3 subtract(dVector3 vector1, dVector3 vector2);

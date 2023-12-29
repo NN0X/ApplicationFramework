@@ -32,6 +32,8 @@ public:
     bool wasMouseReleased(int button);
 
     dVector2 getMousePosition();
+    dVector2 getMousePositionWindow();
+    dVector2 getMousePositionWorld();
 
     void addObject2D(const Object2D &object);
     Object2D *getObject2D(int index);

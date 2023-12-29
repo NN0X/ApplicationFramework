@@ -131,3 +131,14 @@ dVector2 Input::getMousePosition()
 {
     return mousePosition;
 }
+
+dVector2 Input::getMousePositionWindow(dVector2 window)
+{
+    return Vector::convertCoordinateSystem(mousePosition, {0, 0}, {window.x, window.y}, {0, 1}, {1, 0});
+}
+
+dVector2 Input::getMousePositionWorld(dVector2 window)
+{
+    double aspectRatio = window.x / window.y;
+    return Vector::convertCoordinateSystem(mousePosition, {0, 0}, {window.x, window.y}, {-1, 2 / aspectRatio - 1}, {1, -1});
+}

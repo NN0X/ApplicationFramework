@@ -230,10 +230,17 @@ bool Object2D::inHitbox(dVector2 point)
     return in;
 }
 
-void Object2D::setPosition(dVector2 position)
+void Object2D::setPositionWorld(dVector2 position)
 {
     translationM.translate({position.x - this->position.x, position.y - this->position.y, 0.0});
     this->position = position;
+}
+
+void Object2D::setPositionWindow(dVector2 position, iVector2 windowSize)
+{
+    double aspectRatio = double(windowSize.x) / double(windowSize.y);
+    position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1});
+    setPositionWorld(position);
 }
 
 void Object2D::setScale(dVector2 scale)
@@ -249,6 +256,11 @@ void Object2D::setRotation(double rotation)
 }
 
 std::vector<dVector2> Object2D::getHitbox() { return hitbox; }
-dVector2 Object2D::getPosition() { return position; }
+dVector2 Object2D::getPositionWorld() { return position; }
+dVector2 Object2D::getPositionWindow(iVector2 windowSize)
+{
+    double aspectRatio = double(windowSize.x) / double(windowSize.y);
+    return Vector::convertCoordinateSystem(position, {-1, 2 / aspectRatio - 1}, {1, -1}, {0, 1}, {1, 0});
+}
 dVector2 Object2D::getScale() { return scale; }
 double Object2D::getRotation() { return rotation; }

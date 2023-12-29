@@ -70,10 +70,10 @@ dVector2 Vector::clamp(dVector2 vector, dVector2 min, dVector2 max)
     return vector;
 }
 
-dVector2 Vector::convertCoordinateSystem(dVector2 vector, dVector2 originMin, dVector2 originMax, dVector2 targetMin, dVector2 targetMax)
+dVector2 Vector::convertCoordinateSystem(dVector2 vector, dVector2 originPointA, dVector2 originPointB, dVector2 targetPointA, dVector2 targetPointB)
 {
-    vector.x = (vector.x - originMin.x) / (originMax.x - originMin.x) * (targetMax.x - targetMin.x) + targetMin.x;
-    vector.y = (vector.y - originMin.y) / (originMax.y - originMin.y) * (targetMax.y - targetMin.y) + targetMin.y;
+    vector.x = (vector.x - originPointA.x) / (originPointB.x - originPointA.x) * (targetPointB.x - targetPointA.x) + targetPointA.x;
+    vector.y = (vector.y - originPointA.y) / (originPointB.y - originPointA.y) * (targetPointB.y - targetPointA.y) + targetPointA.y;
 
     return vector;
 }
@@ -191,7 +191,7 @@ void dVector2::convertCoordinateSystem(dVector2 originMin, dVector2 originMax, d
 
 void dVector2::print()
 {
-    std::cout << x << " " << y << "\n";
+    std::cout << "x=" << x << " y=" << y << "\n";
 }
 
 //----------------------------------------------------------------------------------------------
@@ -225,7 +225,7 @@ void dVector3::crossProduct(dVector3 vector)
 
 void dVector3::print()
 {
-    std::cout << x << " " << y << " " << z << "\n";
+    std::cout << "x=" << x << " y=" << y << " z=" << z << "\n";
 }
 
 //----------------------------------------------------------------------------------------------

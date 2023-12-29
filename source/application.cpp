@@ -4,6 +4,8 @@ Application::Application(iVector2 size, std::string title, bool fullscreen, bool
 {
     glfwInit();
 
+    GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+
     this->size = size;
     this->title = title;
     currentContext = 0;
@@ -13,16 +15,21 @@ Application::Application(iVector2 size, std::string title, bool fullscreen, bool
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
     if (fullscreen)
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+    else
+        monitor = NULL;
     if (resizable)
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-    if (!decorated)
+    else
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    if (decorated)
+        glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+    else
         glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
-    window = glfwCreateWindow(size.x, size.y, title.data(), NULL, NULL);
+    window = glfwCreateWindow(size.x, size.y, title.data(), monitor, NULL);
 
     glfwMakeContextCurrent(window);
     glfwSwapInterval(0);
@@ -66,6 +73,16 @@ bool Application::wasMouseReleased(int button)
 dVector2 Application::getMousePosition()
 {
     return inputManager.getMousePosition();
+}
+
+dVector2 Application::getMousePositionWindow()
+{
+    return inputManager.getMousePositionWindow(Vector::convert(size));
+}
+
+dVector2 Application::getMousePositionWorld()
+{
+    return inputManager.getMousePositionWorld(Vector::convert(size));
 }
 
 void Application::addObject2D(const Object2D &object)

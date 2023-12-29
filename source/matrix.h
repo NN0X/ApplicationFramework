@@ -34,4 +34,6 @@ namespace Matrix
     fMatrix4 multiply(fMatrix4 matrix1, fMatrix4 matrix2);
     fMatrix4 scale(fMatrix4 matrix, dVector3 vector);
     fMatrix4 rotate(fMatrix4 matrix, double xAngle, double yAngle, double zAngle);
+
+    dVector4 multiply(fMatrix4 matrix, dVector4 vector);
 }

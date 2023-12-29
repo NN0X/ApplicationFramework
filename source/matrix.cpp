@@ -133,6 +133,18 @@ fMatrix4 Matrix::rotate(fMatrix4 matrix, double xAngle, double yAngle, double zA
     return Matrix::multiply(matrix, result);
 }
 
+dVector4 Matrix::multiply(fMatrix4 matrix, dVector4 vector)
+{
+    dVector4 result;
+
+    result.x = matrix.m[0][0] * vector.x + matrix.m[0][1] * vector.y + matrix.m[0][2] * vector.z + matrix.m[0][3] * vector.w;
+    result.y = matrix.m[1][0] * vector.x + matrix.m[1][1] * vector.y + matrix.m[1][2] * vector.z + matrix.m[1][3] * vector.w;
+    result.z = matrix.m[2][0] * vector.x + matrix.m[2][1] * vector.y + matrix.m[2][2] * vector.z + matrix.m[2][3] * vector.w;
+    result.w = matrix.m[3][0] * vector.x + matrix.m[3][1] * vector.y + matrix.m[3][2] * vector.z + matrix.m[3][3] * vector.w;
+
+    return result;
+}
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // fMatrix4
 
