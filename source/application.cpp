@@ -47,42 +47,42 @@ void Application::update()
 
     glfwSwapBuffers(window);
 
-    inputManager.update(window);
+    input.update(window);
 }
 
 bool Application::isKeyPressed(int key)
 {
-    return inputManager.isKeyPressed(key);
+    return input.isKeyPressed(key);
 }
 
 bool Application::wasKeyReleased(int key)
 {
-    return inputManager.wasKeyReleased(key);
+    return input.wasKeyReleased(key);
 }
 
 bool Application::isMousePressed(int button)
 {
-    return inputManager.isMousePressed(button);
+    return input.isMousePressed(button);
 }
 
 bool Application::wasMouseReleased(int button)
 {
-    return inputManager.wasMouseReleased(button);
+    return input.wasMouseReleased(button);
 }
 
-dVector2 Application::getMousePosition()
+dVector2 Application::getMousePositionScreen()
 {
-    return inputManager.getMousePosition();
+    return input.getMousePositionScreen();
 }
 
 dVector2 Application::getMousePositionWindow()
 {
-    return inputManager.getMousePositionWindow(Vector::convert(size));
+    return input.getMousePositionWindow(Vector::convert(size));
 }
 
 dVector2 Application::getMousePositionWorld()
 {
-    return inputManager.getMousePositionWorld(Vector::convert(size));
+    return input.getMousePositionWorld(Vector::convert(size));
 }
 
 void Application::addObject2D(const Object2D &object)
@@ -143,9 +143,9 @@ void Application::destroyContext(int index)
     contexts.erase(contexts.begin() + index);
 }
 
-Input *Application::getInputManager()
+Input *Application::getInput()
 {
-    return &inputManager;
+    return &input;
 }
 
 iVector2 Application::getSize()

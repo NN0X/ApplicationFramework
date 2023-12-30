@@ -1,14 +1,11 @@
 ﻿#include "context.h"
 
 /*types:
-    0 - camera
     2 - object2d
-    3 - object3d
 */
 
 Context::Context()
 {
-    currentCamera = 0;
 }
 
 Context::~Context()

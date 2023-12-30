@@ -246,10 +246,17 @@ void Object2D::setPositionWindow(dVector2 position, iVector2 windowSize)
     setPositionWorld(position);
 }
 
-void Object2D::setScale(dVector2 scale)
+void Object2D::setScaleWorld(dVector2 scale)
 {
     this->scale = scale;
     scaleM.scale({scale.x, scale.y, 1.0});
+}
+
+void Object2D::setScaleWindow(dVector2 scale, iVector2 windowSize)
+{
+    double aspectRatio = double(windowSize.x) / double(windowSize.y);
+    scale = Vector::convertCoordinateSystem(scale, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1});
+    setScaleWorld(scale);
 }
 
 void Object2D::setRotation(double rotation)

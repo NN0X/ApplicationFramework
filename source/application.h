@@ -17,7 +17,7 @@ private:
     std::string title;
     iVector2 size;
     std::vector<Context> contexts;
-    Input inputManager;
+    Input input;
     int currentContext;
 
 public:
@@ -31,7 +31,7 @@ public:
     bool isMousePressed(int button);
     bool wasMouseReleased(int button);
 
-    dVector2 getMousePosition();
+    dVector2 getMousePositionScreen();
     dVector2 getMousePositionWindow();
     dVector2 getMousePositionWorld();
 
@@ -49,7 +49,6 @@ public:
     Context *getContext(int index);
     void destroyContext(int index);
 
-    Input *getInputManager();
-
+    Input *getInput();
     iVector2 getSize();
 };

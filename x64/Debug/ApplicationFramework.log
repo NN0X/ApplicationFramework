@@ -1,2 +1,126 @@
-﻿  main.cpp
-  ApplicationFramework.vcxproj -> D:\Dev\ApplicationFramework\build\ApplicationFramework.exe
+﻿  application.cpp
+D:\Dev\ApplicationFramework\source\context.h(7,1): error C2236: nieoczekiwany token "class". Zapomnialeś ';'?
+D:\Dev\ApplicationFramework\source\context.h(8,1): error C2059: błąd składniowy: „{”
+D:\Dev\ApplicationFramework\source\context.h(8,1): error C2143: błąd składniowy: brakuje „;” przed „{”
+D:\Dev\ApplicationFramework\source\context.h(8,1): error C2447: "{": brak nagłówka funkcji (stary styl formalnej listy?)
+D:\Dev\ApplicationFramework\source\application.h(19,17): error C2065: "Context": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\application.h(19,10): error C2923: „std::vector”: „Context” nie jest prawidłowym argumentem typu szablon dla parametru „_Ty”
+D:\Dev\ApplicationFramework\source\application.h(19,17): message : zobacz deklarację „Context”
+D:\Dev\ApplicationFramework\source\application.h(19,10): error C2976: „std::vector”: za mało argumentów szablon
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(438,1): message : zobacz deklarację „std::vector”
+D:\Dev\ApplicationFramework\source\application.h(49,13): error C2143: błąd składniowy: brakuje „;” przed „*”
+D:\Dev\ApplicationFramework\source\application.h(49,13): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+D:\Dev\ApplicationFramework\source\application.h(49,35): error C2238: nieoczekiwany(e) token(y) poprzedzający(e) ";"
+D:\Dev\ApplicationFramework\source\application.cpp(4,1): error C2512: "std::vector": niedostępny odpowiedni konstruktor domyślny
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(438,1): message : zobacz deklarację „std::vector”
+D:\Dev\ApplicationFramework\source\application.cpp(13,24): error C3861: "Context": identyfikatora nie odnaleziono
+D:\Dev\ApplicationFramework\source\application.cpp(90,5): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "std::vector" (lub nie istnieje akceptowalna konwersja)
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(1890,40): message : może to być „const _Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept const”
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(1880,34): message : lub       "_Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept"
+D:\Dev\ApplicationFramework\source\application.cpp(90,5): message : podczas próby dopasowania listy argumentów "(std::vector, int)"
+D:\Dev\ApplicationFramework\source\application.cpp(95,12): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "std::vector" (lub nie istnieje akceptowalna konwersja)
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(1890,40): message : może to być „const _Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept const”
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(1880,34): message : lub       "_Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept"
+D:\Dev\ApplicationFramework\source\application.cpp(95,12): message : podczas próby dopasowania listy argumentów "(std::vector, int)"
+D:\Dev\ApplicationFramework\source\application.cpp(100,5): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "std::vector" (lub nie istnieje akceptowalna konwersja)
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(1890,40): message : może to być „const _Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept const”
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(1880,34): message : lub       "_Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept"
+D:\Dev\ApplicationFramework\source\application.cpp(100,5): message : podczas próby dopasowania listy argumentów "(std::vector, int)"
+D:\Dev\ApplicationFramework\source\application.cpp(111,5): error C2678: dwuargumentowy "[": nie znaleziono żadnego operatora, który przyjmuje lewostronny operand typu "std::vector" (lub nie istnieje akceptowalna konwersja)
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(1890,40): message : może to być „const _Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept const”
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(1880,34): message : lub       "_Ty &std::vector<_Ty,_Alloc>::operator [](const allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type) noexcept"
+D:\Dev\ApplicationFramework\source\application.cpp(111,5): message : podczas próby dopasowania listy argumentów "(std::vector, int)"
+D:\Dev\ApplicationFramework\source\application.cpp(127,5): error C2065: "Context": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\application.cpp(127,13): error C2146: błąd składniowy: brakuje „;” przed identyfikatorem „context”
+D:\Dev\ApplicationFramework\source\application.cpp(127,13): error C2065: "context": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\application.cpp(128,24): error C2065: "context": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\application.cpp(136,9): error C2143: błąd składniowy: brakuje „;” przed „*”
+D:\Dev\ApplicationFramework\source\application.cpp(136,9): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+D:\Dev\ApplicationFramework\source\application.cpp(136,23): error C2039: „getContext”: nie jest składową elementu „Application”
+D:\Dev\ApplicationFramework\source\application.h(13,7): message : zobacz deklarację „Application”
+D:\Dev\ApplicationFramework\source\application.cpp(137,1): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+D:\Dev\ApplicationFramework\source\application.cpp(137,1): error C2059: błąd składniowy: „{”
+D:\Dev\ApplicationFramework\source\application.cpp(137,1): error C2143: błąd składniowy: brakuje „;” przed „{”
+D:\Dev\ApplicationFramework\source\application.cpp(137,1): error C2447: "{": brak nagłówka funkcji (stary styl formalnej listy?)
+D:\Dev\ApplicationFramework\source\application.cpp(143,28): error C2663: „std::vector<_Ty,_Alloc>::begin”: żadna przeciążona funkcja nie ma prawidłowej konwersji dla wskaźnika „ten”
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(1797,44): message : może to być „std::_Vector_const_iterator<std::_Vector_val<conditional<std::_Is_simple_alloc_v<allocator_traits<_Alloc>::rebind_alloc<_Ty>>,std::_Simple_types<_Value_type>,std::_Vec_iter_types<_Ty,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::difference_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::pointer,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::const_pointer,_Ty&,const _Ty&>>::type>> std::vector<_Ty,_Alloc>::begin(void) noexcept const”
+D:\Dev\ApplicationFramework\source\application.cpp(143,28): message : "std::_Vector_const_iterator<std::_Vector_val<conditional<std::_Is_simple_alloc_v<allocator_traits<_Alloc>::rebind_alloc<_Ty>>,std::_Simple_types<_Value_type>,std::_Vec_iter_types<_Ty,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::difference_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::pointer,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::const_pointer,_Ty&,const _Ty&>>::type>> std::vector<_Ty,_Alloc>::begin(void) noexcept const": nie można konwertować wskaźnika "this" z "std::vector" do "const std::vector<_Ty,_Alloc> &"
+D:\Dev\ApplicationFramework\source\application.cpp(143,20): message : Przyczyna: nie można skonwertować z "std::vector" na "const std::vector<_Ty,_Alloc>"
+D:\Dev\ApplicationFramework\source\application.cpp(143,20): message : Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(1792,38): message : lub       "std::_Vector_iterator<std::_Vector_val<conditional<std::_Is_simple_alloc_v<allocator_traits<_Alloc>::rebind_alloc<_Ty>>,std::_Simple_types<_Value_type>,std::_Vec_iter_types<_Ty,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::difference_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::pointer,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::const_pointer,_Ty&,const _Ty&>>::type>> std::vector<_Ty,_Alloc>::begin(void) noexcept"
+D:\Dev\ApplicationFramework\source\application.cpp(143,28): message : "std::_Vector_iterator<std::_Vector_val<conditional<std::_Is_simple_alloc_v<allocator_traits<_Alloc>::rebind_alloc<_Ty>>,std::_Simple_types<_Value_type>,std::_Vec_iter_types<_Ty,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::difference_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::pointer,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::const_pointer,_Ty&,const _Ty&>>::type>> std::vector<_Ty,_Alloc>::begin(void) noexcept": nie można konwertować wskaźnika "this" z "std::vector" do "std::vector<_Ty,_Alloc> &"
+D:\Dev\ApplicationFramework\source\application.cpp(143,20): message : Przyczyna: nie można skonwertować z "std::vector" na "std::vector<_Ty,_Alloc>"
+D:\Dev\ApplicationFramework\source\application.cpp(143,20): message : Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+D:\Dev\ApplicationFramework\source\application.cpp(143,28): message : podczas próby dopasowania listy argumentów "()"
+D:\Dev\ApplicationFramework\source\application.cpp(143,13): error C2663: „std::vector<_Ty,_Alloc>::erase”: żadna przeciążona funkcja nie ma prawidłowej konwersji dla wskaźnika „ten”
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(1714,27): message : może to być „std::_Vector_iterator<std::_Vector_val<conditional<std::_Is_simple_alloc_v<allocator_traits<_Alloc>::rebind_alloc<_Ty>>,std::_Simple_types<_Value_type>,std::_Vec_iter_types<_Ty,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::difference_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::pointer,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::const_pointer,_Ty&,const _Ty&>>::type>> std::vector<_Ty,_Alloc>::erase(std::_Vector_const_iterator<std::_Vector_val<conditional<std::_Is_simple_alloc_v<allocator_traits<_Alloc>::rebind_alloc<_Ty>>,std::_Simple_types<_Value_type>,std::_Vec_iter_types<_Ty,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::difference_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::pointer,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::const_pointer,_Ty&,const _Ty&>>::type>>) noexcept(<expr>)”
+D:\Dev\ApplicationFramework\source\application.cpp(143,13): message : "std::_Vector_iterator<std::_Vector_val<conditional<std::_Is_simple_alloc_v<allocator_traits<_Alloc>::rebind_alloc<_Ty>>,std::_Simple_types<_Value_type>,std::_Vec_iter_types<_Ty,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::difference_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::pointer,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::const_pointer,_Ty&,const _Ty&>>::type>> std::vector<_Ty,_Alloc>::erase(std::_Vector_const_iterator<std::_Vector_val<conditional<std::_Is_simple_alloc_v<allocator_traits<_Alloc>::rebind_alloc<_Ty>>,std::_Simple_types<_Value_type>,std::_Vec_iter_types<_Ty,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::size_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::difference_type,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::pointer,allocator_traits<allocator_traits<_Alloc>::rebind_alloc<_Ty>>::const_pointer,_Ty&,const _Ty&>>::type>>) noexcept(<expr>)": nie można konwertować wskaźnika "this" z "std::vector" do "std::vector<_Ty,_Alloc> &"
+D:\Dev\ApplicationFramework\source\application.cpp(143,5): message : Przyczyna: nie można skonwertować z "std::vector" na "std::vector<_Ty,_Alloc>"
+D:\Dev\ApplicationFramework\source\application.cpp(143,5): message : Konwersja wymaga drugiego operatora konwersji zdefiniowanego przez użytkownika lub konstruktora
+D:\Dev\ApplicationFramework\source\application.cpp(143,13): message : podczas próby dopasowania listy argumentów "()"
+  context.cpp
+D:\Dev\ApplicationFramework\source\context.h(7,1): error C2236: nieoczekiwany token "class". Zapomnialeś ';'?
+D:\Dev\ApplicationFramework\source\context.h(8,1): error C2059: błąd składniowy: „{”
+D:\Dev\ApplicationFramework\source\context.h(8,1): error C2143: błąd składniowy: brakuje „;” przed „{”
+D:\Dev\ApplicationFramework\source\context.h(8,1): error C2447: "{": brak nagłówka funkcji (stary styl formalnej listy?)
+D:\Dev\ApplicationFramework\source\context.cpp(7,1): error C2653: "Context": nie jest nazwą klasa lub nazwą przestrzeni nazw
+D:\Dev\ApplicationFramework\source\context.cpp(8,1): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+D:\Dev\ApplicationFramework\source\context.cpp(9,1): warning C4508: "Context": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+D:\Dev\ApplicationFramework\source\context.cpp(11,1): error C2653: "Context": nie jest nazwą klasa lub nazwą przestrzeni nazw
+D:\Dev\ApplicationFramework\source\context.cpp(12,1): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+D:\Dev\ApplicationFramework\source\context.cpp(13,5): error C2065: "instances": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(14,5): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(15,1): warning C4508: "{dtor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+D:\Dev\ApplicationFramework\source\context.cpp(17,6): error C2653: "Context": nie jest nazwą klasa lub nazwą przestrzeni nazw
+D:\Dev\ApplicationFramework\source\context.cpp(19,13): error C2065: "instances": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(22,9): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(22,19): error C2065: "instances": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(26,13): error C2065: "instances": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(29,9): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(29,19): error C2065: "instances": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(34,6): error C2653: "Context": nie jest nazwą klasa lub nazwą przestrzeni nazw
+D:\Dev\ApplicationFramework\source\context.cpp(36,13): error C2065: "instances": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(39,9): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(39,19): error C2065: "instances": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(43,13): error C2065: "instances": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(46,9): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(46,19): error C2065: "instances": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(51,6): error C2653: "Context": nie jest nazwą klasa lub nazwą przestrzeni nazw
+D:\Dev\ApplicationFramework\source\context.cpp(53,5): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(54,5): error C2065: "instances": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(54,33): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(55,5): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(55,15): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(55,46): error C2065: "instances": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(58,11): error C2653: "Context": nie jest nazwą klasa lub nazwą przestrzeni nazw
+D:\Dev\ApplicationFramework\source\context.cpp(60,13): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(63,6): error C2653: "Context": nie jest nazwą klasa lub nazwą przestrzeni nazw
+D:\Dev\ApplicationFramework\source\context.cpp(65,5): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(65,21): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(68,6): error C2653: "Context": nie jest nazwą klasa lub nazwą przestrzeni nazw
+D:\Dev\ApplicationFramework\source\context.cpp(70,29): error C2065: "objects2d": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\context.cpp(70,5): error C2530: "object": odwołania muszą być zainicjowane
+D:\Dev\ApplicationFramework\source\context.cpp(70,27): error C2143: błąd składniowy: brakuje „;” przed „:”
+D:\Dev\ApplicationFramework\source\context.cpp(70,38): error C2143: błąd składniowy: brakuje „;” przed „)”
+  main.cpp
+D:\Dev\ApplicationFramework\source\context.h(7,1): error C2236: nieoczekiwany token "class". Zapomnialeś ';'?
+D:\Dev\ApplicationFramework\source\context.h(8,1): error C2059: błąd składniowy: „{”
+D:\Dev\ApplicationFramework\source\context.h(8,1): error C2143: błąd składniowy: brakuje „;” przed „{”
+D:\Dev\ApplicationFramework\source\context.h(8,1): error C2447: "{": brak nagłówka funkcji (stary styl formalnej listy?)
+D:\Dev\ApplicationFramework\source\application.h(19,17): error C2065: "Context": niezadeklarowany identyfikator
+D:\Dev\ApplicationFramework\source\application.h(19,10): error C2923: „std::vector”: „Context” nie jest prawidłowym argumentem typu szablon dla parametru „_Ty”
+D:\Dev\ApplicationFramework\source\application.h(19,17): message : zobacz deklarację „Context”
+D:\Dev\ApplicationFramework\source\application.h(19,10): error C2976: „std::vector”: za mało argumentów szablon
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector(438,1): message : zobacz deklarację „std::vector”
+D:\Dev\ApplicationFramework\source\application.h(49,13): error C2143: błąd składniowy: brakuje „;” przed „*”
+D:\Dev\ApplicationFramework\source\application.h(49,13): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+D:\Dev\ApplicationFramework\source\application.h(49,35): error C2238: nieoczekiwany(e) token(y) poprzedzający(e) ";"
+  object.cpp
+D:\Dev\ApplicationFramework\source\object.cpp(7,1): error C2628: "Font" poprzedzający "void" jest niedozwolony (zapomnialeś ";"?)
+D:\Dev\ApplicationFramework\source\object.cpp(7,34): error C2556: "Font Object::setIndex(int)": przeciążona funkcja różni się tylko typem zwracanym od "void Object::setIndex(int)"
+D:\Dev\ApplicationFramework\source\object.h(26,10): message : zobacz deklarację „Object::setIndex”
+D:\Dev\ApplicationFramework\source\object.cpp(7,14): error C2371: "Object::setIndex": zmiana definicji; różne typy podstawowe
+D:\Dev\ApplicationFramework\source\object.h(26,10): message : zobacz deklarację „Object::setIndex”
+D:\Dev\ApplicationFramework\source\object.cpp(122,35): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+D:\Dev\ApplicationFramework\source\object.cpp(220,35): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+  Generowanie kodu...

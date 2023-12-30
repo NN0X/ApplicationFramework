@@ -7,7 +7,6 @@
 class Context
 {
 private:
-    int currentCamera;
     std::vector<std::pair<int, int>> instances;
     std::vector<Object2D> objects2d;
 

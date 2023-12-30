@@ -127,7 +127,7 @@ std::vector<int> Input::getMouseReleased()
     return buttons;
 }
 
-dVector2 Input::getMousePosition()
+dVector2 Input::getMousePositionScreen()
 {
     return mousePosition;
 }

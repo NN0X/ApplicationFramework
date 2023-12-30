@@ -295,7 +295,7 @@ public:
     std::vector<int> getMousePressed();
     std::vector<int> getMouseReleased();
 
-    dVector2 getMousePosition();
+    dVector2 getMousePositionScreen();
     dVector2 getMousePositionWindow(dVector2 window);
     dVector2 getMousePositionWorld(dVector2 window);
 };

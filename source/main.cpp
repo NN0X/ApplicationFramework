@@ -1,5 +1,6 @@
 /*
 TODO:
+    ADD FONT
     ADD SOUND
     ADD PARENT TRANSFORMS IN DRAW() FUNCTION
     REWRITE NDL AS LIB or DLL
@@ -28,7 +29,7 @@ TODO:
 
 int main()
 {
-    Application *app = new Application({1231, 556}, "Application", false, false, true);
+    Application *app = new Application({WQHD}, "Application", true, false, false);
 
     std::vector<double> vertices2d = {
         0.5, 0.5, 1.0, 1.0,   //
@@ -37,20 +38,16 @@ int main()
         0.5, -0.5, 1.0, 0.0,  //
         -0.5, -0.5, 0.0, 0.0, //
         -0.5, 0.5, 0.0, 1.0   //
-    };
-
-    Object2D object2d = Object2D(vertices2d, app->getSize(), "../resources/textures/logo.png", "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
-    object2d.setScale({0.5, 0.5});
-    object2d.setPositionWindow({0.5, 0.5}, app->getSize());
+    };                        // has to be normalized to (-1, 1)
 
     Object2D exitButton = Object2D(vertices2d, app->getSize(), "../resources/textures/default.png", "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
-    exitButton.setScale({0.1, 0.1});
+    exitButton.setScaleWorld({0.05, 0.05});
     exitButton.setPositionWindow({1, 1}, app->getSize());
+    exitButton.transformPosition(Vector::multiply(exitButton.getScale(), {-0.5, -0.5}));
 
     int frames = 0;
     double start = glfwGetTime();
 
-    app->addObject2D(object2d);
     app->addObject2D(exitButton);
 
     while (!glfwWindowShouldClose(app->getWindow()))
@@ -58,25 +55,7 @@ int main()
         if (app->isKeyPressed(KEY_ESCAPE))
             glfwSetWindowShouldClose(app->getWindow(), true);
 
-        if (app->isKeyPressed(KEY_W))
-            app->getObject2D(1)->transformPosition({0, 0.0001});
-
-        if (app->isKeyPressed(KEY_S))
-            app->getObject2D(1)->transformPosition({0, -0.0001});
-
-        if (app->isKeyPressed(KEY_A))
-            app->getObject2D(1)->transformPosition({-0.0001, 0});
-
-        if (app->isKeyPressed(KEY_D))
-            app->getObject2D(1)->transformPosition({0.0001, 0});
-
-        if (app->isKeyPressed(KEY_Q))
-            app->getObject2D(1)->transformRotation(0.01);
-
-        if (app->isKeyPressed(KEY_E))
-            app->getObject2D(1)->transformRotation(-0.01);
-
-        if (app->isMousePressed(MOUSE_LEFT) && app->getObject2D(1)->inHitbox(app->getMousePositionWorld()))
+        if (app->isMousePressed(MOUSE_LEFT) && app->getObject2D(0)->inHitbox(app->getMousePositionWorld()))
             glfwSetWindowShouldClose(app->getWindow(), true);
 
         app->update();

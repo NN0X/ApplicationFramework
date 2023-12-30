@@ -71,7 +71,8 @@ public:
 
     void setPositionWorld(dVector2 position);
     void setPositionWindow(dVector2 position, iVector2 windowSize);
-    void setScale(dVector2 scale);
+    void setScaleWorld(dVector2 scale);
+    void setScaleWindow(dVector2 scale, iVector2 windowSize);
     void setRotation(double rotation);
 
     std::vector<dVector2> getHitbox();
@@ -80,3 +81,21 @@ public:
     dVector2 getScale();
     double getRotation();
 };
+
+/*class Font : public Object2D
+{
+private:
+    std::string text;
+    std::string fontPath;
+
+public:
+    Font(std::string text, std::string fontPath);
+
+    void draw();
+
+    void setText(std::string text);
+    void setFont(std::string fontPath);
+
+    std::string getText();
+    std::string getFont();
+}*/
