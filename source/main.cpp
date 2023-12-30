@@ -1,6 +1,5 @@
 /*
 TODO:
-    FIX HITBOX
     ADD SOUND
     ADD PARENT TRANSFORMS IN DRAW() FUNCTION
     REWRITE NDL AS LIB or DLL
@@ -79,9 +78,6 @@ int main()
 
         if (app->isMousePressed(MOUSE_LEFT) && app->getObject2D(1)->inHitbox(app->getMousePositionWorld()))
             glfwSetWindowShouldClose(app->getWindow(), true);
-
-        if (app->isMousePressed(MOUSE_RIGHT))
-            app->getObject2D(1)->getPositionWorld().print();
 
         app->update();
         frames++;

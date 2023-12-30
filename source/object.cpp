@@ -215,16 +215,19 @@ void Object2D::genAttributes()
 
 bool Object2D::inHitbox(dVector2 point)
 {
-    int i, j;
     bool in = false;
+    int i, j;
     for (i = 0, j = hitbox.size() - 1; i < hitbox.size(); j = i++)
     {
-        double x = (hitbox[i].x * cos(rotation * PI / 180) - hitbox[i].y * sin(rotation * PI / 180)) * scale.x * 2 + position.x * 2;
-        double y = (hitbox[i].x * sin(rotation * PI / 180) + hitbox[i].y * cos(rotation * PI / 180)) * scale.y * 2 + position.y * 2;
-        double x2 = (hitbox[j].x * cos(rotation * PI / 180) - hitbox[j].y * sin(rotation * PI / 180)) * scale.x * 2 + position.x * 2;
-        double y2 = (hitbox[j].x * sin(rotation * PI / 180) + hitbox[j].y * cos(rotation * PI / 180)) * scale.y * 2 + position.y * 2;
+        dVector2 pointA;
+        dVector2 pointB;
 
-        if ((y > point.y) != (y2 > point.y) && (point.x < (x2 - x) * (point.y - y) / (y2 - y) + x))
+        pointA.x = (hitbox[i].x * cos(rotation * PI / 180) - hitbox[i].y * sin(rotation * PI / 180)) * scale.x + position.x;
+        pointA.y = (hitbox[i].x * sin(rotation * PI / 180) + hitbox[i].y * cos(rotation * PI / 180)) * scale.y + position.y;
+        pointB.x = (hitbox[j].x * cos(rotation * PI / 180) - hitbox[j].y * sin(rotation * PI / 180)) * scale.x + position.x;
+        pointB.y = (hitbox[j].x * sin(rotation * PI / 180) + hitbox[j].y * cos(rotation * PI / 180)) * scale.y + position.y;
+
+        if ((pointA.y > point.y) != (pointB.y > point.y) && (point.x < (pointB.x - pointA.x) * (point.y - pointA.y) / (pointB.y - pointA.y) + pointA.x))
             in = !in;
     }
     return in;
