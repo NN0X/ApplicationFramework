@@ -2,6 +2,7 @@ D:\Dev\ApplicationFramework\dependencies\include\glad\glad.c;D:\Dev\ApplicationF
 D:\Dev\ApplicationFramework\dependencies\include\stb\stb.cpp;D:\Dev\ApplicationFramework\x64\Release\stb.obj
 D:\Dev\ApplicationFramework\source\application.cpp;D:\Dev\ApplicationFramework\x64\Release\application.obj
 D:\Dev\ApplicationFramework\source\context.cpp;D:\Dev\ApplicationFramework\x64\Release\context.obj
+D:\Dev\ApplicationFramework\source\input.cpp;D:\Dev\ApplicationFramework\x64\Release\input.obj
 D:\Dev\ApplicationFramework\source\main.cpp;D:\Dev\ApplicationFramework\x64\Release\main.obj
 D:\Dev\ApplicationFramework\source\matrix.cpp;D:\Dev\ApplicationFramework\x64\Release\matrix.obj
 D:\Dev\ApplicationFramework\source\object.cpp;D:\Dev\ApplicationFramework\x64\Release\object.obj

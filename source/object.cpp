@@ -26,6 +26,10 @@ void Object::removeChild(int child)
 //-------------------------------------------------------------------
 // Object2D
 
+Object2D::Object2D()
+{
+}
+
 Object2D::Object2D(std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath)
 {
     index = -1;
@@ -274,3 +278,62 @@ dVector2 Object2D::getPositionWindow(iVector2 windowSize)
 }
 dVector2 Object2D::getScale() { return scale; }
 double Object2D::getRotation() { return rotation; }
+
+//-------------------------------------------------------------------
+// Font
+
+Font::Font(std::string text, std::string fontPath, iVector2 windowSize, std::string vertexPath, std::string fragmentPath)
+{
+    this->text = text;
+    this->fontPath = fontPath;
+
+    index = -1;
+    parent = -1;
+    children = {};
+
+    position = {0, 0};
+    scale = {1, 1};
+    rotation = 0;
+
+    translationM.identity();
+    translationM.translate({position.x, position.y, 0.0});
+
+    rotationM.identity();
+    rotationM.rotate(0.0, 0.0, rotation * PI / 180);
+
+    scaleM.identity();
+    scaleM.scale({scale.x, scale.y, 1.0});
+
+    projectionM.identity();
+    projectionM.orthographic(0, windowSize.x, 0, windowSize.y, -1, 1);
+
+    // loadVertices(fontPath + ".mesh");
+
+    genVertices(verticesText);
+    genHitbox(verticesText);
+    genAttributes();
+    genShader(vertexPath, fragmentPath);
+    genTexture(fontPath + ".png");
+}
+
+void Font::setText(std::string text)
+{
+    this->text = text;
+    // filterVertices(text);
+    genVertices(verticesText);
+    genHitbox(verticesText);
+}
+
+void Font::setFont(std::string fontPath)
+{
+    this->fontPath = fontPath;
+    // loadVertices(fontPath + ".mesh");
+    // filterVertices(text);
+    genVertices(verticesText);
+    genHitbox(verticesText);
+}
+
+std::string Font::getText() { return text; }
+std::string Font::getFont() { return fontPath; }
+
+//-------------------------------------------------------------------

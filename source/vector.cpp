@@ -153,6 +153,13 @@ dVector4 Vector::multiply(dVector4 vector1, dVector4 vector2)
 }
 
 //----------------------------------------------------------------------------------------------
+// iVector2
+
+void iVector2::print()
+{
+    std::cout << "x=" << x << " y=" << y << "\n";
+}
+
 // dVector2
 
 void dVector2::opposite()

@@ -40,8 +40,8 @@ int main()
         -0.5, 0.5, 0.0, 1.0   //
     };                        // has to be normalized to (-1, 1)
 
-    Object2D exitButton = Object2D(vertices2d, app->getSize(), "../resources/textures/default.png", "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
-    exitButton.setScaleWorld({0.05, 0.05});
+    Object2D exitButton = Object2D(vertices2d, app->getSize(), "../resources/textures/test.png", "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
+    exitButton.setScaleWorld({0.1, 0.1});
     exitButton.setPositionWindow({1, 1}, app->getSize());
     exitButton.transformPosition(Vector::multiply(exitButton.getScale(), {-0.5, -0.5}));
 

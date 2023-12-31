@@ -8,6 +8,8 @@
 struct iVector2
 {
     int x, y;
+
+    void print();
 };
 
 struct dVector2

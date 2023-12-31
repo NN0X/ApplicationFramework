@@ -35,7 +35,7 @@ public:
 
 class Object2D : public Object
 {
-private:
+protected:
     dVector2 position;
     dVector2 scale;
     std::vector<dVector2> hitbox;
@@ -52,6 +52,7 @@ private:
     int sizeOfIndices;
 
 public:
+    Object2D();
     Object2D(std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath);
     Object2D(dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath);
 
@@ -82,20 +83,23 @@ public:
     double getRotation();
 };
 
-/*class Font : public Object2D
+// make a file with vertices corresponding to specific characters
+// make a mega texture with all the characters
+
+class Font : public Object2D
 {
-private:
+protected:
     std::string text;
     std::string fontPath;
+    std::vector<double> verticesAll;
+    std::vector<double> verticesText;
 
 public:
-    Font(std::string text, std::string fontPath);
-
-    void draw();
+    Font(std::string text, std::string fontPath, iVector2 windowSize, std::string vertexPath, std::string fragmentPath);
 
     void setText(std::string text);
     void setFont(std::string fontPath);
 
     std::string getText();
     std::string getFont();
-}*/
+};
