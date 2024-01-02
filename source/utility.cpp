@@ -1,5 +1,33 @@
 ﻿#include "utility.h"
 
+void Utility::saveVertices2D(std::vector<double> vertices, std::string path)
+{
+    std::ofstream file(path);
+
+    for (double vertex : vertices)
+    {
+        file.write((char *)&vertex, sizeof(double));
+    }
+
+    file.close();
+}
+
+std::vector<double> Utility::loadVertices2D(std::string path)
+{
+    std::vector<double> vertices;
+    std::ifstream file(path);
+
+    double vertex;
+    while (file.read((char *)&vertex, sizeof(double)))
+    {
+        vertices.push_back(vertex);
+    }
+
+    file.close();
+
+    return vertices;
+}
+
 /*std::vector<double> Utility::loadOBJ(std::string path)
 {
     std::vector<std::string> data;

@@ -307,7 +307,7 @@ Font::Font(std::string text, std::string fontPath, iVector2 windowSize, std::str
     projectionM.identity();
     projectionM.orthographic(0, windowSize.x, 0, windowSize.y, -1, 1);
 
-    // loadVertices(fontPath + ".mesh");
+    // loadVertices(fontPath + ".msh");
 
     genVertices(verticesText);
     genHitbox(verticesText);
@@ -327,7 +327,7 @@ void Font::setText(std::string text)
 void Font::setFont(std::string fontPath)
 {
     this->fontPath = fontPath;
-    // loadVertices(fontPath + ".mesh");
+    // loadVertices(fontPath + ".msh");
     // filterVertices(text);
     genVertices(verticesText);
     genHitbox(verticesText);

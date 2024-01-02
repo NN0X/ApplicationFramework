@@ -31,19 +31,14 @@ int main()
 {
     Application *app = new Application({WQHD}, "Application", true, false, false);
 
-    std::vector<double> vertices2d = {
-        0.5, 0.5, 1.0, 1.0,   //
-        0.5, -0.5, 1.0, 0.0,  //
-        -0.5, 0.5, 0.0, 1.0,  //
-        0.5, -0.5, 1.0, 0.0,  //
-        -0.5, -0.5, 0.0, 0.0, //
-        -0.5, 0.5, 0.0, 1.0   //
-    };                        // has to be normalized to (-1, 1)
+    std::vector<double> vertices2d = Utility::loadVertices2D("../resources/meshes/cube.msh"); // has to be normalized to (-1, 1)
 
     Object2D exitButton = Object2D(vertices2d, app->getSize(), "../resources/textures/test.png", "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
     exitButton.setScaleWorld({0.1, 0.1});
     exitButton.setPositionWindow({1, 1}, app->getSize());
     exitButton.transformPosition(Vector::multiply(exitButton.getScale(), {-0.5, -0.5}));
+
+    // Font font = Font("test", "../resources/fonts/test", app->getSize(), "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
 
     int frames = 0;
     double start = glfwGetTime();
