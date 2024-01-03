@@ -307,19 +307,72 @@ Font::Font(std::string text, std::string fontPath, iVector2 windowSize, std::str
     projectionM.identity();
     projectionM.orthographic(0, windowSize.x, 0, windowSize.y, -1, 1);
 
-    // loadVertices(fontPath + ".msh");
+    std::vector<std::string> mapVector = Utility::loadBinaryStrings(fontPath + ".fvm");
+    for (std::string character : mapVector)
+    {
+        map.insert(character);
+    }
 
-    genVertices(verticesText);
-    genHitbox(verticesText);
+    verticesAll = Utility::loadBinaryDoubles(fontPath + ".msh");
+
+    setText(text);
     genAttributes();
     genShader(vertexPath, fragmentPath);
     genTexture(fontPath + ".png");
 }
 
+std::vector<double> Font::genTextVertices(std::string text)
+{
+    std::vector<double> vertices;
+    std::vector<std::string> textCharacters;
+    std::vector<int> textIndexes;
+
+    for (char character : text)
+    {
+        std::string characterString(1, character);
+        auto iterator = map.find(characterString);
+        if (iterator != map.end())
+        {
+            textCharacters.push_back(characterString);
+            textIndexes.push_back(std::distance(map.begin(), iterator) - 1);
+        }
+    }
+
+    for (int j = 0; j < textCharacters.size(); j++)
+    {
+        vertices.push_back(1 + j);
+        vertices.push_back(1 + j);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 2]);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 3]);
+        vertices.push_back(1 + j);
+        vertices.push_back(-1 + j);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 6]);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 7]);
+        vertices.push_back(-1 + j);
+        vertices.push_back(1 + j);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 10]);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 11]);
+        vertices.push_back(1 + j);
+        vertices.push_back(-1 + j);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 14]);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 15]);
+        vertices.push_back(-1 + j);
+        vertices.push_back(-1 + j);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 18]);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 19]);
+        vertices.push_back(-1 + j);
+        vertices.push_back(1 + j);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 22]);
+        vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 23]);
+    }
+
+    return vertices;
+}
+
 void Font::setText(std::string text)
 {
     this->text = text;
-    // filterVertices(text);
+    verticesText = genTextVertices(text);
     genVertices(verticesText);
     genHitbox(verticesText);
 }
@@ -327,10 +380,8 @@ void Font::setText(std::string text)
 void Font::setFont(std::string fontPath)
 {
     this->fontPath = fontPath;
-    // loadVertices(fontPath + ".msh");
-    // filterVertices(text);
-    genVertices(verticesText);
-    genHitbox(verticesText);
+    verticesAll = Utility::loadBinaryDoubles(fontPath + ".msh");
+    setText(text);
 }
 
 std::string Font::getText() { return text; }

@@ -100,6 +100,21 @@ void Application::destroyObject2D(int index)
     contexts[currentContext].destroyObject2D(index);
 }
 
+void Application::addFont(const Font &font)
+{
+    contexts[currentContext].addFont(font);
+}
+
+Font *Application::getFont(int index)
+{
+    return contexts[currentContext].getFont(index);
+}
+
+void Application::destroyFont(int index)
+{
+    contexts[currentContext].destroyFont(index);
+}
+
 void Application::draw()
 {
     glClearColor(0, 0, 0, 1);

@@ -9,6 +9,7 @@ class Context
 private:
     std::vector<std::pair<int, int>> instances;
     std::vector<Object2D> objects2d;
+    std::vector<Font> fonts;
 
 public:
     Context();
@@ -20,6 +21,10 @@ public:
     void addObject2D(const Object2D &object);
     Object2D *getObject2D(int index);
     void destroyObject2D(int index);
+
+    void addFont(const Font &font);
+    Font *getFont(int index);
+    void destroyFont(int index);
 
     void draw();
 };

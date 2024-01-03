@@ -65,8 +65,28 @@ void Context::destroyObject2D(int index)
     objects2d.erase(objects2d.begin() + index);
 }
 
+void Context::addFont(const Font &font)
+{
+    fonts.push_back(font);
+    instances.push_back({3, int(fonts.size()) - 1});
+    fonts[fonts.size() - 1].setIndex(instances.size() - 1);
+}
+
+Font *Context::getFont(int index)
+{
+    return &fonts[index];
+}
+
+void Context::destroyFont(int index)
+{
+    fonts.erase(fonts.begin() + index);
+}
+
 void Context::draw()
 {
     for (Object2D &object : objects2d)
         object.draw();
+
+    for (Font &font : fonts)
+        font.draw();
 }

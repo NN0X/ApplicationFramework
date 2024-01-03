@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <set>
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -91,11 +92,14 @@ class Font : public Object2D
 protected:
     std::string text;
     std::string fontPath;
+    std::set<std::string> map;
     std::vector<double> verticesAll;
     std::vector<double> verticesText;
 
 public:
     Font(std::string text, std::string fontPath, iVector2 windowSize, std::string vertexPath, std::string fragmentPath);
+
+    std::vector<double> genTextVertices(std::string text);
 
     void setText(std::string text);
     void setFont(std::string fontPath);

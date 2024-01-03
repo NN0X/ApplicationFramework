@@ -1,31 +1,64 @@
 ﻿#include "utility.h"
 
-void Utility::saveVertices2D(std::vector<double> vertices, std::string path)
+void Utility::saveBinary(std::vector<double> doubles, std::string path)
 {
     std::ofstream file(path);
 
-    for (double vertex : vertices)
+    for (double element : doubles)
     {
-        file.write((char *)&vertex, sizeof(double));
+        file.write((char *)&element, sizeof(double));
     }
 
     file.close();
 }
 
-std::vector<double> Utility::loadVertices2D(std::string path)
+void Utility::saveBinary(std::vector<std::string> strings, std::string path)
 {
-    std::vector<double> vertices;
+    std::ofstream file(path);
+
+    for (std::string element : strings)
+    {
+        size_t size = element.size();
+        file.write((char *)&size, sizeof(size_t));
+        file.write((char *)&element[0], size);
+    }
+
+    file.close();
+}
+
+std::vector<double> Utility::loadBinaryDoubles(std::string path)
+{
+    std::vector<double> data;
     std::ifstream file(path);
 
-    double vertex;
-    while (file.read((char *)&vertex, sizeof(double)))
+    double element;
+    while (file.read((char *)&element, sizeof(double)))
     {
-        vertices.push_back(vertex);
+        data.push_back(element);
     }
 
     file.close();
 
-    return vertices;
+    return data;
+}
+
+std::vector<std::string> Utility::loadBinaryStrings(std::string path)
+{
+    std::vector<std::string> data;
+    std::ifstream file(path);
+
+    std::string element;
+    size_t size;
+    while (file.read((char *)&size, sizeof(size_t)))
+    {
+        element.resize(size);
+        file.read((char *)&element[0], size);
+        data.push_back(element);
+    }
+
+    file.close();
+
+    return data;
 }
 
 /*std::vector<double> Utility::loadOBJ(std::string path)

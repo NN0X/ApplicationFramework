@@ -9,6 +9,9 @@
 
 namespace Utility
 {
-    void saveVertices2D(std::vector<double> vertices, std::string path);
-    std::vector<double> loadVertices2D(std::string path);
+    void saveBinary(std::vector<double> doubles, std::string path);
+    void saveBinary(std::vector<std::string> strings, std::string path);
+
+    std::vector<double> loadBinaryDoubles(std::string path);
+    std::vector<std::string> loadBinaryStrings(std::string path);
 }

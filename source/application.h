@@ -39,6 +39,10 @@ public:
     Object2D *getObject2D(int index);
     void destroyObject2D(int index);
 
+    void addFont(const Font &font);
+    Font *getFont(int index);
+    void destroyFont(int index);
+
     void draw();
 
     GLFWwindow *getWindow();
