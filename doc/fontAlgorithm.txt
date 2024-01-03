@@ -14,3 +14,23 @@
         f2, f1, (i - 1) * t, 1 - (j - 1) * t  //
     };*/
     // this should be precalculated and saved in a file for each font and each character (apart from f1 and f2)
+
+// std::vector<double> fontVertices;
+
+    /*for (int j = 1; j < 7; j++)
+    {
+        for (int i = 1; i < 17; i++)
+        {
+            double f1 = 1;
+            double f2 = -1;
+            double t = 1 / 16.0;
+            fontVertices.insert(fontVertices.end(), {
+                                                        f1, f1, i * t, 1 - (j - 1) * t,       //
+                                                        f1, f2, i * t, 1 - j * t,             //
+                                                        f2, f1, (i - 1) * t, 1 - (j - 1) * t, //
+                                                        f1, f2, i * t, 1 - j * t,             //
+                                                        f2, f2, (i - 1) * t, 1 - j * t,       //
+                                                        f2, f1, (i - 1) * t, 1 - (j - 1) * t  //
+                                                    });
+        }
+    }*/

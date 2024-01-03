@@ -327,6 +327,8 @@ std::vector<double> Font::genTextVertices(std::string text)
     std::vector<std::string> textCharacters;
     std::vector<int> textIndexes;
 
+    std::vector<bool> newLine;
+
     for (char character : text)
     {
         std::string characterString(1, character);
@@ -336,32 +338,40 @@ std::vector<double> Font::genTextVertices(std::string text)
             textCharacters.push_back(characterString);
             textIndexes.push_back(std::distance(map.begin(), iterator) - 1);
         }
+        if (character == '\n')
+            newLine.push_back(true);
+        else
+            newLine.push_back(false);
     }
 
+    int line = 0;
     for (int j = 0; j < textCharacters.size(); j++)
     {
+        if (newLine[j])
+            line++;
+
         vertices.push_back(1 + j);
-        vertices.push_back(1 + j);
+        vertices.push_back(1 + line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 2]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 3]);
         vertices.push_back(1 + j);
-        vertices.push_back(-1 + j);
+        vertices.push_back(-1 + line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 6]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 7]);
         vertices.push_back(-1 + j);
-        vertices.push_back(1 + j);
+        vertices.push_back(1 + line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 10]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 11]);
         vertices.push_back(1 + j);
-        vertices.push_back(-1 + j);
+        vertices.push_back(-1 + line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 14]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 15]);
         vertices.push_back(-1 + j);
-        vertices.push_back(-1 + j);
+        vertices.push_back(-1 + line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 18]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 19]);
         vertices.push_back(-1 + j);
-        vertices.push_back(1 + j);
+        vertices.push_back(1 + line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 22]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 23]);
     }
