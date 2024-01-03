@@ -336,12 +336,19 @@ std::vector<double> Font::genTextVertices(std::string text)
         if (iterator != map.end())
         {
             textCharacters.push_back(characterString);
-            textIndexes.push_back(std::distance(map.begin(), iterator) - 1);
+            textIndexes.push_back(std::distance(map.begin(), iterator));
         }
         if (character == '\n')
             newLine.push_back(true);
         else
             newLine.push_back(false);
+    }
+
+    if (textCharacters.size() == 0)
+    {
+        textCharacters.push_back(" ");
+        textIndexes.push_back(0);
+        newLine.push_back(false);
     }
 
     int line = 0;

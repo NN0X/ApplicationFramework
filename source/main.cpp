@@ -29,7 +29,6 @@ TODO:
 
 int main()
 {
-    std::string chara = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
     Application *app = new Application({WQHD}, "Application", true, false, false);
 
     std::vector<double> vertices2d = Utility::loadBinaryDoubles("../resources/meshes/cube.msh"); // has to be normalized to (-1, 1)
@@ -39,7 +38,7 @@ int main()
     exitButton.setPositionWindow({1, 1}, app->getSize());
     exitButton.transformPosition(Vector::multiply(exitButton.getScale(), {-1, -1}));
 
-    Font font = Font(chara, "../resources/fonts/arial/arial", app->getSize(), "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
+    Font font = Font("test\nmessage", "../resources/fonts/arial/arial", app->getSize(), "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
     font.setScaleWorld({0.05, 0.05});
     font.setPositionWindow({0, 1}, app->getSize());
     font.transformPosition(Vector::multiply(font.getScale(), {-1, -1}));
