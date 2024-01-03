@@ -34,11 +34,27 @@ int main()
     std::vector<double> vertices2d = Utility::loadVertices2D("../resources/meshes/cube.msh"); // has to be normalized to (-1, 1)
 
     Object2D exitButton = Object2D(vertices2d, app->getSize(), "../resources/textures/test.png", "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
-    exitButton.setScaleWorld({0.1, 0.1});
+    exitButton.setScaleWorld({0.05, 0.05});
     exitButton.setPositionWindow({1, 1}, app->getSize());
-    exitButton.transformPosition(Vector::multiply(exitButton.getScale(), {-0.5, -0.5}));
+    exitButton.transformPosition(Vector::multiply(exitButton.getScale(), {-1, -1}));
 
-    // Font font = Font("test", "../resources/fonts/test", app->getSize(), "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
+    // example of 1 character in font
+
+    int i = 2;           // 1 - 16
+    int j = 1;           // 1 - 6
+    double t = 1 / 16.0; // 16 - max i
+    double f1 = 1;       // (-1, 1) decided in filter function of font
+    double f2 = -1;      // (-1, 1) decided in filter function of font (f1 and f2 are basically dependent on number of characters in font text)
+    std::vector<double> fontVertices = {
+        f1, f1, i * t, 1 - (j - 1) * t,       //
+        f1, f2, i * t, 1 - j * t,             //
+        f2, f1, (i - 1) * t, 1 - (j - 1) * t, //
+        f1, f2, i * t, 1 - j * t,             //
+        f2, f2, (i - 1) * t, 1 - j * t,       //
+        f2, f1, (i - 1) * t, 1 - (j - 1) * t  //
+    };                                        // this should be precalculated and saved in a file for each font and each character (apart from f1 and f2)
+
+    // Font font = Font("test", "../resources/fonts/arial/arial", app->getSize(), "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
 
     int frames = 0;
     double start = glfwGetTime();
