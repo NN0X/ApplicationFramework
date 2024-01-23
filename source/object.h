@@ -84,9 +84,6 @@ public:
     double getRotation();
 };
 
-// make a file with vertices corresponding to specific characters
-// make a mega texture with all the characters
-
 class Font : public Object2D
 {
 protected:

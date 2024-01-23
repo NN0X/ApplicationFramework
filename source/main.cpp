@@ -1,10 +1,11 @@
 /*
 TODO:
-    ADD FONT
+    DEVELOP FONT
     ADD SOUND
+    CREATE GUI LANGUAGE OR FINISH NDL AND USE IT INSTEAD
     ADD PARENT TRANSFORMS IN DRAW() FUNCTION
     REWRITE NDL AS LIB or DLL
-    DITCH VISUAL STUDIO
+    DITCH VISUAL STUDIO AND USE CMAKE
 */
 
 #include <iostream>
@@ -38,7 +39,7 @@ int main()
     exitButton.setPositionWindow({1, 1}, app->getSize());
     exitButton.transformPosition(Vector::multiply(exitButton.getScale(), {-1, -1}));
 
-    Font font = Font("test\nmessage", "../resources/fonts/arial/arial", app->getSize(), "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
+    Font font = Font("1234567890\nqwertyuiop[]\nasdfghjkl;'\nzxcvbnm,./", "../resources/fonts/arial/arial", app->getSize(), "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
     font.setScaleWorld({0.05, 0.05});
     font.setPositionWindow({0, 1}, app->getSize());
     font.transformPosition(Vector::multiply(font.getScale(), {-1, -1}));

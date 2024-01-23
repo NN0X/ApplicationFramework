@@ -1,4 +1,8 @@
-﻿  main.cpp
+﻿  application.cpp
+  context.cpp
+D:\Dev\ApplicationFramework\source\context.cpp(55,63): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+D:\Dev\ApplicationFramework\source\context.cpp(72,55): warning C4267: "argument": konwersja z "size_t" do "int", możliwa utrata danych
+  main.cpp
   object.cpp
 D:\Dev\ApplicationFramework\source\object.cpp(126,35): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
 D:\Dev\ApplicationFramework\source\object.cpp(224,35): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
