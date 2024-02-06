@@ -4,6 +4,11 @@
 
 #include "object.h"
 
+enum Type
+{
+    OBJECT2D = 2,
+    FONT = 3
+};
 class Context
 {
 private:
@@ -18,13 +23,15 @@ public:
     void createParentage(int parent, int child);
     void destroyParentage(int parent, int child);
 
-    void addObject2D(const Object2D &object);
+    int addObject2D(const Object2D &object);
     Object2D *getObject2D(int index);
-    void destroyObject2D(int index);
 
-    void addFont(const Font &font);
+    int addFont(const Font &font);
     Font *getFont(int index);
-    void destroyFont(int index);
+
+    void destroyInstance(int index);
+    void clearInstances();
+    std::vector<std::pair<int, int>> getInstances();
 
     void draw();
 };

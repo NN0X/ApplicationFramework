@@ -1,5 +1,10 @@
 ﻿#include "utility.h"
 
+void Utility::sleep(int milliseconds)
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+}
+
 void Utility::saveBinary(std::vector<double> doubles, std::string path)
 {
     std::ofstream file(path);

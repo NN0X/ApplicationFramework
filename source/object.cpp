@@ -7,8 +7,8 @@
 void Object::setIndex(int index) { this->index = index; }
 int Object::getIndex() { return index; }
 
-void Object::setParent(int parent) { this->parent = parent; }
-int Object::getParent() { return parent; }
+void Object::setParent(int parent) { this->parentIndex = parent; }
+int Object::getParent() { return parentIndex; }
 
 void Object::addChild(int child) { children.push_back(child); }
 void Object::removeChild(int child)
@@ -33,7 +33,7 @@ Object2D::Object2D()
 Object2D::Object2D(std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath)
 {
     index = -1;
-    parent = -1;
+    parentIndex = -1;
     children = {};
 
     position = {0, 0};
@@ -62,7 +62,7 @@ Object2D::Object2D(std::vector<double> &vertices, iVector2 windowSize, std::stri
 Object2D::Object2D(dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath)
 {
     index = -1;
-    parent = -1;
+    parentIndex = -1;
     children = {};
 
     this->position = position;
@@ -288,7 +288,7 @@ Font::Font(std::string text, std::string fontPath, iVector2 windowSize, std::str
     this->fontPath = fontPath;
 
     index = -1;
-    parent = -1;
+    parentIndex = -1;
     children = {};
 
     position = {0, 0};
@@ -351,39 +351,41 @@ std::vector<double> Font::genTextVertices(std::string text)
         newLine.push_back(false);
     }
 
-    // HAS TO BE CHANGED SO ENDLINE APPLIES OFFSET TO ALL CHARACTERS AFTER IT
     int line = 0;
+    int prevOffset = 0;
     for (int j = 0; j < textCharacters.size(); j++)
     {
         if (newLine[j])
+        {
+            prevOffset = j;
             line++;
+        }
 
-        vertices.push_back(1 + j);
-        vertices.push_back(1 - 1.5 * line);
+        vertices.push_back(1 + j - prevOffset);
+        vertices.push_back(1 - 1.8 * line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 2]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 3]);
-        vertices.push_back(1 + j);
-        vertices.push_back(-1 - 1.5 * line);
+        vertices.push_back(1 + j - prevOffset);
+        vertices.push_back(-1 - 1.8 * line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 6]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 7]);
-        vertices.push_back(-1 + j);
-        vertices.push_back(1 - 1.5 * line);
+        vertices.push_back(-1 + j - prevOffset);
+        vertices.push_back(1 - 1.8 * line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 10]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 11]);
-        vertices.push_back(1 + j);
-        vertices.push_back(-1 - 1.5 * line);
+        vertices.push_back(1 + j - prevOffset);
+        vertices.push_back(-1 - 1.8 * line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 14]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 15]);
-        vertices.push_back(-1 + j);
-        vertices.push_back(-1 - 1.5 * line);
+        vertices.push_back(-1 + j - prevOffset);
+        vertices.push_back(-1 - 1.8 * line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 18]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 19]);
-        vertices.push_back(-1 + j);
-        vertices.push_back(1 - 1.5 * line);
+        vertices.push_back(-1 + j - prevOffset);
+        vertices.push_back(1 - 1.8 * line);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 22]);
         vertices.push_back(verticesAll[textIndexes[j] * 6 * 4 + 23]);
     }
-    //-------------------------------------------------------------------
 
     return vertices;
 }

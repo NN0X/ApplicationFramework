@@ -20,7 +20,7 @@ class Object
 {
 protected:
     int index;
-    int parent;
+    int parentIndex;
     std::vector<int> children;
 
 public:

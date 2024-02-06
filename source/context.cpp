@@ -18,14 +18,14 @@ void Context::createParentage(int parent, int child)
 {
     switch (instances[child].first)
     {
-    case 2:
+    case OBJECT2D:
         objects2d[instances[child].second].setParent(parent);
         break;
     }
 
     switch (instances[parent].first)
     {
-    case 2:
+    case OBJECT2D:
         objects2d[instances[parent].second].addChild(child);
         break;
     }
@@ -35,58 +35,100 @@ void Context::destroyParentage(int parent, int child)
 {
     switch (instances[child].first)
     {
-    case 2:
+    case OBJECT2D:
         objects2d[instances[child].second].setParent(-1);
         break;
     }
 
     switch (instances[parent].first)
     {
-    case 2:
+    case OBJECT2D:
         objects2d[instances[parent].second].removeChild(child);
         break;
     }
 }
 
-void Context::addObject2D(const Object2D &object)
+int Context::addObject2D(const Object2D &object)
 {
     objects2d.push_back(object);
-    instances.push_back({2, int(objects2d.size()) - 1});
+    instances.push_back({OBJECT2D, int(objects2d.size()) - 1});
     objects2d[objects2d.size() - 1].setIndex(instances.size() - 1);
+
+    return instances.size() - 1;
 }
 
 Object2D *Context::getObject2D(int index)
 {
-    return &objects2d[index];
+    return &objects2d[instances[index].second];
 }
 
-void Context::destroyObject2D(int index)
-{
-    objects2d.erase(objects2d.begin() + index);
-}
-
-void Context::addFont(const Font &font)
+int Context::addFont(const Font &font)
 {
     fonts.push_back(font);
-    instances.push_back({3, int(fonts.size()) - 1});
+    instances.push_back({FONT, int(fonts.size()) - 1});
     fonts[fonts.size() - 1].setIndex(instances.size() - 1);
+
+    return instances.size() - 1;
 }
 
 Font *Context::getFont(int index)
 {
-    return &fonts[index];
+    return &fonts[instances[index].second];
 }
 
-void Context::destroyFont(int index)
+void Context::destroyInstance(int index)
 {
-    fonts.erase(fonts.begin() + index);
+    switch (instances[index].first)
+    {
+    case OBJECT2D:
+        objects2d.erase(objects2d.begin() + instances[index].second);
+        for (int i = 0; i < instances.size(); i++)
+        {
+            if (instances[i].first == OBJECT2D && instances[i].second > instances[index].second)
+            {
+                instances[i].second--;
+            }
+        }
+        break;
+    case FONT:
+        fonts.erase(fonts.begin() + instances[index].second);
+        for (int i = 0; i < instances.size(); i++)
+        {
+            if (instances[i].first == FONT && instances[i].second > instances[index].second)
+            {
+                instances[i].second--;
+            }
+        }
+        break;
+    }
+
+    instances[index] = {-1, -1};
+}
+
+void Context::clearInstances()
+{
+    instances.clear();
+    objects2d.clear();
+    fonts.clear();
+}
+
+std::vector<std::pair<int, int>> Context::getInstances()
+{
+    return instances;
 }
 
 void Context::draw()
 {
-    for (Object2D &object : objects2d)
-        object.draw();
-
-    for (Font &font : fonts)
-        font.draw();
+    for (auto instance : instances)
+    {
+        switch (instance.first)
+        {
+        case OBJECT2D:
+            objects2d[instance.second].draw();
+            break;
+        case FONT:
+            fonts[instance.second].draw();
+            break;
+        }
+    }
 }

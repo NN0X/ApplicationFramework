@@ -35,13 +35,14 @@ public:
     dVector2 getMousePositionWindow();
     dVector2 getMousePositionWorld();
 
-    void addObject2D(const Object2D &object);
+    int addObject2D(const Object2D &object);
     Object2D *getObject2D(int index);
-    void destroyObject2D(int index);
 
-    void addFont(const Font &font);
+    int addFont(const Font &font);
     Font *getFont(int index);
-    void destroyFont(int index);
+
+    void destroyInstance(int index);
+    void clearInstances();
 
     void draw();
 
@@ -52,6 +53,7 @@ public:
     void setCurrentContext(int index);
     Context *getContext(int index);
     void destroyContext(int index);
+    std::vector<std::pair<int, int>> getInstances();
 
     Input *getInput();
     iVector2 getSize();

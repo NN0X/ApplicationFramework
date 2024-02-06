@@ -85,9 +85,9 @@ dVector2 Application::getMousePositionWorld()
     return input.getMousePositionWorld(Vector::convert(size));
 }
 
-void Application::addObject2D(const Object2D &object)
+int Application::addObject2D(const Object2D &object)
 {
-    contexts[currentContext].addObject2D(object);
+    return contexts[currentContext].addObject2D(object);
 }
 
 Object2D *Application::getObject2D(int index)
@@ -95,14 +95,9 @@ Object2D *Application::getObject2D(int index)
     return contexts[currentContext].getObject2D(index);
 }
 
-void Application::destroyObject2D(int index)
+int Application::addFont(const Font &font)
 {
-    contexts[currentContext].destroyObject2D(index);
-}
-
-void Application::addFont(const Font &font)
-{
-    contexts[currentContext].addFont(font);
+    return contexts[currentContext].addFont(font);
 }
 
 Font *Application::getFont(int index)
@@ -110,9 +105,14 @@ Font *Application::getFont(int index)
     return contexts[currentContext].getFont(index);
 }
 
-void Application::destroyFont(int index)
+void Application::destroyInstance(int index)
 {
-    contexts[currentContext].destroyFont(index);
+    contexts[currentContext].destroyInstance(index);
+}
+
+void Application::clearInstances()
+{
+    contexts[currentContext].clearInstances();
 }
 
 void Application::draw()
@@ -156,6 +156,11 @@ Context *Application::getContext(int index)
 void Application::destroyContext(int index)
 {
     contexts.erase(contexts.begin() + index);
+}
+
+std::vector<std::pair<int, int>> Application::getInstances()
+{
+    return contexts[currentContext].getInstances();
 }
 
 Input *Application::getInput()

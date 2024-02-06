@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dependencies\include\glad\glad.c" />
+    <ClCompile Include="dependencies\include\NDS\nds.cpp" />
     <ClCompile Include="dependencies\include\stb\stb.cpp" />
     <ClCompile Include="source\application.cpp" />
     <ClCompile Include="source\context.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="dependencies\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\include\GLFW\glfw3native.h" />
     <ClInclude Include="dependencies\include\KHR\khrplatform.h" />
+    <ClInclude Include="dependencies\include\NDS\nds.h" />
     <ClInclude Include="source\application.h" />
     <ClInclude Include="source\context.h" />
     <ClInclude Include="source\input.h" />

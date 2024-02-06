@@ -1,10 +1,10 @@
 /*
 TODO:
+    FIX BUG WHERE FONT TEXTURE IS SOMETIMES WRONG WHEN TEXT IS TOO LONG
     DEVELOP FONT
     ADD SOUND
-    CREATE GUI LANGUAGE OR FINISH NDL AND USE IT INSTEAD
+    FIX INSTANCING
     ADD PARENT TRANSFORMS IN DRAW() FUNCTION
-    REWRITE NDL AS LIB or DLL
     DITCH VISUAL STUDIO AND USE CMAKE
 */
 
@@ -20,6 +20,8 @@ TODO:
 
 #include <stb/stb_image.h>
 
+#include <NDS/nds.h>
+
 #include "utility.h"
 #include "application.h"
 
@@ -28,18 +30,24 @@ TODO:
 #define HD 1280, 720
 #define SD 640, 480
 
+#define VERTEX_PATH "../resources/shaders/default2dVertex.glsl"
+#define FRAGMENT_PATH "../resources/shaders/default2dFragment.glsl"
+
+#define ASCII " !#$%&'()*+,-./\n0123456789\n:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ\n[]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+
 int main()
 {
     Application *app = new Application({WQHD}, "Application", true, false, false);
 
     std::vector<double> vertices2d = Utility::loadBinaryDoubles("../resources/meshes/cube.msh"); // has to be normalized to (-1, 1)
 
-    Object2D exitButton = Object2D(vertices2d, app->getSize(), "../resources/textures/test.png", "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
+    Object2D exitButton = Object2D(vertices2d, app->getSize(), "../resources/textures/test.png", VERTEX_PATH, FRAGMENT_PATH);
     exitButton.setScaleWorld({0.05, 0.05});
     exitButton.setPositionWindow({1, 1}, app->getSize());
     exitButton.transformPosition(Vector::multiply(exitButton.getScale(), {-1, -1}));
 
-    Font font = Font("1234567890\nqwertyuiop[]\nasdfghjkl;'\nzxcvbnm,./", "../resources/fonts/arial/arial", app->getSize(), "../resources/shaders/default2dVertex.glsl", "../resources/shaders/default2dFragment.glsl");
+    Font font = Font(ASCII, "../resources/fonts/arial/arial", app->getSize(), VERTEX_PATH, FRAGMENT_PATH);
+
     font.setScaleWorld({0.05, 0.05});
     font.setPositionWindow({0, 1}, app->getSize());
     font.transformPosition(Vector::multiply(font.getScale(), {-1, -1}));
@@ -47,28 +55,33 @@ int main()
     int frames = 0;
     double start = glfwGetTime();
 
-    app->addObject2D(exitButton);
-    app->addFont(font);
+    int buttonIndex = app->addObject2D(exitButton);
+    int fontIndex = app->addFont(font);
 
     while (!glfwWindowShouldClose(app->getWindow()))
     {
         if (app->isKeyPressed(KEY_ESCAPE))
             glfwSetWindowShouldClose(app->getWindow(), true);
 
-        if (app->isMousePressed(MOUSE_LEFT) && app->getObject2D(0)->inHitbox(app->getMousePositionWorld()))
+        if (app->isMousePressed(MOUSE_LEFT) && app->getObject2D(buttonIndex)->inHitbox(app->getMousePositionWorld()))
             glfwSetWindowShouldClose(app->getWindow(), true);
 
         if (app->isKeyPressed(KEY_W))
-            app->getFont(0)->transformPosition({0, 0.001});
+            app->getFont(fontIndex)->transformPosition({0, 0.001});
 
         if (app->isKeyPressed(KEY_S))
-            app->getFont(0)->transformPosition({0, -0.001});
+            app->getFont(fontIndex)->transformPosition({0, -0.001});
 
         if (app->isKeyPressed(KEY_A))
-            app->getFont(0)->transformPosition({-0.001, 0});
+            app->getFont(fontIndex)->transformPosition({-0.001, 0});
 
         if (app->isKeyPressed(KEY_D))
-            app->getFont(0)->transformPosition({0.001, 0});
+            app->getFont(fontIndex)->transformPosition({0.001, 0});
+
+        if (app->isKeyPressed(KEY_R))
+        {
+            app->clearInstances();
+        }
 
         app->update();
         frames++;
