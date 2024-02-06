@@ -1,9 +1,5 @@
 ﻿#include "context.h"
 
-/*types:
-    2 - object2d
-*/
-
 Context::Context()
 {
 }

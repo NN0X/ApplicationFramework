@@ -6,6 +6,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <NDS/nds.h>
+
 #include "vector.h"
 #include "context.h"
 #include "input.h"
@@ -51,6 +53,8 @@ public:
 
     void createContext();
     void setCurrentContext(int index);
+    void addContext(const Context &context);
+    void loadContextNDL(std::string path);
     Context *getContext(int index);
     void destroyContext(int index);
     std::vector<std::pair<int, int>> getInstances();

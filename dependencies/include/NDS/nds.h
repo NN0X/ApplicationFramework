@@ -49,13 +49,13 @@ public:
 
     void loadNDL();
     void loadNDL(std::string path);
-    // void loadBinaryNDL();
-    // void loadBinaryNDL(std::string path);
+    // void loadNDB();
+    // void loadNDB(std::string path);
 
     void saveNDL();
     void saveNDL(std::string path);
-    // void saveBinaryNDL();
-    // void saveBinaryNDL(std::string path);
+    // void saveNDB();
+    // void saveNDB(std::string path);
 
     int getInt(std::string variableName, std::string groupName);
     unsigned int getUInt(std::string variableName, std::string groupName);

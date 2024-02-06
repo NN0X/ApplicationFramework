@@ -1,0 +1,20 @@
+exitButton:{
+    string;type:"Object2D"
+    double[];positionWindow:[1.0, 1.0]
+    double[];scaleWorld:[0.05, 0.05]
+    string;texturePath:"../resources/textures/test.png"
+    string;verticesPath:"../resources/meshes/cube.msh"
+    string;vertexPath:"../resources/shaders/default2dVertex.glsl"
+    string;fragmentPath:"../resources/shaders/default2dFragment.glsl"
+}
+
+font:{
+    string;type:"Font"
+    string;text:"test"
+    double[];positionWindow:[0.0, 1.0]
+    double[];scaleWorld:[0.05, 0.05]
+    string;fontPath:"../resources/fonts/arial/arial"
+    string;verticesPath:"../resources/meshes/cube.msh"
+    string;vertexPath:"../resources/shaders/default2dVertex.glsl"
+    string;fragmentPath:"../resources/shaders/default2dFragment.glsl"
+}

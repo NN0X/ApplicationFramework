@@ -148,6 +148,39 @@ void Application::setCurrentContext(int index)
     currentContext = index;
 }
 
+void Application::addContext(const Context &context)
+{
+    contexts.push_back(context);
+}
+
+void Application::loadContextNDL(std::string path)
+{
+    NDS nds(path);
+    nds.loadNDL();
+
+    for (std::string group : nds.getGroupNames())
+    {
+        std::string type = nds.getString("type", group);
+        if (type == "Object2D")
+        {
+            std::vector<double> vertices = Utility::loadBinaryDoubles(nds.getString("verticesPath", group));
+            Object2D object2d = Object2D(vertices, size, nds.getString("texturePath", group), nds.getString("vertexPath", group), nds.getString("fragmentPath", group));
+            object2d.setScaleWorld({nds.getDoubleList("scaleWorld", group)[0], nds.getDoubleList("scaleWorld", group)[1]});
+            object2d.setPositionWindow({nds.getDoubleList("positionWindow", group)[0], nds.getDoubleList("positionWindow", group)[1]}, size);
+            object2d.transformPosition(Vector::multiply(object2d.getScale(), {-1, -1}));
+            addObject2D(object2d);
+        }
+        else if (type == "Font")
+        {
+            Font font = Font(nds.getString("text", group), nds.getString("fontPath", group), size, nds.getString("vertexPath", group), nds.getString("fragmentPath", group));
+            font.setScaleWorld({nds.getDoubleList("scaleWorld", group)[0], nds.getDoubleList("scaleWorld", group)[1]});
+            font.setPositionWindow({nds.getDoubleList("positionWindow", group)[0], nds.getDoubleList("positionWindow", group)[1]}, size);
+            font.transformPosition(Vector::multiply(font.getScale(), {-1, -1}));
+            addFont(font);
+        }
+    }
+}
+
 Context *Application::getContext(int index)
 {
     return &contexts[index];
