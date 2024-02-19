@@ -1,5 +1,6 @@
 exitButton:{
     string;type:"Object2D"
+    string;label:"exit"
     double[];positionWindow:[1.0, 1.0]
     double[];scaleWorld:[0.05, 0.05]
     string;texturePath:"../resources/textures/test.png"
@@ -10,8 +11,9 @@ exitButton:{
 
 font:{
     string;type:"Font"
+    string;label:"font"
     string;text:"test"
-    double[];positionWindow:[0.0, 1.0]
+    double[];positionWindow:[0.5, 0.5]
     double[];scaleWorld:[0.05, 0.05]
     string;fontPath:"../resources/fonts/arial/arial"
     string;verticesPath:"../resources/meshes/cube.msh"

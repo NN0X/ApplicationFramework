@@ -39,9 +39,11 @@ public:
 
     int addObject2D(const Object2D &object);
     Object2D *getObject2D(int index);
+    Object2D *getObject2D(std::string label);
 
     int addFont(const Font &font);
     Font *getFont(int index);
+    Font *getFont(std::string label);
 
     void destroyInstance(int index);
     void clearInstances();

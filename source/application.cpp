@@ -95,6 +95,11 @@ Object2D *Application::getObject2D(int index)
     return contexts[currentContext].getObject2D(index);
 }
 
+Object2D *Application::getObject2D(std::string label)
+{
+    return contexts[currentContext].getObject2D(label);
+}
+
 int Application::addFont(const Font &font)
 {
     return contexts[currentContext].addFont(font);
@@ -103,6 +108,11 @@ int Application::addFont(const Font &font)
 Font *Application::getFont(int index)
 {
     return contexts[currentContext].getFont(index);
+}
+
+Font *Application::getFont(std::string label)
+{
+    return contexts[currentContext].getFont(label);
 }
 
 void Application::destroyInstance(int index)
@@ -168,6 +178,7 @@ void Application::loadContextNDL(std::string path)
             object2d.setScaleWorld({nds.getDoubleList("scaleWorld", group)[0], nds.getDoubleList("scaleWorld", group)[1]});
             object2d.setPositionWindow({nds.getDoubleList("positionWindow", group)[0], nds.getDoubleList("positionWindow", group)[1]}, size);
             object2d.transformPosition(Vector::multiply(object2d.getScale(), {-1, -1}));
+            object2d.setLabel(nds.getString("label", group));
             addObject2D(object2d);
         }
         else if (type == "Font")
@@ -176,6 +187,7 @@ void Application::loadContextNDL(std::string path)
             font.setScaleWorld({nds.getDoubleList("scaleWorld", group)[0], nds.getDoubleList("scaleWorld", group)[1]});
             font.setPositionWindow({nds.getDoubleList("positionWindow", group)[0], nds.getDoubleList("positionWindow", group)[1]}, size);
             font.transformPosition(Vector::multiply(font.getScale(), {-1, -1}));
+            font.setLabel(nds.getString("label", group));
             addFont(font);
         }
     }

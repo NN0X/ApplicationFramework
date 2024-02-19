@@ -1,12 +1,13 @@
 /*
 TODO:
-    ADD LABELS FOR INSTANCES
-    FIX BUG WHERE FONT TEXTURE IS SOMETIMES WRONG WHEN TEXT IS TOO LONG
-    DEVELOP FONT
     ADD SOUND
-    FIX INSTANCING
+    DEVELOP FONT
+    CLEANUP INSTANCING
     ADD PARENT TRANSFORMS IN DRAW() FUNCTION
     DITCH VISUAL STUDIO AND USE CMAKE
+
+BUGS:
+    FONT TEXTURE IS SOMETIMES WRONG WHEN TEXT IS TOO LONG
 */
 
 #include <iostream>
@@ -46,20 +47,20 @@ int main()
         if (app->isKeyPressed(KEY_ESCAPE))
             glfwSetWindowShouldClose(app->getWindow(), true);
 
-        if (app->isMousePressed(MOUSE_LEFT) && app->getObject2D(0)->inHitbox(app->getMousePositionWorld()))
+        if (app->isMousePressed(MOUSE_LEFT) && app->getObject2D("exit")->inHitbox(app->getMousePositionWorld()))
             glfwSetWindowShouldClose(app->getWindow(), true);
 
         if (app->isKeyPressed(KEY_W))
-            app->getFont(1)->transformPosition({0, 0.001});
+            app->getFont("font")->transformPosition({0, 0.001});
 
         if (app->isKeyPressed(KEY_S))
-            app->getFont(1)->transformPosition({0, -0.001});
+            app->getFont("font")->transformPosition({0, -0.001});
 
         if (app->isKeyPressed(KEY_A))
-            app->getFont(1)->transformPosition({-0.001, 0});
+            app->getFont("font")->transformPosition({-0.001, 0});
 
         if (app->isKeyPressed(KEY_D))
-            app->getFont(1)->transformPosition({0.001, 0});
+            app->getFont("font")->transformPosition({0.001, 0});
 
         if (app->isKeyPressed(KEY_R))
         {

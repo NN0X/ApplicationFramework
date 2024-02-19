@@ -23,11 +23,15 @@ public:
     void createParentage(int parent, int child);
     void destroyParentage(int parent, int child);
 
+    // all object types should be merged into single functions
+
     int addObject2D(const Object2D &object);
     Object2D *getObject2D(int index);
+    Object2D *getObject2D(std::string label);
 
     int addFont(const Font &font);
     Font *getFont(int index);
+    Font *getFont(std::string label);
 
     void destroyInstance(int index);
     void clearInstances();

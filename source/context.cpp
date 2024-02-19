@@ -58,6 +58,19 @@ Object2D *Context::getObject2D(int index)
     return &objects2d[instances[index].second];
 }
 
+Object2D *Context::getObject2D(std::string label)
+{
+    for (auto instance : instances)
+    {
+        if (instance.first == OBJECT2D && objects2d[instance.second].getLabel() == label)
+        {
+            return &objects2d[instance.second];
+        }
+    }
+
+    return nullptr;
+}
+
 int Context::addFont(const Font &font)
 {
     fonts.push_back(font);
@@ -70,6 +83,19 @@ int Context::addFont(const Font &font)
 Font *Context::getFont(int index)
 {
     return &fonts[instances[index].second];
+}
+
+Font *Context::getFont(std::string label)
+{
+    for (auto instance : instances)
+    {
+        if (instance.first == FONT && fonts[instance.second].getLabel() == label)
+        {
+            return &fonts[instance.second];
+        }
+    }
+
+    return nullptr;
 }
 
 void Context::destroyInstance(int index)

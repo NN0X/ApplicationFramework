@@ -10,6 +10,9 @@ int Object::getIndex() { return index; }
 void Object::setParent(int parent) { this->parentIndex = parent; }
 int Object::getParent() { return parentIndex; }
 
+void Object::setLabel(std::string label) { this->label = label; }
+std::string Object::getLabel() { return label; }
+
 void Object::addChild(int child) { children.push_back(child); }
 void Object::removeChild(int child)
 {

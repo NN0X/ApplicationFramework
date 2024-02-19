@@ -21,6 +21,7 @@ class Object
 protected:
     int index;
     int parentIndex;
+    std::string label = "";
     std::vector<int> children;
 
 public:
@@ -29,6 +30,9 @@ public:
 
     void setParent(int parent);
     int getParent();
+
+    void setLabel(std::string label);
+    std::string getLabel();
 
     void addChild(int child);
     void removeChild(int child);
