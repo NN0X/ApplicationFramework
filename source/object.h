@@ -7,10 +7,10 @@
 #include <string>
 #include <sstream>
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "../dependencies/include/glad/glad.h"
+#include "../dependencies/include/GLFW/glfw3.h"
 
-#include <stb/stb_image.h>
+#include "../dependencies/include/stb/stb_image.h"
 
 #include "utility.h"
 #include "vector.h"

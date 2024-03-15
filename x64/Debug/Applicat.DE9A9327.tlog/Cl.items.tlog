@@ -1,0 +1,10 @@
+D:\Dev\ApplicationFramework - Release\dependencies\include\glad\glad.c;D:\Dev\ApplicationFramework - Release\x64\Debug\glad.obj
+D:\Dev\ApplicationFramework - Release\dependencies\include\NDS\nds.cpp;D:\Dev\ApplicationFramework - Release\x64\Debug\nds.obj
+D:\Dev\ApplicationFramework - Release\dependencies\include\stb\stb.cpp;D:\Dev\ApplicationFramework - Release\x64\Debug\stb.obj
+D:\Dev\ApplicationFramework - Release\source\application.cpp;D:\Dev\ApplicationFramework - Release\x64\Debug\application.obj
+D:\Dev\ApplicationFramework - Release\source\context.cpp;D:\Dev\ApplicationFramework - Release\x64\Debug\context.obj
+D:\Dev\ApplicationFramework - Release\source\input.cpp;D:\Dev\ApplicationFramework - Release\x64\Debug\input.obj
+D:\Dev\ApplicationFramework - Release\source\matrix.cpp;D:\Dev\ApplicationFramework - Release\x64\Debug\matrix.obj
+D:\Dev\ApplicationFramework - Release\source\object.cpp;D:\Dev\ApplicationFramework - Release\x64\Debug\object.obj
+D:\Dev\ApplicationFramework - Release\source\utility.cpp;D:\Dev\ApplicationFramework - Release\x64\Debug\utility.obj
+D:\Dev\ApplicationFramework - Release\source\vector.cpp;D:\Dev\ApplicationFramework - Release\x64\Debug\vector.obj

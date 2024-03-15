@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "../dependencies/include/glad/glad.h"
+#include "../dependencies/include/GLFW/glfw3.h"
 
 #include "vector.h"
 #include "matrix.h"

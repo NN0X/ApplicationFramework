@@ -3,10 +3,10 @@
 #include <iostream>
 #include <vector>
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "../dependencies/include/glad/glad.h"
+#include "../dependencies/include/GLFW/glfw3.h"
 
-#include <NDS/nds.h>
+#include "../dependencies/include/NDS/nds.h"
 
 #include "vector.h"
 #include "context.h"
