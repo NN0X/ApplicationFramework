@@ -1,10 +1,12 @@
 /*
 TODO:
+    CLEANUP application.cpp and application.h AND SETUP THE PROJECT SO THAT IT CAN BE USED AS A LIBRARY
     ADD SOUND
     DEVELOP FONT
     CLEANUP INSTANCING
     ADD PARENT TRANSFORMS IN DRAW() FUNCTION
-    DITCH VISUAL STUDIO AND USE CMAKE
+    DITCH VISUAL STUDIO AND USE CMAKE / JetBrains Rider
+    ADD INBUILT FPS COUNTER
 
 BUGS:
     FONT TEXTURE IS SOMETIMES WRONG WHEN TEXT IS TOO LONG
@@ -30,8 +32,7 @@ BUGS:
 #define HD 1280, 720
 #define SD 640, 480
 
-#define ASCII " !#$%&'()*+,-./\n0123456789\n:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ\n[]^_`abcdefghijklmnopqrstuvwxyz{|}~"
-
+// this is an example of how to use the library
 int main()
 {
     Application *app = new Application({WQHD}, "Application", true, false, false);

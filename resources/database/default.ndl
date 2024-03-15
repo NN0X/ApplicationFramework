@@ -1,3 +1,6 @@
+#ASCII:
+#" !#$%&'()*+,-./\n0123456789\n:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ\n[]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+
 exitButton:{
     string;type:"Object2D"
     string;label:"exit"

@@ -12,6 +12,11 @@
 #include "context.h"
 #include "input.h"
 
+const iVector2 WQHD = {2560, 1440};
+const iVector2 FHD = {1920, 1080};
+const iVector2 HD = {1280, 720};
+const iVector2 SD = {640, 480};
+
 class Application
 {
 private:
