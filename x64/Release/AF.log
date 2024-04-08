@@ -1,0 +1,171 @@
+﻿  glad.c
+  nds.cpp
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(110,22): warning C4267: "inicjowanie": konwersja z "size_t" do "int", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(111,23): warning C4267: "inicjowanie": konwersja z "size_t" do "int", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(117,19): warning C4244: "return": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(123,22): warning C4267: "inicjowanie": konwersja z "size_t" do "int", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(124,23): warning C4267: "inicjowanie": konwersja z "size_t" do "int", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(672,20): warning C4244: "inicjowanie": konwersja z "__int64" do "int", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(686,20): warning C4244: "inicjowanie": konwersja z "__int64" do "int", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(748,20): warning C4244: "inicjowanie": konwersja z "__int64" do "int", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(794,20): warning C4244: "inicjowanie": konwersja z "__int64" do "int", możliwa utrata danych
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(520,76): warning C4267: "=": konwersja z "size_t" do "_Ty", możliwa utrata danych
+          with
+          [
+              _Ty=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(521,23): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int> &std::tuple<int>::operator =<unsigned __int64,0>(std::tuple<unsigned __int64> &&) noexcept” funkcji szablon
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(521,23): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int,int> &std::tuple<int,int>::operator =<int,unsigned __int64,0>(std::tuple<int,unsigned __int64> &&) noexcept” funkcji szablon
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(521,23): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<std::string,int,int> &std::tuple<std::string,int,int>::operator =<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,unsigned __int64,0>(std::tuple<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,unsigned __int64> &&) noexcept” funkcji szablon
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(705,57): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int,std::string,int,int> &std::tuple<int,std::string,int,int>::operator =<int,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,unsigned __int64,0>(std::tuple<int,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,unsigned __int64> &&) noexcept” funkcji szablon
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(705,57): message : zobacz pierwsze odwołanie do elementu „std::tuple<int,std::string,int,int>::operator =” w „NDS::addVariable”
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(144,47): warning C4244: "inicjowanie": konwersja z "_Ty" do "_Ty", możliwa utrata danych
+          with
+          [
+              _Ty=__int64
+          ]
+          and
+          [
+              _Ty=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(236,102): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::_Tuple_val<_This>::_Tuple_val<_Ty>(_Other &&)” funkcji szablon
+          with
+          [
+              _This=int,
+              _Ty=__int64,
+              _Other=__int64
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(799,12): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int,std::string,int,int>::tuple<std::_Exact_args_t,__int64,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,int,0>(_Tag,_This2 &&,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,int &&,int &&)” funkcji szablon
+          with
+          [
+              _Tag=std::_Exact_args_t,
+              _This2=__int64
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(243,16): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int,std::string,int,int>::tuple<std::_Unpack_tuple_t,_Ty,0,1,2,3,0>(_Tag,_Tpl &&,std::integer_sequence<size_t,0,1,2,3>)” funkcji szablon
+          with
+          [
+              _Ty=std::tuple<__int64,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,int>,
+              _Tag=std::_Unpack_tuple_t,
+              _Tpl=std::tuple<__int64,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(309,16): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int,std::string,int,int>::tuple<std::_Unpack_tuple_t,std::tuple<__int64,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,int>,0>(_Tag,_Tpl &&)” funkcji szablon
+          with
+          [
+              _Tag=std::_Unpack_tuple_t,
+              _Tpl=std::tuple<__int64,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,int>
+          ]
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(699,48): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int,std::string,int,int>::tuple<__int64,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,int,0>(std::tuple<__int64,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,int> &&) noexcept” funkcji szablon
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(699,32): message : zobacz pierwsze odwołanie do elementu „std::tuple<int,std::string,int,int>::tuple” w „NDS::addVariable”
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(144,47): warning C4267: "inicjowanie": konwersja z "size_t" do "_Ty", możliwa utrata danych
+          with
+          [
+              _Ty=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(236,102): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::_Tuple_val<_This>::_Tuple_val<_Ty>(_Other &&)” funkcji szablon
+          with
+          [
+              _This=int,
+              _Ty=unsigned __int64,
+              _Other=unsigned __int64
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(236,18): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int>::tuple<std::_Exact_args_t,_Ty,,0>(_Tag,_This2 &&)” funkcji szablon
+          with
+          [
+              _Ty=unsigned __int64,
+              _Tag=std::_Exact_args_t,
+              _This2=unsigned __int64
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(236,18): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int,int>::tuple<std::_Exact_args_t,_Ty,unsigned __int64,0>(_Tag,_This2 &&,unsigned __int64 &&)” funkcji szablon
+          with
+          [
+              _Ty=int,
+              _Tag=std::_Exact_args_t,
+              _This2=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(236,18): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<std::string,int,int>::tuple<std::_Exact_args_t,_Ty,int,unsigned __int64,0>(_Tag,_This2 &&,int &&,unsigned __int64 &&)” funkcji szablon
+          with
+          [
+              _Ty=std::basic_string<char,std::char_traits<char>,std::allocator<char>>,
+              _Tag=std::_Exact_args_t,
+              _This2=std::basic_string<char,std::char_traits<char>,std::allocator<char>>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(799,12): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int,std::string,int,int>::tuple<std::_Exact_args_t,int,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,unsigned __int64,0>(_Tag,_This2 &&,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,int &&,unsigned __int64 &&)” funkcji szablon
+          with
+          [
+              _Tag=std::_Exact_args_t,
+              _This2=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(243,16): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int,std::string,int,int>::tuple<std::_Unpack_tuple_t,_Ty,0,1,2,3,0>(_Tag,_Tpl &&,std::integer_sequence<size_t,0,1,2,3>)” funkcji szablon
+          with
+          [
+              _Ty=std::tuple<int,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,unsigned __int64>,
+              _Tag=std::_Unpack_tuple_t,
+              _Tpl=std::tuple<int,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,unsigned __int64>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\tuple(309,16): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int,std::string,int,int>::tuple<std::_Unpack_tuple_t,std::tuple<int,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,unsigned __int64>,0>(_Tag,_Tpl &&)” funkcji szablon
+          with
+          [
+              _Tag=std::_Unpack_tuple_t,
+              _Tpl=std::tuple<int,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,unsigned __int64>
+          ]
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(208,60): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „std::tuple<int,std::string,int,int>::tuple<int,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,unsigned __int64,0>(std::tuple<int,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,int,unsigned __int64> &&) noexcept” funkcji szablon
+D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp(208,44): message : zobacz pierwsze odwołanie do elementu „std::tuple<int,std::string,int,int>::tuple” w „NDS::loadNDL”
+  stb.cpp
+  AF.cpp
+  application.cpp
+D:\Dev\ApplicationFramework - Dev\src\application.cpp(123,28): warning C4267: "return": konwersja z "size_t" do "uInt", możliwa utrata danych
+  context.cpp
+  input.cpp
+  matrix.cpp
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(14,45): warning C4244: "=": konwersja z "_Ty" do "float", możliwa utrata danych
+          with
+          [
+              _Ty=double
+          ]
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(137,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(138,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(139,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(149,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(150,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(151,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(161,37): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(162,37): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(163,25): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(165,65): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(166,65): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(167,37): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(169,65): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(170,65): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(171,37): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(188,29): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(189,29): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(190,30): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(192,43): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(193,43): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(194,41): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(231,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(232,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(233,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(243,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(244,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(245,31): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(255,37): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(256,37): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(257,25): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(259,65): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(260,65): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(261,37): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(263,65): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(264,65): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\matrix.cpp(265,37): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+  object.cpp
+D:\Dev\ApplicationFramework - Dev\src\object.cpp(108,35): warning C4267: "=": konwersja z "size_t" do "uInt", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\object.cpp(202,35): warning C4267: "=": konwersja z "size_t" do "uInt", możliwa utrata danych
+D:\Dev\ApplicationFramework - Dev\src\object.cpp(347,53): warning C4244: "argument": konwersja z "__int64" do "_Ty", możliwa utrata danych
+          with
+          [
+              _Ty=int
+          ]
+  utility.cpp
+  vector.cpp
+  AF.vcxproj -> D:\Dev\ApplicationFramework - Dev\test\AF.lib

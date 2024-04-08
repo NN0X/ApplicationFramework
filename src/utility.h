@@ -1,0 +1,18 @@
+﻿#ifndef UTILITY_H
+#define UTILITY_H
+
+#include "include.h"
+#include "defines.h"
+
+namespace Utility
+{
+    void wait(uInt milliseconds);
+
+    void saveBinary(std::vector<double> doubles, std::string path);
+    void saveBinary(std::vector<std::string> strings, std::string path);
+
+    std::vector<double> loadBinaryDoubles(std::string path);
+    std::vector<std::string> loadBinaryStrings(std::string path);
+}
+
+#endif // UTILITY_H

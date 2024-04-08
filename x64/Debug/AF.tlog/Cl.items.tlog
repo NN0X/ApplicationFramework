@@ -1,0 +1,11 @@
+D:\Dev\AF\inc\glad\glad.c;D:\Dev\AF\x64\Debug\glad.obj
+D:\Dev\AF\inc\NDS\nds.cpp;D:\Dev\AF\x64\Debug\nds.obj
+D:\Dev\AF\inc\stb\stb.cpp;D:\Dev\AF\x64\Debug\stb.obj
+D:\Dev\AF\src\AF.cpp;D:\Dev\AF\x64\Debug\AF.obj
+D:\Dev\AF\src\application.cpp;D:\Dev\AF\x64\Debug\application.obj
+D:\Dev\AF\src\context.cpp;D:\Dev\AF\x64\Debug\context.obj
+D:\Dev\AF\src\input.cpp;D:\Dev\AF\x64\Debug\input.obj
+D:\Dev\AF\src\matrix.cpp;D:\Dev\AF\x64\Debug\matrix.obj
+D:\Dev\AF\src\object.cpp;D:\Dev\AF\x64\Debug\object.obj
+D:\Dev\AF\src\utility.cpp;D:\Dev\AF\x64\Debug\utility.obj
+D:\Dev\AF\src\vector.cpp;D:\Dev\AF\x64\Debug\vector.obj
