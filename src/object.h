@@ -42,6 +42,7 @@ protected:
     uInt sizeOfIndices;
 
 public:
+    Object2D();
     Object2D(dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath);
     ~Object2D();
 
@@ -83,10 +84,10 @@ class Text : public Object2D
 private:
     std::string text;
     std::string fontPath;
-    std::set<std::string> map = std::set<std::string>(); // rethink
+    std::set<std::string> map;
 
 public:
-    Text(std::string text, dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string fontPath, std::string vertexPath, std::string fragmentPath);
+    Text(std::string text, dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string fontPath, std::string vertexPath, std::string fragmentPath);
     ~Text();
 
     void genText(std::string text);

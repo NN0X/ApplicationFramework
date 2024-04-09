@@ -76,66 +76,6 @@ namespace AF
         return app->getInput();
     }
 
-    uInt createObject2D(Application *app)
-    {
-        return app->createObject2D();
-    }
-
-    Object2D *getObject2D(Application *app, uInt index)
-    {
-        return app->getObject2D(index);
-    }
-
-    Object2D *getObject2D(Application *app, std::string label)
-    {
-        return app->getObject2D(label);
-    }
-
-    void destroyObject2D(Application *app, uInt index)
-    {
-        app->destroyObject2D(index);
-    }
-
-    void destroyObject2D(Application *app, std::string label)
-    {
-        app->destroyObject2D(label);
-    }
-
-    void clearObjects2D(Application *app)
-    {
-        app->clearObjects2D();
-    }
-
-    uInt createText(Application *app)
-    {
-        return app->createText();
-    }
-
-    Text *getText(Application *app, uInt index)
-    {
-        return app->getText(index);
-    }
-
-    Text *getText(Application *app, std::string label)
-    {
-        return app->getText(label);
-    }
-
-    void destroyText(Application *app, uInt index)
-    {
-        app->destroyText(index);
-    }
-
-    void destroyText(Application *app, std::string label)
-    {
-        app->destroyText(label);
-    }
-
-    void clearTexts(Application *app)
-    {
-        app->clearTexts();
-    }
-
     std::string getWindowTitle(Application *app)
     {
         return app->getWindowTitle();
@@ -228,4 +168,48 @@ namespace AF
             return app->getInput()->getMousePositionWorld(app->getWindowSize());
         }
     }
+
+    namespace Object
+    {
+        uInt create2D(Application *app, dVector2 position, dVector2 scale, double rotation, std::string verticesPath, std::string texturePath, std::string vertexPath, std::string fragmentPath)
+        {
+            return app->createObject2D(position, scale, rotation, app->getWindowSize(), verticesPath, texturePath, vertexPath, fragmentPath);
+        }
+
+        void destroy2D(Application *app, uInt index)
+        {
+            app->destroyObject2D(index);
+        }
+
+        void destroy2D(Application *app, std::string label)
+        {
+            app->destroyObject2D(label);
+        }
+
+        void clear2D(Application *app)
+        {
+            app->clearObjects2D();
+        }
+
+        uInt createText(Application *app, std::string text, dVector2 position, dVector2 scale, double rotation, std::string fontPath, std::string vertexPath, std::string fragmentPath)
+        {
+            return app->createText(text, position, scale, rotation, app->getWindowSize(), fontPath, vertexPath, fragmentPath);
+        }
+
+        void destroyText(Application *app, uInt index)
+        {
+            app->destroyText(index);
+        }
+
+        void destroyText(Application *app, std::string label)
+        {
+            app->destroyText(label);
+        }
+
+        void clearTexts(Application *app)
+        {
+            app->clearTexts();
+        }
+    }
+
 }

@@ -134,9 +134,9 @@ void fMatrix4::translate(dVector3 vector)
     fMatrix4 temp;
     temp.identity();
 
-    temp.matrix[0][3] = vector.x;
-    temp.matrix[1][3] = vector.y;
-    temp.matrix[2][3] = vector.z;
+    temp.matrix[3][0] = vector.x;
+    temp.matrix[3][1] = vector.y;
+    temp.matrix[3][2] = vector.z;
 
     *this *= temp;
 }
@@ -189,9 +189,9 @@ void fMatrix4::orthographic(double left, double right, double bottom, double top
     result.matrix[1][1] = 2 / (top - bottom);
     result.matrix[2][2] = -2 / (far - near);
 
-    result.matrix[0][3] = -(right + left) / (right - left);
-    result.matrix[1][3] = -(top + bottom) / (top - bottom);
-    result.matrix[2][3] = -(far + near) / (far - near);
+    result.matrix[3][0] = -(right + left) / (right - left);
+    result.matrix[3][1] = -(top + bottom) / (top - bottom);
+    result.matrix[3][2] = -(far + near) / (far - near);
 
     *this = result;
 }

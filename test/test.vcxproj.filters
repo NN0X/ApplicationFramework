@@ -19,4 +19,14 @@
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AF.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="AF.lib">
+      <Filter>Pliki zasobów</Filter>
+    </Library>
+  </ItemGroup>
 </Project>

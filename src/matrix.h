@@ -7,7 +7,7 @@
 
 struct fMatrix4
 {
-    float matrix[4][4];
+    float matrix[4][4]; // [column][row] column-major
 
     fMatrix4();
     fMatrix4(std::vector<std::vector<double>> matrix);

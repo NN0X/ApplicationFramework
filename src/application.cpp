@@ -205,10 +205,12 @@ InputManager *Application::getInput()
     return &inputManager;
 }
 
-uInt Application::createObject2D()
+uInt Application::createObject2D(dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string verticesPath, std::string texturePath, std::string vertexPath, std::string fragmentPath)
 {
-    // WiP
-    return 0;
+    std::vector<double> vertices = Utility::loadBinaryDoubles(verticesPath);
+    double aspectRatio = double(windowSize.x) / double(windowSize.y);                                         // temporary solution
+    position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1}); // temporary solution
+    return contexts[currentContextIndex].createObject2D(position, scale, rotation, vertices, windowSize, texturePath, vertexPath, fragmentPath);
 }
 
 Object2D *Application::getObject2D(uInt index)
@@ -236,10 +238,11 @@ void Application::clearObjects2D()
     contexts[currentContextIndex].clearObjects2D();
 }
 
-uInt Application::createText()
+uInt Application::createText(std::string text, dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string fontPath, std::string vertexPath, std::string fragmentPath)
 {
-    // WiP
-    return 0;
+    double aspectRatio = double(windowSize.x) / double(windowSize.y);                                         // temporary solution
+    position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1}); // temporary solution
+    return contexts[currentContextIndex].createText(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
 }
 
 Text *Application::getText(uInt index)

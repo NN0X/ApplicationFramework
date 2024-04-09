@@ -137,6 +137,8 @@ struct dVector2
      * This function prints the vector to the console.
      */
     void print();
+
+    dVector2 operator-(dVector2 vector);
 };
 
 /*! @brief A vector of three doubles
@@ -636,76 +638,6 @@ namespace AF
      */
     void clearContexts(Application *app);
 
-    /*! @brief Creates a 2D object
-     *
-     * This function creates a 2D object.
-     *
-     * @param app The application to create the object in
-     * @return The index of the created object
-     */
-    uInt createObject2D(Application *app);
-
-    /*! @brief Destroys a 2D object
-     *
-     * This function destroys a 2D object.
-     *
-     * @param app The application to destroy the object in
-     * @param index The index of the object
-     */
-    void destroyObject2D(Application *app, uInt index);
-
-    /*! @brief Destroys a 2D object
-     *
-     * This function destroys a 2D object.
-     *
-     * @param app The application to destroy the object in
-     * @param label The label of the object
-     */
-    void destroyObject2D(Application *app, std::string label);
-
-    /*! @brief Clears the 2D objects
-     *
-     * This function clears the 2D objects.
-     *
-     * @param app The application to clear the objects in
-     */
-    void clearObjects2D(Application *app);
-
-    /*! @brief Creates a text
-     *
-     * This function creates a text.
-     *
-     * @param app The application to create the text in
-     * @return The index of the created text
-     */
-    uInt createText(Application *app);
-
-    /*! @brief Destroys a text
-     *
-     * This function destroys a text.
-     *
-     * @param app The application to destroy the text in
-     * @param index The index of the text
-     */
-    void destroyText(Application *app, uInt index);
-
-    /*! @brief Destroys a text
-     *
-     * This function destroys a text.
-     *
-     * @param app The application to destroy the text in
-     * @param label The label of the text
-     */
-    void destroyText(Application *app, std::string label);
-
-    /*! @brief Clears the texts
-     *
-     * This function clears the texts.
-     *
-     * @param app The application to clear the texts in
-     */
-    void clearTexts(Application *app);
-
     /*! @brief Gets the window title
      *
      * This function gets the window title of the application.
@@ -1014,6 +946,90 @@ namespace AF
 
     namespace Object
     {
+        /*! @brief Creates a 2D object
+         *
+         * This function creates a 2D object.
+         *
+         * @param app The application to create the object in
+         * @param position The position of the object
+         * @param scale The scale of the object
+         * @param rotation The rotation of the object
+         * @param verticesPath The path of the vertices
+         * @param texturePath The path of the texture
+         * @param vertexPath The path of the vertex shader
+         * @param fragmentPath The path of the fragment shader
+         * @return The index of the created object
+         */
+        uInt create2D(Application *app, dVector2 position, dVector2 scale, double rotation, std::string verticesPath, std::string texturePath, std::string vertexPath, std::string fragmentPath);
+
+        /*! @brief Destroys a 2D object
+         *
+         * This function destroys a 2D object.
+         *
+         * @param app The application to destroy the object in
+         * @param index The index of the object
+         */
+        void destroy2D(Application *app, uInt index);
+
+        /*! @brief Destroys a 2D object
+         *
+         * This function destroys a 2D object.
+         *
+         * @param app The application to destroy the object in
+         * @param label The label of the object
+         */
+        void destroy2D(Application *app, std::string label);
+
+        /*! @brief Clears the 2D objects
+         *
+         * This function clears the 2D objects.
+         *
+         * @param app The application to clear the objects in
+         */
+        void clear2D(Application *app);
+
+        /*! @brief Creates a text
+         *
+         * This function creates a text.
+         *
+         * @param app The application to create the text in
+         * @param text The text to display
+         * @param position The position of the text
+         * @param scale The scale of the text
+         * @param rotation The rotation of the text
+         * @param vertices The vertices of the text
+         * @param fontPath The path of the font
+         * @param vertexPath The path of the vertex shader
+         * @param fragmentPath The path of the fragment shader
+         * @return The index of the created text
+         */
+        uInt createText(Application *app, std::string text, dVector2 position, dVector2 scale, double rotation, std::string fontPath, std::string vertexPath, std::string fragmentPath);
+
+        /*! @brief Destroys a text
+         *
+         * This function destroys a text.
+         *
+         * @param app The application to destroy the text in
+         * @param index The index of the text
+         */
+        void destroyText(Application *app, uInt index);
+
+        /*! @brief Destroys a text
+         *
+         * This function destroys a text.
+         *
+         * @param app The application to destroy the text in
+         * @param label The label of the text
+         */
+        void destroyText(Application *app, std::string label);
+
+        /*! @brief Clears the texts
+         *
+         * This function clears the texts.
+         *
+         * @param app The application to clear the texts in
+         */
+        void clearTexts(Application *app);
     }
 }
 

@@ -10,8 +10,8 @@ class Context
 {
 private:
     std::string label;
-    std::vector<Object2D> objects2d;
-    std::vector<Text> texts;
+    std::vector<Object2D *> objects2d;
+    std::vector<Text *> texts;
 
 public:
     Context();
@@ -19,14 +19,14 @@ public:
 
     void draw();
 
-    uInt createObject2D(); // WiP
+    uInt createObject2D(dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath);
     Object2D *getObject2D(uInt index);
     Object2D *getObject2D(std::string label);
     void destroyObject2D(uInt index);
     void destroyObject2D(std::string label);
     void clearObjects2D();
 
-    uInt createText(); // WiP
+    uInt createText(std::string text, dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string fontPath, std::string vertexPath, std::string fragmentPath);
     Text *getText(uInt index);
     Text *getText(std::string label);
     void destroyText(uInt index);

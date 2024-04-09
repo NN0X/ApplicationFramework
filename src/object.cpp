@@ -34,6 +34,11 @@ std::string Object::getLabel()
 
 // class Object2D : public Object
 
+Object2D::Object2D()
+{
+    // log
+}
+
 Object2D::Object2D(dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath)
 {
     this->position = position;
@@ -60,7 +65,7 @@ Object2D::Object2D(dVector2 position, dVector2 scale, double rotation, std::vect
     // log
 }
 
-Object2D::~Object2D() // test
+Object2D::~Object2D()
 {
     glDeleteBuffers(1, &vertices);
     glDeleteBuffers(1, &attributes);
@@ -284,7 +289,7 @@ double Object2D::getRotation()
 
 // class Text : public Object2D
 
-Text::Text(std::string text, dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string fontPath, std::string vertexPath, std::string fragmentPath) : Object2D(position, scale, rotation, vertices, windowSize, fontPath + ".png", vertexPath, fragmentPath)
+Text::Text(std::string text, dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string fontPath, std::string vertexPath, std::string fragmentPath)
 {
     this->position = position;
     this->scale = scale;
@@ -303,16 +308,14 @@ Text::Text(std::string text, dVector2 position, dVector2 scale, double rotation,
     projectionMatrix.orthographic(0, windowSize.x, 0, windowSize.y, -1, 1);
 
     setText(text);
-
-    genVertices(vertices);
-    genHitbox(vertices);
     genAttributes();
     genShader(vertexPath, fragmentPath);
+    genTexture(fontPath + ".png");
 
     // log
 }
 
-Text::~Text() // test
+Text::~Text()
 {
     glDeleteBuffers(1, &vertices);
     glDeleteBuffers(1, &attributes);
