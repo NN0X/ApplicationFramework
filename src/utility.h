@@ -3,6 +3,7 @@
 
 #include "include.h"
 #include "defines.h"
+#include "log.h"
 
 namespace Utility
 {

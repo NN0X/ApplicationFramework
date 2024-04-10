@@ -3,6 +3,7 @@
 #include "input.h"
 #include "object.h"
 #include "vector.h"
+#include "log.h"
 
 namespace AF
 {
@@ -11,9 +12,9 @@ namespace AF
         return new Application();
     }
 
-    Application *init(iVector2 windowSize, std::string windowTitle, bool fullscreen, bool resizable, bool decorated, uInt fpsMax)
+    Application *init(iVector2 windowSize, std::string windowTitle, bool fullscreen, bool resizable, bool decorated, bool vsync)
     {
-        return new Application(windowSize, windowTitle, fullscreen, resizable, decorated, fpsMax);
+        return new Application(windowSize, windowTitle, fullscreen, resizable, decorated, vsync);
     }
 
     void quit(Application *app)
@@ -209,6 +210,64 @@ namespace AF
         void clearTexts(Application *app)
         {
             app->clearTexts();
+        }
+
+        bool isClicked(Application *app, uInt index)
+        {
+            if (app->getInput()->isMouseButtonPressed(MOUSE_LEFT))
+            {
+                bool clicked = app->inObjectHitbox(index, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+                if (clicked)
+                {
+                    Log::log("Object " + std::to_string(index) + " clicked");
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        bool isClicked(Application *app, std::string label)
+        {
+            if (app->getInput()->isMouseButtonPressed(MOUSE_LEFT))
+            {
+                bool clicked = app->inObjectHitbox(label, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+                if (clicked)
+                {
+                    Log::log("Object " + label + " clicked");
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        bool isHovered(Application *app, uInt index)
+        {
+            bool hovered = app->inObjectHitbox(index, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+            if (hovered)
+            {
+                Log::log("Object " + std::to_string(index) + " hovered");
+                return true;
+            }
+            return false;
+        }
+
+        bool isHovered(Application *app, std::string label)
+        {
+            bool hovered = app->inObjectHitbox(label, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+            if (hovered)
+            {
+                Log::log("Object " + label + " hovered");
+                return true;
+            }
+            return false;
+        }
+    }
+
+    namespace Logs
+    {
+        void log(std::string message)
+        {
+            Log::log(message);
         }
     }
 

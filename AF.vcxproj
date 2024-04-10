@@ -26,6 +26,7 @@
     <ClCompile Include="src\application.cpp" />
     <ClCompile Include="src\context.cpp" />
     <ClCompile Include="src\input.cpp" />
+    <ClCompile Include="src\log.cpp" />
     <ClCompile Include="src\matrix.cpp" />
     <ClCompile Include="src\object.cpp" />
     <ClCompile Include="src\utility.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="src\defines.h" />
     <ClInclude Include="src\include.h" />
     <ClInclude Include="src\input.h" />
+    <ClInclude Include="src\log.h" />
     <ClInclude Include="src\matrix.h" />
     <ClInclude Include="src\object.h" />
     <ClInclude Include="src\utility.h" />

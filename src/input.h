@@ -4,6 +4,7 @@
 #include "include.h"
 #include "defines.h"
 #include "vector.h"
+#include "log.h"
 
 // enums are for easy navigation through key codes and mouse button codes
 

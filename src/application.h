@@ -6,6 +6,7 @@
 #include "input.h"
 #include "object.h"
 #include "vector.h"
+#include "log.h"
 
 class Application
 {
@@ -13,14 +14,17 @@ private:
     GLFWwindow *window;
     std::string windowTitle;
     iVector2 windowSize;
-    std::vector<Context> contexts;
-    InputManager inputManager;
+    std::vector<Context *> contexts;
+    InputManager *inputManager;
+    LogManager *logManager;
     uInt currentContextIndex;
+    double startTime;
+    int frames;
     bool isRunningInternal;
 
 public:
     Application();
-    Application(iVector2 windowSize, std::string windowTitle, bool fullscreen, bool resizable, bool decorated, uInt fpsMax);
+    Application(iVector2 windowSize, std::string windowTitle, bool fullscreen, bool resizable, bool decorated, bool vsync);
 
     ~Application();
 
@@ -38,6 +42,9 @@ public:
     void clearContexts();
 
     InputManager *getInput();
+
+    bool inObjectHitbox(uInt index, dVector2 position);
+    bool inObjectHitbox(std::string label, dVector2 position);
 
     uInt createObject2D(dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string verticesPath, std::string texturePath, std::string vertexPath, std::string fragmentPath);
     Object2D *getObject2D(uInt index);

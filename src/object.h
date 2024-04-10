@@ -5,6 +5,14 @@
 #include "vector.h"
 #include "matrix.h"
 #include "utility.h"
+#include "log.h"
+
+enum ObjectType
+{
+    OBJECT = -1,
+    OBJECT2D = 0,
+    TEXT
+};
 
 class Object
 {

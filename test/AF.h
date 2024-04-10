@@ -54,6 +54,14 @@ struct iVector2
      */
     iVector2(int x, int y);
 
+    /*! @brief Calculates the length of the vector
+     *
+     * This function calculates the length of the vector.
+     *
+     * @return The length of the vector
+     */
+    double length();
+
     /*! @brief Multiplies the vector by -1
      *
      * This function multiplies the vector by -1.
@@ -74,6 +82,21 @@ struct iVector2
      * This function prints the vector to the console.
      */
     void print();
+
+    iVector2 operator+(iVector2 vector);
+    iVector2 operator-(iVector2 vector);
+    iVector2 operator*(iVector2 vector);
+    iVector2 operator*(int scalar);
+
+    iVector2 operator+=(iVector2 vector);
+    iVector2 operator-=(iVector2 vector);
+    iVector2 operator*=(iVector2 vector);
+    iVector2 operator*=(int scalar);
+
+    iVector2 operator=(iVector2 vector);
+
+    bool operator==(iVector2 vector);
+    bool operator!=(iVector2 vector);
 };
 
 /*! @brief A vector of two doubles
@@ -99,6 +122,14 @@ struct dVector2
      * @param y The y value of the vector
      */
     dVector2(double x, double y);
+
+    /*! @brief Calculates the length of the vector
+     *
+     * This function calculates the length of the vector.
+     *
+     * @return The length of the vector
+     */
+    double length();
 
     /*! @brief Multiplies the vector by -1
      *
@@ -138,7 +169,21 @@ struct dVector2
      */
     void print();
 
+    dVector2 operator+(dVector2 vector);
     dVector2 operator-(dVector2 vector);
+    dVector2 operator*(dVector2 vector);
+    dVector2 operator*(double scalar);
+    dVector2 operator/(dVector2 vector);
+    dVector2 operator/(double scalar);
+
+    dVector2 operator+=(dVector2 vector);
+    dVector2 operator-=(dVector2 vector);
+    dVector2 operator*=(dVector2 vector);
+    dVector2 operator*=(double scalar);
+    dVector2 operator/=(dVector2 vector);
+    dVector2 operator/=(double scalar);
+
+    dVector2 operator=(dVector2 vector);
 };
 
 /*! @brief A vector of three doubles
@@ -166,6 +211,14 @@ struct dVector3
      * @param z The z value of the vector
      */
     dVector3(double x, double y, double z);
+
+    /*! @brief Calculates the length of the vector
+     *
+     * This function calculates the length of the vector.
+     *
+     * @return The length of the vector
+     */
+    double length();
 
     /*! @brief Multiplies the vector by -1
      *
@@ -212,6 +265,22 @@ struct dVector3
      * This function prints the vector to the console.
      */
     void print();
+
+    dVector3 operator+(dVector3 vector);
+    dVector3 operator-(dVector3 vector);
+    dVector3 operator*(dVector3 vector);
+    dVector3 operator*(double scalar);
+    dVector3 operator/(dVector3 vector);
+    dVector3 operator/(double scalar);
+
+    dVector3 operator+=(dVector3 vector);
+    dVector3 operator-=(dVector3 vector);
+    dVector3 operator*=(dVector3 vector);
+    dVector3 operator*=(double scalar);
+    dVector3 operator/=(dVector3 vector);
+    dVector3 operator/=(double scalar);
+
+    dVector3 operator=(dVector3 vector);
 };
 
 /*! @brief A vector of four doubles
@@ -241,6 +310,14 @@ struct dVector4
      * @param w The w value of the vector
      */
     dVector4(double x, double y, double z, double w);
+
+    /*! @brief Calculates the length of the vector
+     *
+     * This function calculates the length of the vector.
+     *
+     * @return The length of the vector
+     */
+    double length();
 
     /*! @brief Multiplies the vector by -1
      *
@@ -279,6 +356,22 @@ struct dVector4
      * This function prints the vector to the console.
      */
     void print();
+
+    dVector4 operator+(dVector4 vector);
+    dVector4 operator-(dVector4 vector);
+    dVector4 operator*(dVector4 vector);
+    dVector4 operator*(double scalar);
+    dVector4 operator/(dVector4 vector);
+    dVector4 operator/(double scalar);
+
+    dVector4 operator+=(dVector4 vector);
+    dVector4 operator-=(dVector4 vector);
+    dVector4 operator*=(dVector4 vector);
+    dVector4 operator*=(double scalar);
+    dVector4 operator/=(dVector4 vector);
+    dVector4 operator/=(double scalar);
+
+    dVector4 operator=(dVector4 vector);
 };
 
 /*! @brief Namespace for vector functions
@@ -445,6 +538,20 @@ struct fMatrix4
      * This function prints the matrix to the console.
      */
     void print();
+
+    fMatrix4 operator+(fMatrix4 matrix);
+    fMatrix4 operator-(fMatrix4 matrix);
+    fMatrix4 operator*(fMatrix4 matrix);
+    fMatrix4 operator*(float scalar);
+    fMatrix4 operator/(float scalar);
+
+    fMatrix4 operator+=(fMatrix4 matrix);
+    fMatrix4 operator-=(fMatrix4 matrix);
+    fMatrix4 operator*=(fMatrix4 matrix);
+    fMatrix4 operator*=(float scalar);
+    fMatrix4 operator/=(float scalar);
+
+    fMatrix4 operator=(fMatrix4 matrix);
 };
 
 /*! @brief Namespace for matrix functions
@@ -537,10 +644,10 @@ namespace AF
      * @param fullscreen Whether the window is fullscreen
      * @param resizable Whether the window is resizable
      * @param decorated Whether the window is decorated
-     * @param fpsMax The maximum FPS
+     * @param vsync Whether the window has V-sync enabled
      * @return The initialized application
      */
-    Application *init(iVector2 windowSize, std::string windowTitle, bool fullscreen, bool resizable, bool decorated, uInt fpsMax);
+    Application *init(iVector2 windowSize, std::string windowTitle, bool fullscreen, bool resizable, bool decorated, bool vsync);
 
     /*! @brief Quits the application
      *
@@ -944,6 +1051,10 @@ namespace AF
         dVector2 getMousePositionWorld(Application *app);
     }
 
+    /*! @brief Namespace for object functions
+     *
+     * This namespace contains functions for object operations.
+     */
     namespace Object
     {
         /*! @brief Creates a 2D object
@@ -1030,6 +1141,61 @@ namespace AF
          * @param app The application to clear the texts in
          */
         void clearTexts(Application *app);
+
+        /*! @brief Checks if an object is clicked
+         *
+         * This function checks if an object is clicked.
+         *
+         * @param app The application to check the object in
+         * @param index The index of the object
+         * @return Whether the object is clicked
+         */
+        bool isClicked(Application *app, uInt index);
+
+        /*! @brief Checks if an object is clicked
+         *
+         * This function checks if an object is clicked.
+         *
+         * @param app The application to check the object in
+         * @param label The label of the object
+         * @return Whether the object is clicked
+         */
+        bool isClicked(Application *app, std::string label);
+
+        /*! @brief Checks if an object is hovered
+         *
+         * This function checks if an object is hovered.
+         *
+         * @param app The application to check the object in
+         * @param index The index of the object
+         * @return Whether the object is hovered
+         */
+        bool isHovered(Application *app, uInt index);
+
+        /*! @brief Checks if an object is hovered
+         *
+         * This function checks if an object is hovered.
+         *
+         * @param app The application to check the object in
+         * @param label The label of the object
+         * @return Whether the object is hovered
+         */
+        bool isHovered(Application *app, std::string label);
+    }
+
+    /*! @brief Namespace for log functions
+     *
+     * This namespace contains functions for log operations.
+     */
+    namespace Logs
+    {
+        /*! @brief Logs a message
+         *
+         * This function logs a message.
+         *
+         * @param message The message to log
+         */
+        void log(std::string message);
     }
 }
 

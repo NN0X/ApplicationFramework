@@ -13,15 +13,19 @@ struct iVector2
     iVector2 operator+(iVector2 vector);
     iVector2 operator-(iVector2 vector);
     iVector2 operator*(iVector2 vector);
+    iVector2 operator*(int scalar);
 
     iVector2 operator+=(iVector2 vector);
     iVector2 operator-=(iVector2 vector);
     iVector2 operator*=(iVector2 vector);
+    iVector2 operator*=(int scalar);
 
     iVector2 operator=(iVector2 vector);
 
     bool operator==(iVector2 vector);
     bool operator!=(iVector2 vector);
+
+    double length();
 
     void opposite();
     void clamp(iVector2 min, iVector2 max);
@@ -39,14 +43,20 @@ struct dVector2
     dVector2 operator+(dVector2 vector);
     dVector2 operator-(dVector2 vector);
     dVector2 operator*(dVector2 vector);
+    dVector2 operator*(double scalar);
     dVector2 operator/(dVector2 vector);
+    dVector2 operator/(double scalar);
 
     dVector2 operator+=(dVector2 vector);
     dVector2 operator-=(dVector2 vector);
     dVector2 operator*=(dVector2 vector);
+    dVector2 operator*=(double scalar);
     dVector2 operator/=(dVector2 vector);
+    dVector2 operator/=(double scalar);
 
     dVector2 operator=(dVector2 vector);
+
+    double length();
 
     void opposite();
     void normalize();
@@ -66,14 +76,20 @@ struct dVector3
     dVector3 operator+(dVector3 vector);
     dVector3 operator-(dVector3 vector);
     dVector3 operator*(dVector3 vector);
+    dVector3 operator*(double scalar);
     dVector3 operator/(dVector3 vector);
+    dVector3 operator/(double scalar);
 
     dVector3 operator+=(dVector3 vector);
     dVector3 operator-=(dVector3 vector);
     dVector3 operator*=(dVector3 vector);
+    dVector3 operator*=(double scalar);
     dVector3 operator/=(dVector3 vector);
+    dVector3 operator/=(double scalar);
 
     dVector3 operator=(dVector3 vector);
+
+    double length();
 
     void opposite();
     void normalize();
@@ -94,14 +110,20 @@ struct dVector4
     dVector4 operator+(dVector4 vector);
     dVector4 operator-(dVector4 vector);
     dVector4 operator*(dVector4 vector);
+    dVector4 operator*(double scalar);
     dVector4 operator/(dVector4 vector);
+    dVector4 operator/(double scalar);
 
     dVector4 operator+=(dVector4 vector);
     dVector4 operator-=(dVector4 vector);
     dVector4 operator*=(dVector4 vector);
+    dVector4 operator*=(double scalar);
     dVector4 operator/=(dVector4 vector);
+    dVector4 operator/=(double scalar);
 
     dVector4 operator=(dVector4 vector);
+
+    double length();
 
     void opposite();
     void normalize();

@@ -65,6 +65,36 @@ fMatrix4 fMatrix4::operator*(fMatrix4 matrix) // could be optimized?
     return result;
 }
 
+fMatrix4 fMatrix4::operator*(float scalar)
+{
+    fMatrix4 result = *this;
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            result.matrix[i][j] *= scalar;
+        }
+    }
+
+    return result;
+}
+
+fMatrix4 fMatrix4::operator/(float scalar)
+{
+    fMatrix4 result = *this;
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            result.matrix[i][j] /= scalar;
+        }
+    }
+
+    return result;
+}
+
 fMatrix4 fMatrix4::operator+=(fMatrix4 matrix)
 {
     *this = *this + matrix;
@@ -80,6 +110,18 @@ fMatrix4 fMatrix4::operator-=(fMatrix4 matrix)
 fMatrix4 fMatrix4::operator*=(fMatrix4 matrix)
 {
     *this = *this * matrix;
+    return *this;
+}
+
+fMatrix4 fMatrix4::operator*=(float scalar)
+{
+    *this = *this * scalar;
+    return *this;
+}
+
+fMatrix4 fMatrix4::operator/=(float scalar)
+{
+    *this = *this / scalar;
     return *this;
 }
 

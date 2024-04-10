@@ -15,10 +15,14 @@ struct fMatrix4
     fMatrix4 operator+(fMatrix4 matrix);
     fMatrix4 operator-(fMatrix4 matrix);
     fMatrix4 operator*(fMatrix4 matrix);
+    fMatrix4 operator*(float scalar);
+    fMatrix4 operator/(float scalar);
 
     fMatrix4 operator+=(fMatrix4 matrix);
     fMatrix4 operator-=(fMatrix4 matrix);
     fMatrix4 operator*=(fMatrix4 matrix);
+    fMatrix4 operator*=(float scalar);
+    fMatrix4 operator/=(float scalar);
 
     fMatrix4 operator=(fMatrix4 matrix);
 

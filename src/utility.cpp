@@ -2,13 +2,13 @@
 
 void Utility::wait(uInt milliseconds)
 {
-    // log
+    Log::log("Waiting " + std::to_string(milliseconds) + " milliseconds");
     std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 }
 
 void Utility::saveBinary(std::vector<double> doubles, std::string path)
 {
-    // log
+    Log::log("Saving binary data to " + path);
 
     std::ofstream file(path);
 
@@ -18,11 +18,13 @@ void Utility::saveBinary(std::vector<double> doubles, std::string path)
     }
 
     file.close();
+
+    Log::log("Binary data saved to " + path);
 }
 
 void Utility::saveBinary(std::vector<std::string> strings, std::string path)
 {
-    // log
+    Log::log("Saving binary data to " + path);
 
     std::ofstream file(path);
 
@@ -34,11 +36,13 @@ void Utility::saveBinary(std::vector<std::string> strings, std::string path)
     }
 
     file.close();
+
+    Log::log("Binary data saved to " + path);
 }
 
 std::vector<double> Utility::loadBinaryDoubles(std::string path)
 {
-    // log
+    Log::log("Loading binary data from " + path);
 
     std::vector<double> data;
     std::ifstream file(path);
@@ -51,12 +55,14 @@ std::vector<double> Utility::loadBinaryDoubles(std::string path)
 
     file.close();
 
+    Log::log("Binary data loaded from " + path);
+
     return data;
 }
 
 std::vector<std::string> Utility::loadBinaryStrings(std::string path)
 {
-    // log
+    Log::log("Loading binary data from " + path);
 
     std::vector<std::string> data;
     std::ifstream file(path);
@@ -71,6 +77,8 @@ std::vector<std::string> Utility::loadBinaryStrings(std::string path)
     }
 
     file.close();
+
+    Log::log("Binary data loaded from " + path);
 
     return data;
 }

@@ -5,11 +5,24 @@
 #include "defines.h"
 #include "vector.h"
 #include "object.h"
+#include "log.h"
 
+struct ObjectID
+{
+    int index;
+    int type;
+
+    ObjectID(int index, int type)
+    {
+        this->index = index;
+        this->type = type;
+    }
+};
 class Context
 {
 private:
     std::string label;
+    std::vector<ObjectID> objects;
     std::vector<Object2D *> objects2d;
     std::vector<Text *> texts;
 
@@ -18,6 +31,9 @@ public:
     ~Context();
 
     void draw();
+
+    bool inObjectHitbox(uInt index, dVector2 position);
+    bool inObjectHitbox(std::string label, dVector2 position);
 
     uInt createObject2D(dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath);
     Object2D *getObject2D(uInt index);

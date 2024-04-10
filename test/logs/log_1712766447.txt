@@ -1,0 +1,32 @@
+[0.000000] : LogManager initialized
+[0.246048][0] : Context created
+[0.246147][0] : InputManager initialized
+[0.246295][0] : Application initialized
+[0.246326][0] : Loading binary data from resources/meshes/cube.msh
+[0.246352][0] : Binary data loaded from resources/meshes/cube.msh
+[0.246377][0] : Object created
+[0.246400][0] : Object 2D created
+[0.246424][0] : Object created
+[0.246446][0] : Object 2D created
+[0.246471][0] : Loading binary data from resources/fonts/arial/arial.fvm
+[0.246495][0] : Binary data loaded from resources/fonts/arial/arial.fvm
+[0.246520][0] : Loading binary data from resources/fonts/arial/arial.msh
+[0.246559][0] : Binary data loaded from resources/fonts/arial/arial.msh
+[0.246598][0] : Text created
+[1.471908][6915] : Escape key pressed
+[1.472015][6916] : Clearing contexts
+[1.472100][6916] : Clearing objects 2D
+[1.472124][6916] : Object 2D destroyed
+[1.472180][6916] : Object destroyed
+[1.472219][6916] : Objects 2D cleared
+[1.472244][6916] : Clearing texts
+[1.472268][6916] : Text destroyed
+[1.472291][6916] : Object 2D destroyed
+[1.472315][6916] : Object destroyed
+[1.472338][6916] : Texts cleared
+[1.472361][6916] : Context destroyed
+[1.472384][6916] : Application destroyed
+[1.472424] : Frames: 6916
+[1.472446] : Average FPS: 4698.360628
+[1.472476] : LogManager destroyed
+[1.472756] : Saving logs to logs/log_1712766447.txt

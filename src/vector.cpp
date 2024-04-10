@@ -42,6 +42,16 @@ iVector2 iVector2::operator*(iVector2 vector)
     return result;
 }
 
+iVector2 iVector2::operator*(int scalar)
+{
+    iVector2 result;
+
+    result.x = x * scalar;
+    result.y = y * scalar;
+
+    return result;
+}
+
 iVector2 iVector2::operator+=(iVector2 vector)
 {
     x += vector.x;
@@ -66,6 +76,14 @@ iVector2 iVector2::operator*=(iVector2 vector)
     return *this;
 }
 
+iVector2 iVector2::operator*=(int scalar)
+{
+    x *= scalar;
+    y *= scalar;
+
+    return *this;
+}
+
 iVector2 iVector2::operator=(iVector2 vector)
 {
     x = vector.x;
@@ -82,6 +100,11 @@ bool iVector2::operator==(iVector2 vector)
 bool iVector2::operator!=(iVector2 vector)
 {
     return x != vector.x || y != vector.y;
+}
+
+double iVector2::length()
+{
+    return sqrt(x * x + y * y);
 }
 
 void iVector2::opposite()
@@ -143,12 +166,32 @@ dVector2 dVector2::operator*(dVector2 vector)
     return result;
 }
 
+dVector2 dVector2::operator*(double scalar)
+{
+    dVector2 result;
+
+    result.x = x * scalar;
+    result.y = y * scalar;
+
+    return result;
+}
+
 dVector2 dVector2::operator/(dVector2 vector)
 {
     dVector2 result;
 
     result.x = x / vector.x;
     result.y = y / vector.y;
+
+    return result;
+}
+
+dVector2 dVector2::operator/(double scalar)
+{
+    dVector2 result;
+
+    result.x = x / scalar;
+    result.y = y / scalar;
 
     return result;
 }
@@ -177,10 +220,26 @@ dVector2 dVector2::operator*=(dVector2 vector)
     return *this;
 }
 
+dVector2 dVector2::operator*=(double scalar)
+{
+    x *= scalar;
+    y *= scalar;
+
+    return *this;
+}
+
 dVector2 dVector2::operator/=(dVector2 vector)
 {
     x /= vector.x;
     y /= vector.y;
+
+    return *this;
+}
+
+dVector2 dVector2::operator/=(double scalar)
+{
+    x /= scalar;
+    y /= scalar;
 
     return *this;
 }
@@ -191,6 +250,11 @@ dVector2 dVector2::operator=(dVector2 vector)
     y = vector.y;
 
     return *this;
+}
+
+double dVector2::length()
+{
+    return sqrt(x * x + y * y);
 }
 
 void dVector2::opposite()
@@ -271,6 +335,17 @@ dVector3 dVector3::operator*(dVector3 vector)
     return result;
 }
 
+dVector3 dVector3::operator*(double scalar)
+{
+    dVector3 result;
+
+    result.x = x * scalar;
+    result.y = y * scalar;
+    result.z = z * scalar;
+
+    return result;
+}
+
 dVector3 dVector3::operator/(dVector3 vector)
 {
     dVector3 result;
@@ -278,6 +353,17 @@ dVector3 dVector3::operator/(dVector3 vector)
     result.x = x / vector.x;
     result.y = y / vector.y;
     result.z = z / vector.z;
+
+    return result;
+}
+
+dVector3 dVector3::operator/(double scalar)
+{
+    dVector3 result;
+
+    result.x = x / scalar;
+    result.y = y / scalar;
+    result.z = z / scalar;
 
     return result;
 }
@@ -309,11 +395,29 @@ dVector3 dVector3::operator*=(dVector3 vector)
     return *this;
 }
 
+dVector3 dVector3::operator*=(double scalar)
+{
+    x *= scalar;
+    y *= scalar;
+    z *= scalar;
+
+    return *this;
+}
+
 dVector3 dVector3::operator/=(dVector3 vector)
 {
     x /= vector.x;
     y /= vector.y;
     z /= vector.z;
+
+    return *this;
+}
+
+dVector3 dVector3::operator/=(double scalar)
+{
+    x /= scalar;
+    y /= scalar;
+    z /= scalar;
 
     return *this;
 }
@@ -325,6 +429,11 @@ dVector3 dVector3::operator=(dVector3 vector)
     z = vector.z;
 
     return *this;
+}
+
+double dVector3::length()
+{
+    return sqrt(x * x + y * y + z * z);
 }
 
 void dVector3::opposite()
@@ -425,6 +534,18 @@ dVector4 dVector4::operator*(dVector4 vector)
     return result;
 }
 
+dVector4 dVector4::operator*(double scalar)
+{
+    dVector4 result;
+
+    result.x = x * scalar;
+    result.y = y * scalar;
+    result.z = z * scalar;
+    result.w = w * scalar;
+
+    return result;
+}
+
 dVector4 dVector4::operator/(dVector4 vector)
 {
     dVector4 result;
@@ -433,6 +554,18 @@ dVector4 dVector4::operator/(dVector4 vector)
     result.y = y / vector.y;
     result.z = z / vector.z;
     result.w = w / vector.w;
+
+    return result;
+}
+
+dVector4 dVector4::operator/(double scalar)
+{
+    dVector4 result;
+
+    result.x = x / scalar;
+    result.y = y / scalar;
+    result.z = z / scalar;
+    result.w = w / scalar;
 
     return result;
 }
@@ -467,12 +600,32 @@ dVector4 dVector4::operator*=(dVector4 vector)
     return *this;
 }
 
+dVector4 dVector4::operator*=(double scalar)
+{
+    x *= scalar;
+    y *= scalar;
+    z *= scalar;
+    w *= scalar;
+
+    return *this;
+}
+
 dVector4 dVector4::operator/=(dVector4 vector)
 {
     x /= vector.x;
     y /= vector.y;
     z /= vector.z;
     w /= vector.w;
+
+    return *this;
+}
+
+dVector4 dVector4::operator/=(double scalar)
+{
+    x /= scalar;
+    y /= scalar;
+    z /= scalar;
+    w /= scalar;
 
     return *this;
 }
@@ -485,6 +638,11 @@ dVector4 dVector4::operator=(dVector4 vector)
     w = vector.w;
 
     return *this;
+}
+
+double dVector4::length()
+{
+    return sqrt(x * x + y * y + z * z + w * w);
 }
 
 void dVector4::opposite()

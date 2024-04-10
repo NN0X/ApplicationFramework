@@ -4,12 +4,12 @@
 
 Object::Object()
 {
-    // log
+    Log::log("Object created");
 }
 
 Object::~Object()
 {
-    // log
+    Log::log("Object destroyed");
 }
 
 void Object::setIndex(uInt index)
@@ -36,7 +36,7 @@ std::string Object::getLabel()
 
 Object2D::Object2D()
 {
-    // log
+    Log::log("Object 2D created");
 }
 
 Object2D::Object2D(dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath)
@@ -62,7 +62,7 @@ Object2D::Object2D(dVector2 position, dVector2 scale, double rotation, std::vect
     genShader(vertexPath, fragmentPath);
     genTexture(texturePath);
 
-    // log
+    Log::log("Object 2D created");
 }
 
 Object2D::~Object2D()
@@ -72,7 +72,7 @@ Object2D::~Object2D()
     glDeleteTextures(1, &texture);
     glDeleteProgram(shader);
 
-    // log
+    Log::log("Object 2D destroyed");
 }
 
 void Object2D::draw()
@@ -312,7 +312,7 @@ Text::Text(std::string text, dVector2 position, dVector2 scale, double rotation,
     genShader(vertexPath, fragmentPath);
     genTexture(fontPath + ".png");
 
-    // log
+    Log::log("Text created");
 }
 
 Text::~Text()
@@ -322,7 +322,7 @@ Text::~Text()
     glDeleteTextures(1, &texture);
     glDeleteProgram(shader);
 
-    // log
+    Log::log("Text destroyed");
 }
 
 void Text::genText(std::string text)
@@ -351,7 +351,7 @@ void Text::genText(std::string text)
         }
         else if (character != '\n')
         {
-            // log error
+            Log::log("Character not found in font map: " + characterString);
         }
         if (character == '\n')
             newLines.push_back(true);

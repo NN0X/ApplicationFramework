@@ -14,12 +14,12 @@ InputManager::InputManager()
         mouseButtonsReleased[i] = false;
     }
 
-    // log
+    Log::log("InputManager initialized");
 }
 
 InputManager::~InputManager()
 {
-    // log
+    Log::log("InputManager destroyed");
 }
 
 void InputManager::update(GLFWwindow *window)
@@ -76,7 +76,7 @@ void InputManager::setKeyPressed(uInt key)
         keysReleased[key] = false;
         return;
     }
-    // log error
+    Log::log("Key code out of range: " + std::to_string(key));
 }
 
 void InputManager::setKeyReleased(uInt key)
@@ -87,7 +87,7 @@ void InputManager::setKeyReleased(uInt key)
         keysReleased[key] = true;
         return;
     }
-    // log error
+    Log::log("Key code out of range: " + std::to_string(key));
 }
 
 void InputManager::setMouseButtonPressed(uInt button)
@@ -98,7 +98,7 @@ void InputManager::setMouseButtonPressed(uInt button)
         mouseButtonsReleased[button] = false;
         return;
     }
-    // log error
+    Log::log("Mouse button code out of range: " + std::to_string(button));
 }
 
 void InputManager::setMouseButtonReleased(uInt button)
@@ -109,7 +109,7 @@ void InputManager::setMouseButtonReleased(uInt button)
         mouseButtonsReleased[button] = true;
         return;
     }
-    // log error
+    Log::log("Mouse button code out of range: " + std::to_string(button));
 }
 
 void InputManager::setMousePosition(dVector2 position)
@@ -123,7 +123,7 @@ bool InputManager::isKeyPressed(uInt key)
     {
         return keysPressed[key];
     }
-    // log error
+    Log::log("Key code out of range: " + std::to_string(key));
     return false;
 }
 
@@ -135,7 +135,7 @@ bool InputManager::wasKeyReleased(uInt key)
         keysReleased[key] = false;
         return temp;
     }
-    // log error
+    Log::log("Key code out of range: " + std::to_string(key));
     return false;
 }
 
@@ -145,7 +145,7 @@ bool InputManager::isMouseButtonPressed(uInt button)
     {
         return mouseButtonsPressed[button];
     }
-    // log error
+    Log::log("Mouse button code out of range: " + std::to_string(button));
     return false;
 }
 
@@ -157,7 +157,7 @@ bool InputManager::wasMouseButtonReleased(uInt button)
         mouseButtonsReleased[button] = false;
         return temp;
     }
-    // log error
+    Log::log("Mouse button code out of range: " + std::to_string(button));
     return false;
 }
 
@@ -195,6 +195,7 @@ dVector2 InputManager::getMousePositionWindow(iVector2 windowSize)
 
 dVector2 InputManager::getMousePositionWorld(iVector2 windowSize)
 {
-    double aspectRatio = windowSize.x / windowSize.y;
-    return Vector::convertCoordinateSystem(mousePosition, {0, 0}, Vector::convert(windowSize), {-1, 2 / aspectRatio - 1}, {1, -1});
+    dVector2 windowSizeD = Vector::convert(windowSize);
+    double aspectRatio = windowSizeD.x / windowSizeD.y;
+    return Vector::convertCoordinateSystem(mousePosition, {0, 0}, windowSizeD, {-1, 2 / aspectRatio - 1}, {1, -1});
 }
