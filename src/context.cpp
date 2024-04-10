@@ -69,7 +69,7 @@ void Context::destroyObject2D(uInt index)
 
 void Context::destroyObject2D(std::string label) // temporary solution
 {
-    for (uInt i = 0; i < objects2d.size(); i++)
+    for (int i = 0; i < objects2d.size(); i++)
     {
         if (objects2d[i]->getLabel() == label)
         {
@@ -132,7 +132,7 @@ void Context::destroyText(uInt index)
 
 void Context::destroyText(std::string label) // temporary solution
 {
-    for (uInt i = 0; i < texts.size(); i++)
+    for (int i = 0; i < texts.size(); i++)
     {
         if (texts[i]->getLabel() == label)
         {

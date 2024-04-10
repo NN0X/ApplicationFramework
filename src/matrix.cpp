@@ -7,9 +7,9 @@ fMatrix4::fMatrix4()
 
 fMatrix4::fMatrix4(std::vector<std::vector<double>> matrix)
 {
-    for (uInt i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for (uInt j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
         {
             this->matrix[i][j] = matrix[i][j];
         }
@@ -20,9 +20,9 @@ fMatrix4 fMatrix4::operator+(fMatrix4 matrix)
 {
     fMatrix4 result = *this;
 
-    for (uInt i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for (uInt j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
         {
             result.matrix[i][j] += matrix.matrix[i][j];
         }
@@ -35,9 +35,9 @@ fMatrix4 fMatrix4::operator-(fMatrix4 matrix)
 {
     fMatrix4 result = *this;
 
-    for (uInt i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for (uInt j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
         {
             result.matrix[i][j] -= matrix.matrix[i][j];
         }
@@ -51,11 +51,11 @@ fMatrix4 fMatrix4::operator*(fMatrix4 matrix) // could be optimized?
     fMatrix4 result;
     result.empty();
 
-    for (uInt i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for (uInt j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
         {
-            for (uInt k = 0; k < 4; k++)
+            for (int k = 0; k < 4; k++)
             {
                 result.matrix[i][j] += this->matrix[i][k] * matrix.matrix[k][j];
             }
@@ -85,9 +85,9 @@ fMatrix4 fMatrix4::operator*=(fMatrix4 matrix)
 
 fMatrix4 fMatrix4::operator=(fMatrix4 matrix)
 {
-    for (uInt i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for (uInt j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
         {
             this->matrix[i][j] = matrix.matrix[i][j];
         }
@@ -98,9 +98,9 @@ fMatrix4 fMatrix4::operator=(fMatrix4 matrix)
 
 void fMatrix4::empty()
 {
-    for (uInt i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for (uInt j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
         {
             matrix[i][j] = 0;
         }
@@ -120,9 +120,9 @@ void fMatrix4::transpose()
 {
     fMatrix4 temp = *this;
 
-    for (uInt i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for (uInt j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
         {
             matrix[i][j] = temp.matrix[j][i];
         }
@@ -198,9 +198,9 @@ void fMatrix4::orthographic(double left, double right, double bottom, double top
 
 void fMatrix4::print()
 {
-    for (uInt i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for (uInt j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
         {
             std::cout << matrix[i][j] << " ";
         }
@@ -212,9 +212,9 @@ fMatrix4 Matrix::transpose(fMatrix4 matrix)
 {
     fMatrix4 temp = matrix;
 
-    for (uInt i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
-        for (uInt j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
         {
             matrix.matrix[i][j] = temp.matrix[j][i];
         }

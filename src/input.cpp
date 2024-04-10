@@ -2,13 +2,13 @@
 
 InputManager::InputManager()
 {
-    for (uInt i = 0; i < KEYS_NUMBER; i++)
+    for (int i = 0; i < KEYS_NUMBER; i++)
     {
         keysPressed[i] = false;
         keysReleased[i] = false;
     }
 
-    for (uInt i = 0; i < MOUSE_BUTTONS_NUMBER; i++)
+    for (int i = 0; i < MOUSE_BUTTONS_NUMBER; i++)
     {
         mouseButtonsPressed[i] = false;
         mouseButtonsReleased[i] = false;
@@ -26,8 +26,8 @@ void InputManager::update(GLFWwindow *window)
 {
     glfwPollEvents();
 
-    uInt i = 0;
-    for (uInt keyCode : keyCodes)
+    int i = 0;
+    for (int keyCode : keyCodes)
     {
         int state = glfwGetKey(window, keyCode);
         if (state == GLFW_PRESS)
@@ -46,7 +46,7 @@ void InputManager::update(GLFWwindow *window)
     }
 
     i = 0;
-    for (uInt mouseCode : mouseCodes)
+    for (int mouseCode : mouseCodes)
     {
         int state = glfwGetMouseButton(window, mouseCode);
         if (state == GLFW_PRESS)

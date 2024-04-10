@@ -119,7 +119,7 @@ void Object2D::genVertices(std::vector<double> &vertices)
 
 void Object2D::genHitbox(std::vector<double> &vertices)
 {
-    for (uInt i = 0; i < vertices.size(); i += 4)
+    for (int i = 0; i < vertices.size(); i += 4)
     {
         hitbox.push_back({vertices[i], vertices[i + 1]});
     }
@@ -203,7 +203,7 @@ void Object2D::genAttributes()
 bool Object2D::inHitbox(dVector2 point)
 {
     bool in = false;
-    uInt i, j;
+    int i, j;
     for (i = 0, j = hitbox.size() - 1; i < hitbox.size(); j = i++)
     {
         dVector2 pointA;
@@ -349,13 +349,13 @@ void Text::genText(std::string text)
             textVector.push_back(characterString);
             characterIndexes.push_back(std::distance(fontMap.begin(), characterMapIndex));
         }
-        else
+        else if (character != '\n')
         {
             // log error
         }
         if (character == '\n')
             newLines.push_back(true);
-        else
+        else if (newLines.size() < textVector.size())
             newLines.push_back(false);
     }
 
@@ -369,9 +369,9 @@ void Text::genText(std::string text)
     std::vector<double> fontVertices = Utility::loadBinaryDoubles(fontPath + ".msh");
 
     const double characterSize = 1.8;
-    uInt line = 0;
-    uInt prevOffset = 0;
-    for (uInt i = 0; i < textVector.size(); i++)
+    int line = 0;
+    int prevOffset = 0;
+    for (int i = 0; i < textVector.size(); i++)
     {
         if (newLines[i])
         {

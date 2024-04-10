@@ -208,8 +208,10 @@ InputManager *Application::getInput()
 uInt Application::createObject2D(dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string verticesPath, std::string texturePath, std::string vertexPath, std::string fragmentPath)
 {
     std::vector<double> vertices = Utility::loadBinaryDoubles(verticesPath);
+
     double aspectRatio = double(windowSize.x) / double(windowSize.y);                                         // temporary solution
     position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1}); // temporary solution
+
     return contexts[currentContextIndex].createObject2D(position, scale, rotation, vertices, windowSize, texturePath, vertexPath, fragmentPath);
 }
 
@@ -242,6 +244,7 @@ uInt Application::createText(std::string text, dVector2 position, dVector2 scale
 {
     double aspectRatio = double(windowSize.x) / double(windowSize.y);                                         // temporary solution
     position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1}); // temporary solution
+
     return contexts[currentContextIndex].createText(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
 }
 
