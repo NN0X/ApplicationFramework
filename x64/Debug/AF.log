@@ -1,3 +1,5 @@
-﻿  application.cpp
+﻿  AF.cpp
+  application.cpp
 D:\Dev\ApplicationFramework\src\application.cpp(146,28): warning C4267: "return": konwersja z "size_t" do "uInt", możliwa utrata danych
+  Generowanie kodu...
   AF.vcxproj -> D:\Dev\ApplicationFramework\test\AF.lib

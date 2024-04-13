@@ -15,6 +15,8 @@ LogManager::~LogManager()
     log("LogManager destroyed");
     if (saveLog && logs != "")
         save();
+    if (printLog)
+        std::cin.get();
 }
 
 void LogManager::print()
@@ -53,6 +55,39 @@ void LogManager::log(std::string message, int frame)
     }
 }
 
+void LogManager::error(std::string message)
+{
+    // ["time"] : "ERROR: message"
+    if (isLogging)
+    {
+        std::string log = "[" + std::to_string(glfwGetTime()) + "]";
+        log += " : ";
+        log += "ERROR: ";
+        log += message;
+        log += "\n";
+        logs += log;
+        if (printLog)
+            std::cout << log;
+    }
+}
+
+void LogManager::error(std::string message, int frame)
+{
+    // ["time"]["frame"] : "ERROR: message"
+    if (isLogging)
+    {
+        std::string log = "[" + std::to_string(glfwGetTime()) + "]";
+        log += "[" + std::to_string(frame) + "]";
+        log += " : ";
+        log += "ERROR: ";
+        log += message;
+        log += "\n";
+        logs += log;
+        if (printLog)
+            std::cout << log;
+    }
+}
+
 void LogManager::logQueue()
 {
     if (isLogging)
@@ -79,7 +114,7 @@ void LogManager::logQueue(int frame)
 
 void LogManager::save()
 {
-    log("Saving logs to " + path);
+    log("Saving logs to '" + path + "'");
     std::ofstream file;
     file.open(path);
     file << logs;
@@ -88,13 +123,26 @@ void LogManager::save()
 
 void LogManager::save(std::string path)
 {
+    log("Saving logs to '" + path + "'");
     std::ofstream file;
     file.open(path);
     file << logs;
     file.close();
 }
 
+void LogManager::setFlags(bool print, bool save, bool enable)
+{
+    printLog = print;
+    saveLog = save;
+    isLogging = enable;
+}
+
 void Log::log(std::string message)
 {
     logsQueue.push_back(message);
+}
+
+void Log::error(std::string message)
+{
+    logsQueue.push_back("ERROR: " + message);
 }

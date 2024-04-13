@@ -169,7 +169,7 @@ void Application::setCurrentContext(std::string label) // temporary solution
 
 void Application::loadContext(std::string path) // WiP
 {
-    Log::log("Loading context");
+    Log::log("Loading context from '" + path + "'");
 
     NDS nds(path);
     nds.loadNDL();
@@ -177,23 +177,51 @@ void Application::loadContext(std::string path) // WiP
     for (std::string group : nds.getGroupNames())
     {
         std::string type = nds.getString("type", group);
-        if (type == "Object2D")
+        if (type == "OBJECT2D")
         {
-            // WiP
+            dVector2 position = dVector2(nds.getDoubleList("positionWindow", group)[0], nds.getDoubleList("positionWindow", group)[1]);
+            position.convertCoordinateSystem({0, 0}, {1, 1}, {-1, -1}, {1, 1});
+            dVector2 scale = dVector2(nds.getDoubleList("scaleWorld", group)[0], nds.getDoubleList("scaleWorld", group)[1]);
+            position -= scale / dVector2(2, 1); // temporary solution
+            double rotation = nds.getDouble("rotation", group);
+            std::string texturePath = nds.getString("texturePath", group);
+            std::string verticesPath = nds.getString("verticesPath", group);
+            std::string vertexPath = nds.getString("vertexPath", group);
+            std::string fragmentPath = nds.getString("fragmentPath", group);
+
+            uInt index = createObject2D(position, scale, rotation, windowSize, verticesPath, texturePath, vertexPath, fragmentPath);
+            contexts[currentContextIndex]->getObject2D(index)->setLabel(group);
         }
-        else if (type == "Text")
+        else if (type == "TEXT")
         {
-            // WiP
+            std::string text = nds.getString("text", group);
+            dVector2 position = dVector2(nds.getDoubleList("positionWindow", group)[0], nds.getDoubleList("positionWindow", group)[1]);
+            // position.convertCoordinateSystem({0, 0}, {1, 1}, {-1, -1}, {1, 1}); why changes position to 0 0?
+            dVector2 scale = dVector2(nds.getDoubleList("scaleWorld", group)[0], nds.getDoubleList("scaleWorld", group)[1]);
+            double rotation = nds.getDouble("rotation", group);
+            std::string fontPath = nds.getString("fontPath", group);
+            std::string vertexPath = nds.getString("vertexPath", group);
+            std::string fragmentPath = nds.getString("fragmentPath", group);
+
+            uInt index = createText(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
+            contexts[currentContextIndex]->getText(index)->setLabel(group);
         }
         else
         {
             Log::log("Unknown type");
         }
     }
+
+    Log::log("Context loaded from '" + path + "'");
 }
 
 void Application::destroyContext(uInt index)
 {
+    if (index >= contexts.size())
+    {
+        Log::log("Context index out of range");
+        return;
+    }
     if (index != currentContextIndex)
         contexts.erase(contexts.begin() + index);
     else
@@ -242,14 +270,29 @@ InputManager *Application::getInput()
     return inputManager;
 }
 
-bool Application::inObjectHitbox(uInt index, dVector2 position)
+LogManager *Application::getLog()
 {
-    return contexts[currentContextIndex]->inObjectHitbox(index, position);
+    return logManager;
 }
 
-bool Application::inObjectHitbox(std::string label, dVector2 position)
+ObjectID Application::getObjectID(uInt index)
 {
-    return contexts[currentContextIndex]->inObjectHitbox(label, position);
+    return contexts[currentContextIndex]->getObjectID(index);
+}
+
+ObjectID Application::getObjectID(std::string label)
+{
+    return contexts[currentContextIndex]->getObjectID(label);
+}
+
+bool Application::inObject2DHitbox(uInt index, dVector2 position)
+{
+    return contexts[currentContextIndex]->inObject2DHitbox(index, position);
+}
+
+bool Application::inTextHitbox(uInt index, dVector2 position)
+{
+    return contexts[currentContextIndex]->inTextHitbox(index, position);
 }
 
 uInt Application::createObject2D(dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string verticesPath, std::string texturePath, std::string vertexPath, std::string fragmentPath)
@@ -267,19 +310,9 @@ Object2D *Application::getObject2D(uInt index)
     return contexts[currentContextIndex]->getObject2D(index);
 }
 
-Object2D *Application::getObject2D(std::string label)
-{
-    return contexts[currentContextIndex]->getObject2D(label);
-}
-
 void Application::destroyObject2D(uInt index)
 {
     contexts[currentContextIndex]->destroyObject2D(index);
-}
-
-void Application::destroyObject2D(std::string label)
-{
-    contexts[currentContextIndex]->destroyObject2D(label);
 }
 
 void Application::clearObjects2D()
@@ -300,19 +333,9 @@ Text *Application::getText(uInt index)
     return contexts[currentContextIndex]->getText(index);
 }
 
-Text *Application::getText(std::string label)
-{
-    return contexts[currentContextIndex]->getText(label);
-}
-
 void Application::destroyText(uInt index)
 {
     contexts[currentContextIndex]->destroyText(index);
-}
-
-void Application::destroyText(std::string label)
-{
-    contexts[currentContextIndex]->destroyText(label);
 }
 
 void Application::clearTexts()

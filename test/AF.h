@@ -23,63 +23,43 @@ typedef unsigned int uInt;
 #define AF_HD iVector2(1280, 720)
 #define AF_SD iVector2(640, 480)
 
-/*! @brief The main class of the framework
- *
- * This class is the main class of the framework. It is used to create and manage
- * the application and its contexts.
+/*! @brief The main class of the framework used to create and manage the application and its contexts
  */
 class Application;
 
-/*! @brief A vector of two integers
- *
- * This struct is used to store two integers in a vector.
+/*! @brief A struct with two integers
  */
 struct iVector2
 {
     int x;
     int y;
 
-    /*! @brief Default constructor
-     *
-     * This constructor initializes the vector with 0, 0.
+    /*! @brief Default constructor initializing the vector with 0, 0
      */
     iVector2();
 
-    /*! @brief Constructor
-     *
-     * This constructor initializes the vector with the given values.
-     *
+    /*! @brief Constructor initializing the vector with the given values
      * @param x The x value of the vector
      * @param y The y value of the vector
      */
     iVector2(int x, int y);
 
     /*! @brief Calculates the length of the vector
-     *
-     * This function calculates the length of the vector.
-     *
      * @return The length of the vector
      */
     double length();
 
     /*! @brief Multiplies the vector by -1
-     *
-     * This function multiplies the vector by -1.
      */
     void opposite();
 
-    /*! @brief Clamps the vector
-     *
-     * This function clamps the vector between the given minimum and maximum values.
-     *
+    /*! @brief Clamps the vector between the given minimum and maximum values
      * @param min The minimum values
      * @param max The maximum values
      */
     void clamp(iVector2 min, iVector2 max);
 
-    /*! @brief Prints the vector
-     *
-     * This function prints the vector to the console.
+    /*! @brief Prints the vector to the console
      */
     void print();
 
@@ -99,63 +79,43 @@ struct iVector2
     bool operator!=(iVector2 vector);
 };
 
-/*! @brief A vector of two doubles
- *
- * This struct is used to store two doubles in a vector.
+/*! @brief A struct with two doubles
  */
 struct dVector2
 {
     double x;
     double y;
 
-    /*! @brief Default constructor
-     *
-     * This constructor initializes the vector with 0, 0.
+    /*! @brief Default constructor initializing the vector with 0, 0
      */
     dVector2();
 
-    /*! @brief Constructor
-     *
-     * This constructor initializes the vector with the given values.
-     *
+    /*! @brief Constructor initializing the vector with the given values
      * @param x The x value of the vector
      * @param y The y value of the vector
      */
     dVector2(double x, double y);
 
     /*! @brief Calculates the length of the vector
-     *
-     * This function calculates the length of the vector.
-     *
      * @return The length of the vector
      */
     double length();
 
     /*! @brief Multiplies the vector by -1
-     *
-     * This function multiplies the vector by -1.
      */
     void opposite();
 
     /*! @brief Normalizes the vector
-     *
-     * This function normalizes the vector.
      */
     void normalize();
 
-    /*! @brief Clamps the vector
-     *
-     * This function clamps the vector between the given minimum and maximum values.
-     *
+    /*! @brief Clamps the vector between the given minimum and maximum values
      * @param min The minimum values
      * @param max The maximum values
      */
     void clamp(dVector2 min, dVector2 max);
 
-    /*! @brief Converts the coordinate system of the vector
-     *
-     * This function converts the coordinate system of the vector from one origin to another.
-     *
+    /*! @brief Converts the coordinate system of the vector from one origin to another
      * @param originPointA The first origin point
      * @param originPointB The second origin point
      * @param targetPointA The first target point
@@ -163,9 +123,7 @@ struct dVector2
      */
     void convertCoordinateSystem(dVector2 originPointA, dVector2 originPointB, dVector2 targetPointA, dVector2 targetPointB);
 
-    /*! @brief Prints the vector
-     *
-     * This function prints the vector to the console.
+    /*! @brief Prints the vector to the console
      */
     void print();
 
@@ -186,9 +144,7 @@ struct dVector2
     dVector2 operator=(dVector2 vector);
 };
 
-/*! @brief A vector of three doubles
- *
- * This struct is used to store three doubles in a vector.
+/*! @brief A struct with three doubles
  */
 struct dVector3
 {
@@ -196,16 +152,11 @@ struct dVector3
     double y;
     double z;
 
-    /*! @brief Default constructor
-     *
-     * This constructor initializes the vector with 0, 0, 0.
+    /*! @brief Default constructor initializing the vector with 0, 0, 0
      */
     dVector3();
 
-    /*! @brief Constructor
-     *
-     * This constructor initializes the vector with the given values.
-     *
+    /*! @brief Constructor initializing the vector with the given values
      * @param x The x value of the vector
      * @param y The y value of the vector
      * @param z The z value of the vector
@@ -213,46 +164,30 @@ struct dVector3
     dVector3(double x, double y, double z);
 
     /*! @brief Calculates the length of the vector
-     *
-     * This function calculates the length of the vector.
-     *
      * @return The length of the vector
      */
     double length();
 
     /*! @brief Multiplies the vector by -1
-     *
-     * This function multiplies the vector by -1.
      */
     void opposite();
 
     /*! @brief Normalizes the vector
-     *
-     * This function normalizes the vector.
      */
     void normalize();
 
-    /*! @brief Calculates the cross product of the vector
-     *
-     * This function calculates the cross product of the vector with the given vector.
-     *
+    /*! @brief Calculates the cross product of the vector with the given vector
      * @param vector The vector to calculate the cross product with
      */
     void crossProduct(dVector3 vector);
 
-    /*! @brief Clamps the vector
-     *
-     * This function clamps the vector between the given minimum and maximum values.
-     *
+    /*! @brief Clamps the vector between the given minimum and maximum values
      * @param min The minimum values
      * @param max The maximum values
      */
     void clamp(dVector3 min, dVector3 max);
 
-    /*! @brief Converts the coordinate system of the vector
-     *
-     * This function converts the coordinate system of the vector from one origin to another.
-     *
+    /*! @brief Converts the coordinate system of the vector from one origin to another
      * @param originPointA The first origin point
      * @param originPointB The second origin point
      * @param targetPointA The first target point
@@ -260,9 +195,7 @@ struct dVector3
      */
     void convertCoordinateSystem(dVector3 originPointA, dVector3 originPointB, dVector3 targetPointA, dVector3 targetPointB);
 
-    /*! @brief Prints the vector
-     *
-     * This function prints the vector to the console.
+    /*! @brief Prints the vector to the console
      */
     void print();
 
@@ -283,9 +216,7 @@ struct dVector3
     dVector3 operator=(dVector3 vector);
 };
 
-/*! @brief A vector of four doubles
- *
- * This struct is used to store four doubles in a vector.
+/*! @brief A struct with four doubles
  */
 struct dVector4
 {
@@ -294,16 +225,11 @@ struct dVector4
     double z;
     double w;
 
-    /*! @brief Default constructor
-     *
-     * This constructor initializes the vector with 0, 0, 0, 0.
+    /*! @brief Default constructor initializing the vector with 0, 0, 0, 0
      */
     dVector4();
 
-    /*! @brief Constructor
-     *
-     * This constructor initializes the vector with the given values.
-     *
+    /*! @brief Constructor initializing the vector with the given values
      * @param x The x value of the vector
      * @param y The y value of the vector
      * @param z The z value of the vector
@@ -312,38 +238,25 @@ struct dVector4
     dVector4(double x, double y, double z, double w);
 
     /*! @brief Calculates the length of the vector
-     *
-     * This function calculates the length of the vector.
-     *
      * @return The length of the vector
      */
     double length();
 
     /*! @brief Multiplies the vector by -1
-     *
-     * This function multiplies the vector by -1.
      */
     void opposite();
 
     /*! @brief Normalizes the vector
-     *
-     * This function normalizes the vector.
      */
     void normalize();
 
-    /*! @brief Clamps the vector
-     *
-     * This function clamps the vector between the given minimum and maximum values.
-     *
+    /*! @brief Clamps the vector between the given minimum and maximum values
      * @param min The minimum values
      * @param max The maximum values
      */
     void clamp(dVector4 min, dVector4 max);
 
-    /*! @brief Converts the coordinate system of the vector
-     *
-     * This function converts the coordinate system of the vector from one origin to another.
-     *
+    /*! @brief Converts the coordinate system of the vector from one origin to another
      * @param originPointA The first origin point
      * @param originPointB The second origin point
      * @param targetPointA The first target point
@@ -351,9 +264,7 @@ struct dVector4
      */
     void convertCoordinateSystem(dVector4 originPointA, dVector4 originPointB, dVector4 targetPointA, dVector4 targetPointB);
 
-    /*! @brief Prints the vector
-     *
-     * This function prints the vector to the console.
+    /*! @brief Prints the vector to the console
      */
     void print();
 
@@ -375,33 +286,22 @@ struct dVector4
 };
 
 /*! @brief Namespace for vector functions
- *
- * This namespace contains functions for vector operations.
  */
 namespace Vector
 {
     /*! @brief Converts an iVector2 to a dVector2
-     *
-     * This function converts an iVector2 to a dVector2.
-     *
      * @param vector The iVector2 to convert
      * @return The converted dVector2
      */
     dVector2 convert(iVector2 vector);
 
     /*! @brief Normalizes a dVector2
-     *
-     * This function normalizes a dVector2.
-     *
      * @param vector The dVector2 to normalize
      * @return The normalized dVector2
      */
     dVector2 normalize(dVector2 vector);
 
-    /*! @brief Clamps a dVector2
-     *
-     * This function clamps a dVector2 between the given minimum and maximum values.
-     *
+    /*! @brief Clamps a dVector2 between the given minimum and maximum values
      * @param vector The dVector2 to clamp
      * @param min The minimum values
      * @param max The maximum values
@@ -409,10 +309,7 @@ namespace Vector
      */
     dVector2 clamp(dVector2 vector, dVector2 min, dVector2 max);
 
-    /*! @brief Converts the coordinate system of a dVector2
-     *
-     * This function converts the coordinate system of a dVector2 from one origin to another.
-     *
+    /*! @brief Converts the coordinate system of a dVector2 from one origin to another
      * @param vector The dVector2 to convert
      * @param originPointA The first origin point
      * @param originPointB The second origin point
@@ -423,18 +320,12 @@ namespace Vector
     dVector2 convertCoordinateSystem(dVector2 vector, dVector2 originPointA, dVector2 originPointB, dVector2 targetPointA, dVector2 targetPointB);
 
     /*! @brief Normalizes a dVector3
-     *
-     * This function normalizes a dVector3.
-     *
      * @param vector The dVector3 to normalize
      * @return The normalized dVector3
      */
     dVector3 normalize(dVector3 vector);
 
     /*! @brief Calculates the cross product of two dVector3
-     *
-     * This function calculates the cross product of two dVector3.
-     *
      * @param vector1 The first dVector3
      * @param vector2 The second dVector3
      * @return The cross product of the two dVector3
@@ -442,9 +333,6 @@ namespace Vector
     dVector3 crossProduct(dVector3 vectorA, dVector3 vectorB);
 
     /*! @brief Calculates the dot product of two dVector3
-     *
-     * This function calculates the dot product of two dVector3.
-     *
      * @param vector1 The first dVector3
      * @param vector2 The second dVector3
      * @return The dot product of the two dVector3
@@ -455,65 +343,43 @@ namespace Vector
 #include <vector>
 
 /*! @brief A 4x4 matrix of floats
- *
- * This struct is used to store a 4x4 matrix of floats.
  */
 struct fMatrix4
 {
     float matrix[4][4];
 
-    /*! @brief Default constructor
-     *
-     * This constructor initializes the matrix with 0.
+    /*! @brief Default constructor initializing the matrix with 0
      */
     fMatrix4();
 
-    /*! @brief Constructor
-     *
-     * This constructor initializes the matrix with the given values.
-     *
+    /*! @brief Constructor initializing the matrix with the given values
      * @param matrix The values of the matrix
      */
     fMatrix4(std::vector<std::vector<double>> matrix);
 
     /*! @brief Empties the matrix
-     *
-     * This function empties the matrix.
      */
     void empty();
 
     /*! @brief Sets the matrix to the identity matrix
-     *
-     * This function sets the matrix to the identity matrix.
      */
     void identity();
 
     /*! @brief Transposes the matrix
-     *
-     * This function transposes the matrix.
      */
     void transpose();
 
-    /*! @brief Translates the matrix
-     *
-     * This function translates the matrix by the given vector.
-     *
+    /*! @brief Translates the matrix by the given vector
      * @param vector The vector to translate the matrix by
      */
     void translate(dVector3 vector);
 
-    /*! @brief Scales the matrix
-     *
-     * This function scales the matrix by the given vector.
-     *
+    /*! @brief Scales the matrix by the given vector
      * @param vector The vector to scale the matrix by
      */
     void scale(dVector3 vector);
 
-    /*! @brief Rotates the matrix
-     *
-     * This function rotates the matrix by the given angles.
-     *
+    /*! @brief Rotates the matrix by the given angles
      * @param xAngle The angle to rotate the matrix around the x-axis
      * @param yAngle The angle to rotate the matrix around the y-axis
      * @param zAngle The angle to rotate the matrix around the z-axis
@@ -521,9 +387,6 @@ struct fMatrix4
     void rotate(double xAngle, double yAngle, double zAngle);
 
     /*! @brief Creates an orthographic projection matrix
-     *
-     * This function creates an orthographic projection matrix.
-     *
      * @param left The left value of the matrix
      * @param right The right value of the matrix
      * @param bottom The bottom value of the matrix
@@ -533,9 +396,7 @@ struct fMatrix4
      */
     void orthographic(double left, double right, double bottom, double top, double near, double far);
 
-    /*! @brief Prints the matrix
-     *
-     * This function prints the matrix to the console.
+    /*! @brief Prints the matrix to the console
      */
     void print();
 
@@ -555,44 +416,30 @@ struct fMatrix4
 };
 
 /*! @brief Namespace for matrix functions
- *
- * This namespace contains functions for matrix operations.
  */
 namespace Matrix
 {
     /*! @brief Transposes a fMatrix4
-     *
-     * This function transposes a fMatrix4.
-     *
      * @param matrix The fMatrix4 to transpose
      * @return The transposed fMatrix4
      */
     fMatrix4 transpose(fMatrix4 matrix);
 
-    /*! @brief Translates a fMatrix4
-     *
-     * This function translates a fMatrix4 by the given vector.
-     *
+    /*! @brief Translates a fMatrix4 by the given vector
      * @param matrix The fMatrix4 to translate
      * @param vector The vector to translate the fMatrix4 by
      * @return The translated fMatrix4
      */
     fMatrix4 translate(fMatrix4 matrix, dVector3 vector);
 
-    /*! @brief Scales a fMatrix4
-     *
-     * This function scales a fMatrix4 by the given vector.
-     *
+    /*! @brief Scales a fMatrix4 by the given vector
      * @param matrix The fMatrix4 to scale
      * @param vector The vector to scale the fMatrix4 by
      * @return The scaled fMatrix4
      */
     fMatrix4 scale(fMatrix4 matrix, dVector3 vector);
 
-    /*! @brief Rotates a fMatrix4
-     *
-     * This function rotates a fMatrix4 by the given angles.
-     *
+    /*! @brief Rotates a fMatrix4 by the given angles
      * @param matrix The fMatrix4 to rotate
      * @param xAngle The angle to rotate the fMatrix4 around the x-axis
      * @param yAngle The angle to rotate the fMatrix4 around the y-axis
@@ -602,9 +449,6 @@ namespace Matrix
     fMatrix4 rotate(fMatrix4 matrix, double xAngle, double yAngle, double zAngle);
 
     /*! @brief Multiplies a fMatrix4 by a dVector4
-     *
-     * This function multiplies a fMatrix4 by a dVector4.
-     *
      * @param matrix The fMatrix4 to multiply
      * @param vector The dVector4 to multiply
      * @return The multiplied dVector4
@@ -615,30 +459,28 @@ namespace Matrix
 #include <string>
 
 /*! @brief Namespace for framework functions
- *
- * This namespace contains functions for framework operations.
  */
 namespace AF
 {
+    enum ObjectType
+    {
+        OBJECT = -1,
+        OBJECT2D = 0,
+        TEXT
+    };
 
-    /*! @brief Initializes the application
-     *
-     * This function initializes the application with default values.
-     *  Size of the window: 1920x1080
-     *  Title of the window: "Application"
-     *  Not fullscreen
-     *  Not resizable
-     *  Decorated
-     *  FPS not limited
-     *
+    /*! @brief Initializes the application with default values
+     *  @param windowSize The size of the window: iVector2(1280, 720)
+     *  @param windowTitle The title of the window: "Application"
+     *  @param fullscreen Whether the window is fullscreen: false
+     *  @param resizable Whether the window is resizable: true
+     *  @param decorated Whether the window is decorated: true
+     *  @param vsync Whether the window has V-sync enabled: false
      * @return The initialized application
      */
     Application *init();
 
-    /*! @brief Initializes the application
-     *
-     * This function initializes the application with the given values.
-     *
+    /*! @brief Initializes the application with the given values
      * @param windowSize The size of the window
      * @param windowTitle The title of the window
      * @param fullscreen Whether the window is fullscreen
@@ -650,140 +492,93 @@ namespace AF
     Application *init(iVector2 windowSize, std::string windowTitle, bool fullscreen, bool resizable, bool decorated, bool vsync);
 
     /*! @brief Quits the application
-     *
-     * This function quits the application.
-     *
      * @param app The application to quit
      */
     void quit(Application *app);
 
     /*! @brief Updates the application
-     *
-     * This function updates the application.
-     *
      * @param app The application to update
      */
     void update(Application *app);
 
     /*! @brief Checks if the application is running
-     *
-     * This function checks if the application is running.
-     *
      * @param app The application to check
      * @return Whether the application is running
      */
     bool isRunning(Application *app);
 
     /*! @brief Sets if the application is running
-     *
-     * This function sets if the application is running.
-     *
      * @param app The application to set
      * @param isRunning Whether the application is running
      */
     void setIsRunning(Application *app, bool isRunning);
 
     /*! @brief Creates a context
-     *
-     * This function creates a context.
-     *
      * @param app The application to create the context in
      * @return The index of the created context
      */
     uInt createContext(Application *app);
 
     /*! @brief Sets the current context
-     *
-     * This function sets the current context.
-     *
      * @param app The application to set the context in
      * @param index The index of the context
      */
     void setCurrentContext(Application *app, uInt index);
 
     /*! @brief Sets the current context
-     *
-     * This function sets the current context.
-     *
      * @param app The application to set the context in
      * @param label The label of the context
      */
     void setCurrentContext(Application *app, std::string label);
 
     /*! @brief Loads a context
-     *
-     * This function loads a context.
-     *
      * @param app The application to load the context in
      * @param path The path of the context
      */
     void loadContext(Application *app, std::string path);
 
     /*! @brief Destroys a context
-     *
-     * This function destroys a context.
-     *
      * @param app The application to destroy the context in
      * @param index The index of the context
      */
     void destroyContext(Application *app, uInt index);
 
     /*! @brief Destroys a context
-     *
-     * This function destroys a context.
-     *
      * @param app The application to destroy the context in
      * @param label The label of the context
      */
     void destroyContext(Application *app, std::string label);
 
-    /*! @brief Clears the contexts
-     *
-     * This function clears the contexts apart from the current one.
-     *
+    /*! @brief Clears the contexts apart from the current one
      * @param app The application to clear the contexts in
      */
     void clearContexts(Application *app);
 
-    /*! @brief Gets the window title
-     *
-     * This function gets the window title of the application.
-     *
+    /*! @brief Gets the window title of the application
      * @param app The application to get the window title from
      * @return The window title
      */
     std::string getWindowTitle(Application *app);
 
-    /*! @brief Gets the window size
-     *
-     * This function gets the window size of the application.
-     *
+    /*! @brief Gets the window size of the application
      * @param app The application to get the window size from
      * @return The window size
      */
     iVector2 getWindowSize(Application *app);
 
-    /*! @brief Gets the current context index
-     *
-     * This function gets the current context index of the application.
-     *
+    /*! @brief Gets the current context index of the application
      * @param app The application to get the current context index from
      * @return The current context index
      */
     uInt getCurrentContextIndex(Application *app);
 
-    /*! @brief Gets the time
-     *
-     * This function gets the current time.
-     *
+    /*! @brief Gets the time from the start of the application
      * @param app The application to get the time from
-     * @return The time
+     * @return The time from the start of the application
      */
     double getTime(Application *app);
 
     /*! @brief Namespace for input functions
-     *
-     * This namespace contains functions for input operations.
      */
     namespace Input
     {
@@ -921,54 +716,36 @@ namespace AF
         };
 
         /*! @brief Sets a key as pressed
-         *
-         * This function sets a key as pressed.
-         *
          * @param app The application the key is in
          * @param key The key to set
          */
         void setKeyPressed(Application *app, uInt key);
 
         /*! @brief Sets a key as released
-         *
-         * This function sets a key as released.
-         *
          * @param app The application the key is in
          * @param key The key to set
          */
         void setKeyReleased(Application *app, uInt key);
 
         /*! @brief Sets a mouse button as pressed
-         *
-         * This function sets a mouse button as pressed.
-         *
          * @param app The application the mouse button is in
          * @param button The mouse button to set
          */
         void setMouseButtonPressed(Application *app, uInt button);
 
         /*! @brief Sets a mouse button as released
-         *
-         * This function sets a mouse button as released.
-         *
          * @param app The application the mouse button is in
          * @param button The mouse button to set
          */
         void setMouseButtonReleased(Application *app, uInt button);
 
         /*! @brief Sets the mouse position
-         *
-         * This function sets the mouse position.
-         *
          * @param app The application the mouse is in
          * @param position The position to set
          */
         void setMousePosition(Application *app, dVector2 position);
 
         /*! @brief Checks if a key is pressed
-         *
-         * This function checks if a key is pressed.
-         *
          * @param app The application to check the key in
          * @param key The key to check
          * @return Whether the key is pressed
@@ -976,9 +753,6 @@ namespace AF
         bool isKeyPressed(Application *app, uInt key);
 
         /*! @brief Checks if a key was released
-         *
-         * This function checks if a key was released.
-         *
          * @param app The application to check the key in
          * @param key The key to check
          * @return Whether the key was released
@@ -986,9 +760,6 @@ namespace AF
         bool wasKeyReleased(Application *app, uInt key);
 
         /*! @brief Checks if a mouse button is pressed
-         *
-         * This function checks if a mouse button is pressed.
-         *
          * @param app The application to check the mouse button in
          * @param button The mouse button to check
          * @return Whether the mouse button is pressed
@@ -996,9 +767,6 @@ namespace AF
         bool isMouseButtonPressed(Application *app, uInt button);
 
         /*! @brief Checks if a mouse button was released
-         *
-         * This function checks if a mouse button was released.
-         *
          * @param app The application to check the mouse button in
          * @param button The mouse button to check
          * @return Whether the mouse button was released
@@ -1006,45 +774,30 @@ namespace AF
         bool wasMouseButtonReleased(Application *app, uInt button);
 
         /*! @brief Gets all of the keys pressed
-         *
-         * This function gets all of the keys pressed.
-         *
          * @param app The application to get the keys from
          * @return The keys pressed
          */
         std::vector<uInt> getKeysPressed(Application *app);
 
         /*! @brief Gets all of the mouse buttons pressed
-         *
-         * This function gets all of the mouse buttons pressed.
-         *
          * @param app The application to get the mouse buttons from
          * @return The mouse buttons pressed
          */
         std::vector<uInt> getMouseButtonsPressed(Application *app);
 
         /*! @brief Gets the mouse position on the screen
-         *
-         * This function gets the mouse position on the screen.
-         *
          * @param app The application to get the mouse from
          * @return The mouse position
          */
         dVector2 getMousePositionScreen(Application *app);
 
         /*! @brief Gets the mouse position in the window
-         *
-         * This function gets the mouse position in the window.
-         *
          * @param app The application to get the mouse from
          * @return The mouse position
          */
         dVector2 getMousePositionWindow(Application *app);
 
         /*! @brief Gets the mouse position in the world
-         *
-         * This function gets the mouse position in the world.
-         *
          * @param app The application to get the mouse from
          * @return The mouse position
          */
@@ -1052,16 +805,12 @@ namespace AF
     }
 
     /*! @brief Namespace for object functions
-     *
-     * This namespace contains functions for object operations.
      */
     namespace Object
     {
-        /*! @brief Creates a 2D object
-         *
-         * This function creates a 2D object.
-         *
+        /*! @brief Creates an object
          * @param app The application to create the object in
+         * @param type The type of the object
          * @param position The position of the object
          * @param scale The scale of the object
          * @param rotation The rotation of the object
@@ -1071,81 +820,40 @@ namespace AF
          * @param fragmentPath The path of the fragment shader
          * @return The index of the created object
          */
-        uInt create2D(Application *app, dVector2 position, dVector2 scale, double rotation, std::string verticesPath, std::string texturePath, std::string vertexPath, std::string fragmentPath);
+        uInt create(Application *app, uInt type, dVector2 position, dVector2 scale, double rotation, std::string verticesPath, std::string texturePath, std::string vertexPath, std::string fragmentPath);
 
-        /*! @brief Destroys a 2D object
-         *
-         * This function destroys a 2D object.
-         *
-         * @param app The application to destroy the object in
-         * @param index The index of the object
-         */
-        void destroy2D(Application *app, uInt index);
-
-        /*! @brief Destroys a 2D object
-         *
-         * This function destroys a 2D object.
-         *
-         * @param app The application to destroy the object in
-         * @param label The label of the object
-         */
-        void destroy2D(Application *app, std::string label);
-
-        /*! @brief Clears the 2D objects
-         *
-         * This function clears the 2D objects.
-         *
-         * @param app The application to clear the objects in
-         */
-        void clear2D(Application *app);
-
-        /*! @brief Creates a text
-         *
-         * This function creates a text.
-         *
-         * @param app The application to create the text in
+        /*! @brief Creates an object
+         * @param app The application to create the object in
          * @param text The text to display
-         * @param position The position of the text
-         * @param scale The scale of the text
-         * @param rotation The rotation of the text
-         * @param vertices The vertices of the text
+         * @param position The position of the object
+         * @param scale The scale of the object
+         * @param rotation The rotation of the object
          * @param fontPath The path of the font
          * @param vertexPath The path of the vertex shader
          * @param fragmentPath The path of the fragment shader
-         * @return The index of the created text
+         * @return The index of the created object
          */
-        uInt createText(Application *app, std::string text, dVector2 position, dVector2 scale, double rotation, std::string fontPath, std::string vertexPath, std::string fragmentPath);
+        uInt create(Application *app, std::string text, dVector2 position, dVector2 scale, double rotation, std::string fontPath, std::string vertexPath, std::string fragmentPath);
 
-        /*! @brief Destroys a text
-         *
-         * This function destroys a text.
-         *
-         * @param app The application to destroy the text in
-         * @param index The index of the text
+        /*! @brief Destroys an object
+         * @param app The application to destroy the object in
+         * @param index The index of the object
          */
-        void destroyText(Application *app, uInt index);
+        void destroy(Application *app, uInt index);
 
-        /*! @brief Destroys a text
-         *
-         * This function destroys a text.
-         *
-         * @param app The application to destroy the text in
-         * @param label The label of the text
+        /*! @brief Destroys an object
+         * @param app The application to destroy the object in
+         * @param label The label of the object
          */
-        void destroyText(Application *app, std::string label);
+        void destroy(Application *app, std::string label);
 
-        /*! @brief Clears the texts
-         *
-         * This function clears the texts.
-         *
-         * @param app The application to clear the texts in
+        /*! @brief Clears the objects
+         * @param app The application to clear the objects in
+         * @param type The type of the objects to clear
          */
-        void clearTexts(Application *app);
+        void clear(Application *app, uInt type);
 
         /*! @brief Checks if an object is clicked
-         *
-         * This function checks if an object is clicked.
-         *
          * @param app The application to check the object in
          * @param index The index of the object
          * @return Whether the object is clicked
@@ -1153,9 +861,6 @@ namespace AF
         bool isClicked(Application *app, uInt index);
 
         /*! @brief Checks if an object is clicked
-         *
-         * This function checks if an object is clicked.
-         *
          * @param app The application to check the object in
          * @param label The label of the object
          * @return Whether the object is clicked
@@ -1163,9 +868,6 @@ namespace AF
         bool isClicked(Application *app, std::string label);
 
         /*! @brief Checks if an object is hovered
-         *
-         * This function checks if an object is hovered.
-         *
          * @param app The application to check the object in
          * @param index The index of the object
          * @return Whether the object is hovered
@@ -1173,29 +875,215 @@ namespace AF
         bool isHovered(Application *app, uInt index);
 
         /*! @brief Checks if an object is hovered
-         *
-         * This function checks if an object is hovered.
-         *
          * @param app The application to check the object in
          * @param label The label of the object
          * @return Whether the object is hovered
          */
         bool isHovered(Application *app, std::string label);
+
+        /*! @brief Moves the object by a vector
+         * @param app The application to move the object in
+         * @param index The index of the object
+         * @param transform The vector to move the object by
+         */
+        void transformPosition(Application *app, uInt index, dVector2 transform);
+
+        /*! @brief Moves the object by a vector
+         * @param app The application to move the object in
+         * @param label The label of the object
+         * @param transform The vector to move the object by
+         */
+        void transformPosition(Application *app, std::string label, dVector2 transform);
+
+        /*! @brief Changes the scale of the object by a vector
+         * @param app The application to scale the object in
+         * @param index The index of the object
+         * @param transform The vector to add to the scale
+         */
+        void transformScale(Application *app, uInt index, dVector2 transform);
+
+        /*! @brief Changes the scale of the object by a vector
+         * @param app The application to scale the object in
+         * @param label The label of the object
+         * @param transform The vector to add to the scale
+         */
+        void transformScale(Application *app, std::string label, dVector2 transform);
+
+        /*! @brief Rotates the object by an angle
+         * @param app The application to rotate the object in
+         * @param index The index of the object
+         * @param angle The angle to rotate the object by
+         */
+        void transformRotation(Application *app, uInt index, double angle);
+
+        /*! @brief Rotates the object by an angle
+         * @param app The application to rotate the object in
+         * @param label The label of the object
+         * @param angle The angle to rotate the object by
+         */
+        void transformRotation(Application *app, std::string label, double angle);
+
+        /*! @brief Sets the position of an object in the world coordinates
+         * @param app The application to set the object in
+         * @param index The index of the object
+         * @param position The position to set
+         */
+        void setPositionWorld(Application *app, uInt index, dVector2 position);
+
+        /*! @brief Sets the position of an object in the world coordinates
+         * @param app The application to set the object in
+         * @param label The label of the object
+         * @param position The position to set
+         */
+        void setPositionWorld(Application *app, std::string label, dVector2 position);
+
+        /*! @brief Sets the position of an object in the window coordinates
+         * @param app The application to set the object in
+         * @param index The index of the object
+         * @param position The position to set
+         */
+        void setPositionWindow(Application *app, uInt index, dVector2 position);
+
+        /*! @brief Sets the position of an object in the window coordinates
+         * @param app The application to set the object in
+         * @param label The label of the object
+         * @param position The position to set
+         */
+        void setPositionWindow(Application *app, std::string label, dVector2 position);
+
+        /*! @brief Sets the scale of an object in the world coordinates
+         * @param app The application to set the object in
+         * @param index The index of the object
+         * @param scale The scale to set
+         */
+        void setScaleWorld(Application *app, uInt index, dVector2 scale);
+
+        /*! @brief Sets the scale of an object in the world coordinates
+         * @param app The application to set the object in
+         * @param label The label of the object
+         * @param scale The scale to set
+         */
+        void setScaleWorld(Application *app, std::string label, dVector2 scale);
+
+        /*! @brief Sets the scale of an object in the window coordinates
+         * @param app The application to set the object in
+         * @param index The index of the object
+         * @param scale The scale to set
+         */
+        void setScaleWindow(Application *app, uInt index, dVector2 scale);
+
+        /*! @brief Sets the scale of an object in the window coordinates
+         * @param app The application to set the object in
+         * @param label The label of the object
+         * @param scale The scale to set
+         */
+        void setScaleWindow(Application *app, std::string label, dVector2 scale);
+
+        /*! @brief Sets the rotation of an object
+         * @param app The application to set the object in
+         * @param index The index of the object
+         * @param rotation The rotation to set
+         */
+        void setRotation(Application *app, uInt index, double rotation);
+
+        /*! @brief Sets the rotation of an object
+         * @param app The application to set the object in
+         * @param label The label of the object
+         * @param rotation The rotation to set
+         */
+        void setRotation(Application *app, std::string label, double rotation);
+
+        /*! @brief Gets the position of an object in the world coordinates
+         * @param app The application to set the object in
+         * @param index The index of the object
+         * @return The position of the object
+         */
+        dVector2 getPositionWorld(Application *app, uInt index);
+
+        /*! @brief Gets the position of an object in the world coordinates
+         * @param app The application to set the object in
+         * @param label The label of the object
+         * @return The position of the object
+         */
+        dVector2 getPositionWorld(Application *app, std::string label);
+
+        /*! @brief Gets the position of an object in the window coordinates
+         * @param app The application to set the object in
+         * @param index The index of the object
+         * @return The position of the object
+         */
+        dVector2 getPositionWindow(Application *app, uInt index);
+
+        /*! @brief Gets the position of an object in the window coordinates
+         * @param app The application to set the object in
+         * @param label The label of the object
+         * @return The position of the object
+         */
+        dVector2 getPositionWindow(Application *app, std::string label);
+
+        /*! @brief Gets the scale of an object in the world coordinates
+         * @param app The application to set the object in
+         * @param index The index of the object
+         * @return The scale of the object
+         */
+        dVector2 getScaleWorld(Application *app, uInt index);
+
+        /*! @brief Gets the scale of an object in the world coordinates
+         * @param app The application to set the object in
+         * @param label The label of the object
+         * @return The scale of the object
+         */
+        dVector2 getScaleWorld(Application *app, std::string label);
+
+        /*! @brief Gets the scale of an object in the window coordinates
+         * @param app The application to set the object in
+         * @param index The index of the object
+         * @return The scale of the object
+         */
+        dVector2 getScaleWindow(Application *app, uInt index);
+
+        /*! @brief Gets the scale of an object in the window coordinates
+         * @param app The application to set the object in
+         * @param label The label of the object
+         * @return The scale of the object
+         */
+        dVector2 getScaleWindow(Application *app, std::string label);
+
+        /*! @brief Gets the rotation of an object
+         * @param app The application to set the object in
+         * @param index The index of the object
+         * @return The rotation of the object
+         */
+        double getRotation(Application *app, uInt index);
+
+        /*! @brief Gets the rotation of an object
+         * @param app The application to set the object in
+         * @param label The label of the object
+         * @return The rotation of the object
+         */
+        double getRotation(Application *app, std::string label);
     }
 
-    /*! @brief Namespace for log functions
-     *
-     * This namespace contains functions for log operations.
-     */
+    /*! @brief Namespace containing functions for log operations */
     namespace Logs
     {
         /*! @brief Logs a message
-         *
-         * This function logs a message.
-         *
          * @param message The message to log
          */
         void log(std::string message);
+
+        /*! @brief Logs an error
+         * @param error The error to log
+         */
+        void error(std::string error);
+
+        /*! @brief Sets the flags for log manager
+         * @param app The application the log manager is in
+         * @param print Whether to print the logs
+         * @param save Whether to save the logs
+         * @param enable Whether to enable the logs
+         */
+        void setFlags(Application *app, bool print, bool save, bool enable);
     }
 }
 

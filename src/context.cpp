@@ -27,40 +27,41 @@ void Context::draw()
     }
 }
 
-bool Context::inObjectHitbox(uInt index, dVector2 position)
+ObjectID Context::getObjectID(uInt index)
 {
     if (index < objects.size())
     {
-        if (objects[index].type == ObjectType::OBJECT2D)
-        {
-            return objects2d[objects[index].index]->inHitbox(position);
-        }
-        else if (objects[index].type == ObjectType::TEXT)
-        {
-            return texts[objects[index].index]->inHitbox(position);
-        }
-        else
-            Log::log("Unknown object type");
+        return objects[index];
     }
     Log::log("Object index out of range");
-    return false;
+    return ObjectID(-1, -1);
 }
 
-bool Context::inObjectHitbox(std::string label, dVector2 position) // temporary solution
+ObjectID Context::getObjectID(std::string label) // temporary solution
 {
     for (ObjectID object : objects)
     {
         if (object.type == ObjectType::OBJECT2D && objects2d[object.index]->getLabel() == label)
         {
-            return objects2d[object.index]->inHitbox(position);
+            return object;
         }
         else if (object.type == ObjectType::TEXT && texts[object.index]->getLabel() == label)
         {
-            return texts[object.index]->inHitbox(position);
+            return object;
         }
     }
     Log::log("Object label not found");
-    return false;
+    return ObjectID(-1, -1);
+}
+
+bool Context::inObject2DHitbox(uInt index, dVector2 position)
+{
+    return objects2d[objects[index].index]->inHitbox(position);
+}
+
+bool Context::inTextHitbox(uInt index, dVector2 position)
+{
+    return texts[objects[index].index]->inHitbox(position);
 }
 
 uInt Context::createObject2D(dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath)
@@ -72,28 +73,7 @@ uInt Context::createObject2D(dVector2 position, dVector2 scale, double rotation,
 
 Object2D *Context::getObject2D(uInt index)
 {
-    if (index < objects.size())
-    {
-        if (objects[index].type == ObjectType::OBJECT2D)
-            return objects2d[objects[index].index];
-        else
-            Log::log("Wrong object type");
-    }
-    Log::log("Object index out of range");
-    return nullptr;
-}
-
-Object2D *Context::getObject2D(std::string label) // temporary solution
-{
-    for (Object2D *object2d : objects2d)
-    {
-        if (object2d->getLabel() == label)
-        {
-            return object2d;
-        }
-    }
-    Log::log("Object label not found");
-    return nullptr;
+    return objects2d[objects[index].index];
 }
 
 void Context::destroyObject2D(uInt index)
@@ -111,27 +91,6 @@ void Context::destroyObject2D(uInt index)
             Log::log("Wrong object type");
     }
     Log::log("Object index out of range");
-}
-
-void Context::destroyObject2D(std::string label) // temporary solution
-{
-    for (int i = 0; i < objects2d.size(); i++)
-    {
-        if (objects2d[i]->getLabel() == label)
-        {
-            delete objects2d[i];
-            objects2d.erase(objects2d.begin() + i);
-            for (int j = 0; j < objects.size(); j++)
-            {
-                if (objects[j].type == ObjectType::OBJECT2D && objects[j].index == i)
-                {
-                    objects.erase(objects.begin() + j);
-                    return;
-                }
-            }
-        }
-    }
-    Log::log("Object label not found");
 }
 
 void Context::clearObjects2D()
@@ -166,28 +125,7 @@ uInt Context::createText(std::string text, dVector2 position, dVector2 scale, do
 
 Text *Context::getText(uInt index)
 {
-    if (index < objects.size())
-    {
-        if (objects[index].type == ObjectType::TEXT)
-            return texts[objects[index].index];
-        else
-            Log::log("Wrong object type");
-    }
-    Log::log("Object index out of range");
-    return nullptr;
-}
-
-Text *Context::getText(std::string label) // temporary solution
-{
-    for (Text *text : texts)
-    {
-        if (text->getLabel() == label)
-        {
-            return text;
-        }
-    }
-    Log::log("Object label not found");
-    return nullptr;
+    return texts[objects[index].index];
 }
 
 void Context::destroyText(uInt index)
@@ -205,27 +143,6 @@ void Context::destroyText(uInt index)
             Log::log("Wrong object type");
     }
     Log::log("Object index out of range");
-}
-
-void Context::destroyText(std::string label) // temporary solution
-{
-    for (int i = 0; i < texts.size(); i++)
-    {
-        if (texts[i]->getLabel() == label)
-        {
-            delete texts[i];
-            texts.erase(texts.begin() + i);
-            for (int j = 0; j < objects.size(); j++)
-            {
-                if (objects[j].type == ObjectType::TEXT && objects[j].index == i)
-                {
-                    objects.erase(objects.begin() + j);
-                    return;
-                }
-            }
-        }
-    }
-    Log::log("Object label not found");
 }
 
 void Context::clearTexts()

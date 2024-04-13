@@ -8,7 +8,7 @@ void Utility::wait(uInt milliseconds)
 
 void Utility::saveBinary(std::vector<double> doubles, std::string path)
 {
-    Log::log("Saving binary data to " + path);
+    Log::log("Saving binary data to '" + path + "'");
 
     std::ofstream file(path);
 
@@ -19,12 +19,12 @@ void Utility::saveBinary(std::vector<double> doubles, std::string path)
 
     file.close();
 
-    Log::log("Binary data saved to " + path);
+    Log::log("Binary data saved to '" + path + "'");
 }
 
 void Utility::saveBinary(std::vector<std::string> strings, std::string path)
 {
-    Log::log("Saving binary data to " + path);
+    Log::log("Saving binary data to '" + path + "'");
 
     std::ofstream file(path);
 
@@ -37,12 +37,12 @@ void Utility::saveBinary(std::vector<std::string> strings, std::string path)
 
     file.close();
 
-    Log::log("Binary data saved to " + path);
+    Log::log("Binary data saved to '" + path + "'");
 }
 
 std::vector<double> Utility::loadBinaryDoubles(std::string path)
 {
-    Log::log("Loading binary data from " + path);
+    Log::log("Loading binary data from '" + path + "'");
 
     std::vector<double> data;
     std::ifstream file(path);
@@ -55,14 +55,14 @@ std::vector<double> Utility::loadBinaryDoubles(std::string path)
 
     file.close();
 
-    Log::log("Binary data loaded from " + path);
+    Log::log("Binary data loaded from '" + path + "'");
 
     return data;
 }
 
 std::vector<std::string> Utility::loadBinaryStrings(std::string path)
 {
-    Log::log("Loading binary data from " + path);
+    Log::log("Loading binary data from '" + path + "'");
 
     std::vector<std::string> data;
     std::ifstream file(path);
@@ -78,9 +78,45 @@ std::vector<std::string> Utility::loadBinaryStrings(std::string path)
 
     file.close();
 
-    Log::log("Binary data loaded from " + path);
+    Log::log("Binary data loaded from '" + path + "'");
 
     return data;
+}
+
+void Utility::genFontFiles()
+{
+    std::string testChars = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+
+    std::vector<double> fontVertices;
+
+    for (int j = 1; j < 7; j++)
+    {
+        for (int i = 1; i < 17; i++)
+        {
+            if (i * j == 96)
+                break;
+            double f1 = 1;
+            double f2 = -1;
+            double t = 1 / 16.0;
+            fontVertices.insert(fontVertices.end(), {
+                                                        f1, f1, i * t, 1 - (j - 1) * t,       //
+                                                        f1, f2, i * t, 1 - j * t,             //
+                                                        f2, f1, (i - 1) * t, 1 - (j - 1) * t, //
+                                                        f1, f2, i * t, 1 - j * t,             //
+                                                        f2, f2, (i - 1) * t, 1 - j * t,       //
+                                                        f2, f1, (i - 1) * t, 1 - (j - 1) * t  //
+                                                    });
+        }
+    }
+
+    Utility::saveBinary(fontVertices, "../resources/fonts/arial/arial.msh"); // msh = mesh
+
+    std::vector<std::string> save;
+    for (char c : testChars)
+    {
+        save.push_back(std::string(1, c));
+    }
+    Utility::saveBinary(save, "../resources/fonts/arial/arial.fc"); // fc = font characters
 }
 
 /*std::vector<double> Utility::loadOBJ(std::string path)

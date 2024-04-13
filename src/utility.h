@@ -14,6 +14,8 @@ namespace Utility
 
     std::vector<double> loadBinaryDoubles(std::string path);
     std::vector<std::string> loadBinaryStrings(std::string path);
+
+    void genFontFiles();
 }
 
 #endif // UTILITY_H

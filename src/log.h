@@ -23,16 +23,22 @@ public:
     void log(std::string message);
     void log(std::string message, int frame);
 
+    void error(std::string message);
+    void error(std::string message, int frame);
+
     void logQueue();
     void logQueue(int frame);
 
     void save();
     void save(std::string path);
+
+    void setFlags(bool print, bool save, bool enable);
 };
 
 namespace Log
 {
     void log(std::string message);
+    void error(std::string message);
 }
 
 #endif

@@ -36,7 +36,6 @@ std::string Object::getLabel()
 
 Object2D::Object2D()
 {
-    Log::log("Object 2D created");
 }
 
 Object2D::Object2D(dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath)
@@ -61,8 +60,6 @@ Object2D::Object2D(dVector2 position, dVector2 scale, double rotation, std::vect
     genAttributes();
     genShader(vertexPath, fragmentPath);
     genTexture(texturePath);
-
-    Log::log("Object 2D created");
 }
 
 Object2D::~Object2D()
@@ -71,8 +68,6 @@ Object2D::~Object2D()
     glDeleteBuffers(1, &attributes);
     glDeleteTextures(1, &texture);
     glDeleteProgram(shader);
-
-    Log::log("Object 2D destroyed");
 }
 
 void Object2D::draw()
@@ -311,8 +306,6 @@ Text::Text(std::string text, dVector2 position, dVector2 scale, double rotation,
     genAttributes();
     genShader(vertexPath, fragmentPath);
     genTexture(fontPath + ".png");
-
-    Log::log("Text created");
 }
 
 Text::~Text()
@@ -321,8 +314,6 @@ Text::~Text()
     glDeleteBuffers(1, &attributes);
     glDeleteTextures(1, &texture);
     glDeleteProgram(shader);
-
-    Log::log("Text destroyed");
 }
 
 void Text::genText(std::string text)
@@ -334,24 +325,24 @@ void Text::genText(std::string text)
 
     std::vector<bool> newLines;
 
-    std::set<std::string> fontMap;
-    for (std::string character : Utility::loadBinaryStrings(fontPath + ".fvm"))
+    std::set<std::string> fontCharacters;
+    for (std::string character : Utility::loadBinaryStrings(fontPath + ".fc"))
     {
-        fontMap.insert(character);
+        fontCharacters.insert(character);
     }
 
     for (char character : text)
     {
         std::string characterString(1, character);
-        auto characterMapIndex = fontMap.find(characterString);
-        if (characterMapIndex != fontMap.end())
+        auto characterMapIndex = fontCharacters.find(characterString);
+        if (characterMapIndex != fontCharacters.end())
         {
             textVector.push_back(characterString);
-            characterIndexes.push_back(std::distance(fontMap.begin(), characterMapIndex));
+            characterIndexes.push_back(std::distance(fontCharacters.begin(), characterMapIndex));
         }
         else if (character != '\n')
         {
-            Log::log("Character not found in font map: " + characterString);
+            Log::log("Character not found in font '" + fontPath + "': " + characterString);
         }
         if (character == '\n')
             newLines.push_back(true);
