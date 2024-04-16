@@ -22,7 +22,7 @@ uInt Object::getIndex()
     return index;
 }
 
-void Object::setLabel(std::string label)
+void Object::setLabel(const std::string &label)
 {
     this->label = label;
 }
@@ -38,7 +38,7 @@ Object2D::Object2D()
 {
 }
 
-Object2D::Object2D(dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath)
+Object2D::Object2D(const dVector2 &position, const dVector2 &scale, double rotation, const std::vector<double> &vertices, const iVector2 &windowSize, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath)
 {
     this->position = position;
     this->scale = scale;
@@ -83,14 +83,14 @@ void Object2D::draw()
     glUseProgram(0);
 }
 
-void Object2D::transformPosition(dVector2 transform)
+void Object2D::transformPosition(const dVector2 &transform)
 {
     translationMatrix.translate({transform.x, transform.y, 0.0});
     position.x += transform.x; // change
     position.y += transform.y; // change
 }
 
-void Object2D::transformScale(dVector2 transform)
+void Object2D::transformScale(const dVector2 &transform)
 {
     scale.x *= transform.x; // change
     scale.y *= transform.y; // change
@@ -103,7 +103,7 @@ void Object2D::transformRotation(double transform)
     rotationMatrix.rotate(0.0, 0.0, transform * PI / 180.0);
 }
 
-void Object2D::genVertices(std::vector<double> &vertices)
+void Object2D::genVertices(const std::vector<double> &vertices)
 {
     sizeOfVertices = vertices.size();
     glGenBuffers(1, &this->vertices);
@@ -112,7 +112,7 @@ void Object2D::genVertices(std::vector<double> &vertices)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Object2D::genHitbox(std::vector<double> &vertices)
+void Object2D::genHitbox(const std::vector<double> &vertices)
 {
     for (int i = 0; i < vertices.size(); i += 4)
     {
@@ -120,7 +120,7 @@ void Object2D::genHitbox(std::vector<double> &vertices)
     }
 }
 
-void Object2D::genTexture(std::string texturePath)
+void Object2D::genTexture(const std::string &texturePath)
 {
     iVector2 size;
     int numberOfColumns;
@@ -142,7 +142,7 @@ void Object2D::genTexture(std::string texturePath)
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Object2D::genShader(std::string vertexPath, std::string fragmentPath)
+void Object2D::genShader(const std::string &vertexPath, const std::string &fragmentPath)
 {
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -195,7 +195,7 @@ void Object2D::genAttributes()
     glBindVertexArray(0);
 }
 
-bool Object2D::inHitbox(dVector2 point)
+bool Object2D::inHitbox(const dVector2 &point)
 {
     bool in = false;
     int i, j;
@@ -215,28 +215,28 @@ bool Object2D::inHitbox(dVector2 point)
     return in;
 }
 
-void Object2D::setPositionWorld(dVector2 position)
+void Object2D::setPositionWorld(const dVector2 &position)
 {
     translationMatrix.identity();
     translationMatrix.translate({position.x, position.y, 0.0});
     this->position = position;
 }
 
-void Object2D::setScaleWorld(dVector2 scale)
+void Object2D::setScaleWorld(const dVector2 &scale)
 {
     scaleMatrix.identity();
     scaleMatrix.scale({scale.x, scale.y, 1.0});
     this->scale = scale;
 }
 
-void Object2D::setPositionWindow(dVector2 position, iVector2 windowSize)
+void Object2D::setPositionWindow(dVector2 position, const iVector2 &windowSize)
 {
     double aspectRatio = double(windowSize.x) / double(windowSize.y);
     position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1});
     setPositionWorld(position);
 }
 
-void Object2D::setScaleWindow(dVector2 scale, iVector2 windowSize)
+void Object2D::setScaleWindow(dVector2 scale, const iVector2 &windowSize)
 {
     double aspectRatio = double(windowSize.x) / double(windowSize.y);
     scale = Vector::convertCoordinateSystem(scale, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1});
@@ -265,13 +265,13 @@ dVector2 Object2D::getScaleWorld()
     return scale;
 }
 
-dVector2 Object2D::getPositionWindow(iVector2 windowSize)
+dVector2 Object2D::getPositionWindow(const iVector2 &windowSize)
 {
     double aspectRatio = double(windowSize.x) / double(windowSize.y);
     return Vector::convertCoordinateSystem(position, {-1, 2 / aspectRatio - 1}, {1, -1}, {0, 1}, {1, 0});
 }
 
-dVector2 Object2D::getScaleWindow(iVector2 windowSize)
+dVector2 Object2D::getScaleWindow(const iVector2 &windowSize)
 {
     double aspectRatio = double(windowSize.x) / double(windowSize.y);
     return Vector::convertCoordinateSystem(scale, {-1, 2 / aspectRatio - 1}, {1, -1}, {0, 1}, {1, 0});
@@ -284,7 +284,7 @@ double Object2D::getRotation()
 
 // class Text : public Object2D
 
-Text::Text(std::string text, dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string fontPath, std::string vertexPath, std::string fragmentPath)
+Text::Text(const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath)
 {
     this->position = position;
     this->scale = scale;
@@ -316,7 +316,7 @@ Text::~Text()
     glDeleteProgram(shader);
 }
 
-void Text::genText(std::string text)
+void Text::genText(const std::string &text)
 {
     std::vector<double> vertices;
 
@@ -400,7 +400,7 @@ void Text::genText(std::string text)
     genHitbox(vertices);
 }
 
-void Text::setText(std::string text)
+void Text::setText(const std::string &text)
 {
     this->text = text;
     genText(text);
@@ -411,7 +411,7 @@ std::string Text::getText()
     return text;
 }
 
-void Text::setFont(std::string fontPath)
+void Text::setFont(const std::string &fontPath)
 {
     this->fontPath = fontPath;
     setText(text);

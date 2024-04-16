@@ -4,7 +4,7 @@ exit:{
     double[];scaleWorld:[0.05, 0.05]
     double;rotation:0
     string;texturePath:"resources/textures/default.png"
-    string;verticesPath:"resources/meshes/cube.msh"
+    string;verticesPath:"resources/meshes/rectangle.msh"
     string;vertexPath:"resources/shaders/default2dVertex.glsl"
     string;fragmentPath:"resources/shaders/default2dFragment.glsl"
 }
@@ -16,7 +16,6 @@ text:{
     double[];scaleWorld:[0.05, 0.05]
     double;rotation:0
     string;fontPath:"resources/fonts/arial/arial"
-    string;verticesPath:"resources/meshes/cube.msh"
     string;vertexPath:"resources/shaders/default2dVertex.glsl"
     string;fragmentPath:"resources/shaders/default2dFragment.glsl"
 }

@@ -112,7 +112,7 @@ void InputManager::setMouseButtonReleased(uInt button)
     Log::log("Mouse button code out of range: " + std::to_string(button));
 }
 
-void InputManager::setMousePosition(dVector2 position)
+void InputManager::setMousePosition(const dVector2 &position)
 {
     mousePosition = position;
 }
@@ -188,12 +188,12 @@ dVector2 InputManager::getMousePositionScreen()
     return mousePosition;
 }
 
-dVector2 InputManager::getMousePositionWindow(iVector2 windowSize)
+dVector2 InputManager::getMousePositionWindow(const iVector2 &windowSize)
 {
     return Vector::convertCoordinateSystem(mousePosition, {0, 0}, Vector::convert(windowSize), {0, 1}, {1, 0});
 }
 
-dVector2 InputManager::getMousePositionWorld(iVector2 windowSize)
+dVector2 InputManager::getMousePositionWorld(const iVector2 &windowSize)
 {
     dVector2 windowSizeD = Vector::convert(windowSize);
     double aspectRatio = windowSizeD.x / windowSizeD.y;

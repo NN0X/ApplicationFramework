@@ -6,7 +6,7 @@ void Utility::wait(uInt milliseconds)
     std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 }
 
-void Utility::saveBinary(std::vector<double> doubles, std::string path)
+void Utility::saveBinary(const std::vector<double> &doubles, const std::string &path)
 {
     Log::log("Saving binary data to '" + path + "'");
 
@@ -22,7 +22,7 @@ void Utility::saveBinary(std::vector<double> doubles, std::string path)
     Log::log("Binary data saved to '" + path + "'");
 }
 
-void Utility::saveBinary(std::vector<std::string> strings, std::string path)
+void Utility::saveBinary(const std::vector<std::string> &strings, const std::string &path)
 {
     Log::log("Saving binary data to '" + path + "'");
 
@@ -40,7 +40,7 @@ void Utility::saveBinary(std::vector<std::string> strings, std::string path)
     Log::log("Binary data saved to '" + path + "'");
 }
 
-std::vector<double> Utility::loadBinaryDoubles(std::string path)
+std::vector<double> Utility::loadBinaryDoubles(const std::string &path)
 {
     Log::log("Loading binary data from '" + path + "'");
 
@@ -60,7 +60,7 @@ std::vector<double> Utility::loadBinaryDoubles(std::string path)
     return data;
 }
 
-std::vector<std::string> Utility::loadBinaryStrings(std::string path)
+std::vector<std::string> Utility::loadBinaryStrings(const std::string &path)
 {
     Log::log("Loading binary data from '" + path + "'");
 

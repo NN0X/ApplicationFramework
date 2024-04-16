@@ -9,11 +9,11 @@ namespace Utility
 {
     void wait(uInt milliseconds);
 
-    void saveBinary(std::vector<double> doubles, std::string path);
-    void saveBinary(std::vector<std::string> strings, std::string path);
+    void saveBinary(const std::vector<double> &doubles, const std::string &path);
+    void saveBinary(const std::vector<std::string> &strings, const std::string &path);
 
-    std::vector<double> loadBinaryDoubles(std::string path);
-    std::vector<std::string> loadBinaryStrings(std::string path);
+    std::vector<double> loadBinaryDoubles(const std::string &path);
+    std::vector<std::string> loadBinaryStrings(const std::string &path);
 
     void genFontFiles();
 }

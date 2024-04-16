@@ -287,7 +287,7 @@ public:
     void setKeyReleased(uInt key);
     void setMouseButtonPressed(uInt button);
     void setMouseButtonReleased(uInt button);
-    void setMousePosition(dVector2 position);
+    void setMousePosition(const dVector2 &position);
 
     bool isKeyPressed(uInt key);
     bool wasKeyReleased(uInt key);
@@ -298,8 +298,8 @@ public:
     std::vector<uInt> getMouseButtonsPressed();
 
     dVector2 getMousePositionScreen();
-    dVector2 getMousePositionWindow(iVector2 windowSize);
-    dVector2 getMousePositionWorld(iVector2 windowSize);
+    dVector2 getMousePositionWindow(const iVector2 &windowSize);
+    dVector2 getMousePositionWorld(const iVector2 &windowSize);
 };
 
 #endif // INPUT_H

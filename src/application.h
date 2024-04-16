@@ -19,12 +19,14 @@ private:
     LogManager *logManager;
     uInt currentContextIndex;
     double startTime;
+    double previousTime;
+    double currentTime;
     int frames;
     bool isRunningInternal;
 
 public:
     Application();
-    Application(iVector2 windowSize, std::string windowTitle, bool fullscreen, bool resizable, bool decorated, bool vsync);
+    Application(const iVector2 &windowSize, const std::string &windowTitle, bool fullscreen, bool resizable, bool decorated, bool vsync);
 
     ~Application();
 
@@ -35,27 +37,27 @@ public:
 
     uInt createContext();
     void setCurrentContext(uInt index);
-    void setCurrentContext(std::string label); // temporary solution
-    void loadContext(std::string path);        // WiP
+    void setCurrentContext(const std::string &label); // temporary solution
+    void loadContext(const std::string &path);        // WiP
     void destroyContext(uInt index);
-    void destroyContext(std::string label);
+    void destroyContext(const std::string &label);
     void clearContexts();
 
     InputManager *getInput();
     LogManager *getLog();
 
     ObjectID getObjectID(uInt index);
-    ObjectID getObjectID(std::string label);
+    ObjectID getObjectID(const std::string &label);
 
-    bool inObject2DHitbox(uInt index, dVector2 position);
-    bool inTextHitbox(uInt index, dVector2 position);
+    bool inObject2DHitbox(uInt index, const dVector2 &position);
+    bool inTextHitbox(uInt index, const dVector2 &position);
 
-    uInt createObject2D(dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string verticesPath, std::string texturePath, std::string vertexPath, std::string fragmentPath);
+    uInt createObject2D(dVector2 position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &verticesPath, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath);
     Object2D *getObject2D(uInt index);
     void destroyObject2D(uInt index);
     void clearObjects2D();
 
-    uInt createText(std::string text, dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string fontPath, std::string vertexPath, std::string fragmentPath);
+    uInt createText(const std::string &text, dVector2 position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath);
     Text *getText(uInt index);
     void destroyText(uInt index);
     void clearTexts();
@@ -65,6 +67,7 @@ public:
     uInt getCurrentContextIndex();
 
     double getTime();
+    double getDeltaTime();
 };
 
 #endif // APPLICATION_H

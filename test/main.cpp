@@ -23,32 +23,32 @@ int main()
 
         if (AF::Input::isKeyPressed(app, AF::Input::KEY_W))
         {
-            AF::Object::transformPosition(app, "text", dVector2(0, 0.001));
+            AF::Object::transformPosition(app, "text", dVector2(0, AF::getDeltaTime(app)));
         }
 
         if (AF::Input::isKeyPressed(app, AF::Input::KEY_S))
         {
-            AF::Object::transformPosition(app, "text", dVector2(0, -0.001));
+            AF::Object::transformPosition(app, "text", dVector2(0, -AF::getDeltaTime(app)));
         }
 
         if (AF::Input::isKeyPressed(app, AF::Input::KEY_A))
         {
-            AF::Object::transformPosition(app, "text", dVector2(-0.001, 0));
+            AF::Object::transformPosition(app, "text", dVector2(-AF::getDeltaTime(app), 0));
         }
 
         if (AF::Input::isKeyPressed(app, AF::Input::KEY_D))
         {
-            AF::Object::transformPosition(app, "text", dVector2(0.001, 0));
+            AF::Object::transformPosition(app, "text", dVector2(AF::getDeltaTime(app), 0));
         }
 
         if (AF::Input::isKeyPressed(app, AF::Input::KEY_E))
         {
-            AF::Object::transformRotation(app, "text", 0.01);
+            AF::Object::transformRotation(app, "text", AF::getDeltaTime(app) * 100);
         }
 
         if (AF::Input::isKeyPressed(app, AF::Input::KEY_Q))
         {
-            AF::Object::transformRotation(app, "text", -0.01);
+            AF::Object::transformRotation(app, "text", -AF::getDeltaTime(app) * 100);
         }
 
         if (AF::Object::isClicked(app, "exit"))

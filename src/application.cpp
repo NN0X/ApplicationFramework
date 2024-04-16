@@ -40,7 +40,7 @@ Application::Application()
     Log::log("Application initialized");
 }
 
-Application::Application(iVector2 windowSize, std::string windowTitle, bool fullscreen, bool resizable, bool decorated, bool vsync)
+Application::Application(const iVector2 &windowSize, const std::string &windowTitle, bool fullscreen, bool resizable, bool decorated, bool vsync)
 {
     logManager = new LogManager("logs/log", true, "txt", true, true, true);
 
@@ -112,6 +112,7 @@ Application::~Application()
 
 void Application::update()
 {
+    previousTime = currentTime;
     glClearColor(0, 0, 0, 1);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -127,6 +128,7 @@ void Application::update()
     logManager->logQueue(frames);
 
     frames++;
+    currentTime = glfwGetTime();
 }
 
 bool Application::isRunning()
@@ -154,7 +156,7 @@ void Application::setCurrentContext(uInt index)
         Log::log("Context index out of range");
 }
 
-void Application::setCurrentContext(std::string label) // temporary solution
+void Application::setCurrentContext(const std::string &label) // temporary solution
 {
     for (int i = 0; i < contexts.size(); i++)
     {
@@ -167,7 +169,7 @@ void Application::setCurrentContext(std::string label) // temporary solution
     Log::log("Context label not found");
 }
 
-void Application::loadContext(std::string path) // WiP
+void Application::loadContext(const std::string &path) // WiP
 {
     Log::log("Loading context from '" + path + "'");
 
@@ -228,7 +230,7 @@ void Application::destroyContext(uInt index)
         Log::log("Cannot destroy current context");
 }
 
-void Application::destroyContext(std::string label) // temporary solution
+void Application::destroyContext(const std::string &label) // temporary solution
 {
     for (int i = 0; i < contexts.size(); i++)
     {
@@ -280,22 +282,22 @@ ObjectID Application::getObjectID(uInt index)
     return contexts[currentContextIndex]->getObjectID(index);
 }
 
-ObjectID Application::getObjectID(std::string label)
+ObjectID Application::getObjectID(const std::string &label)
 {
     return contexts[currentContextIndex]->getObjectID(label);
 }
 
-bool Application::inObject2DHitbox(uInt index, dVector2 position)
+bool Application::inObject2DHitbox(uInt index, const dVector2 &position)
 {
     return contexts[currentContextIndex]->inObject2DHitbox(index, position);
 }
 
-bool Application::inTextHitbox(uInt index, dVector2 position)
+bool Application::inTextHitbox(uInt index, const dVector2 &position)
 {
     return contexts[currentContextIndex]->inTextHitbox(index, position);
 }
 
-uInt Application::createObject2D(dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string verticesPath, std::string texturePath, std::string vertexPath, std::string fragmentPath)
+uInt Application::createObject2D(dVector2 position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &verticesPath, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath)
 {
     std::vector<double> vertices = Utility::loadBinaryDoubles(verticesPath);
 
@@ -320,7 +322,7 @@ void Application::clearObjects2D()
     contexts[currentContextIndex]->clearObjects2D();
 }
 
-uInt Application::createText(std::string text, dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string fontPath, std::string vertexPath, std::string fragmentPath)
+uInt Application::createText(const std::string &text, dVector2 position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath)
 {
     double aspectRatio = double(windowSize.x) / double(windowSize.y);                                         // temporary solution
     position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1}); // temporary solution
@@ -360,5 +362,10 @@ uInt Application::getCurrentContextIndex()
 
 double Application::getTime()
 {
-    return glfwGetTime();
+    return currentTime;
+}
+
+double Application::getDeltaTime()
+{
+    return currentTime - previousTime;
 }

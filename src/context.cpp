@@ -37,7 +37,7 @@ ObjectID Context::getObjectID(uInt index)
     return ObjectID(-1, -1);
 }
 
-ObjectID Context::getObjectID(std::string label) // temporary solution
+ObjectID Context::getObjectID(const std::string &label) // temporary solution
 {
     for (ObjectID object : objects)
     {
@@ -54,17 +54,17 @@ ObjectID Context::getObjectID(std::string label) // temporary solution
     return ObjectID(-1, -1);
 }
 
-bool Context::inObject2DHitbox(uInt index, dVector2 position)
+bool Context::inObject2DHitbox(uInt index, const dVector2 &position)
 {
     return objects2d[objects[index].index]->inHitbox(position);
 }
 
-bool Context::inTextHitbox(uInt index, dVector2 position)
+bool Context::inTextHitbox(uInt index, const dVector2 &position)
 {
     return texts[objects[index].index]->inHitbox(position);
 }
 
-uInt Context::createObject2D(dVector2 position, dVector2 scale, double rotation, std::vector<double> &vertices, iVector2 windowSize, std::string texturePath, std::string vertexPath, std::string fragmentPath)
+uInt Context::createObject2D(const dVector2 &position, const dVector2 &scale, double rotation, const std::vector<double> &vertices, const iVector2 &windowSize, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath)
 {
     objects2d.push_back(new Object2D(position, scale, rotation, vertices, windowSize, texturePath, vertexPath, fragmentPath));
     objects.push_back({int(objects2d.size() - 1), ObjectType::OBJECT2D});
@@ -116,7 +116,7 @@ void Context::clearObjects2D()
     Log::log("Objects 2D cleared");
 }
 
-uInt Context::createText(std::string text, dVector2 position, dVector2 scale, double rotation, iVector2 windowSize, std::string fontPath, std::string vertexPath, std::string fragmentPath)
+uInt Context::createText(const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath)
 {
     texts.push_back(new Text(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath));
     objects.push_back({int(texts.size() - 1), ObjectType::TEXT});
@@ -168,7 +168,7 @@ void Context::clearTexts()
     Log::log("Texts cleared");
 }
 
-void Context::setLabel(std::string label)
+void Context::setLabel(const std::string &label)
 {
     this->label = label;
 }

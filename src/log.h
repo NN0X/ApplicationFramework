@@ -15,30 +15,31 @@ private:
     bool isLogging;
 
 public:
-    LogManager(std::string pathm, bool withDate, std::string extension, bool print, bool save, bool enable);
+    LogManager(const std::string &path, bool withDate, const std::string &extension, bool print, bool save, bool enable);
     ~LogManager();
 
     void print();
 
-    void log(std::string message);
-    void log(std::string message, int frame);
+    void log(const std::string &message);
+    void log(const std::string &message, int frame);
 
-    void error(std::string message);
-    void error(std::string message, int frame);
+    void error(const std::string &message);
+    void error(const std::string &message, int frame);
 
+    // update the log queue on separate thread for more accurate timing
     void logQueue();
     void logQueue(int frame);
 
     void save();
-    void save(std::string path);
+    void save(const std::string &path);
 
     void setFlags(bool print, bool save, bool enable);
 };
 
 namespace Log
 {
-    void log(std::string message);
-    void error(std::string message);
+    void log(const std::string &message);
+    void error(const std::string &message);
 }
 
 #endif

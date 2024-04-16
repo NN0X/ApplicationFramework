@@ -1,6 +1,6 @@
 ﻿#include "log.h"
 
-LogManager::LogManager(std::string path, bool withDate, std::string extension, bool print, bool save, bool enable)
+LogManager::LogManager(const std::string &path, bool withDate, const std::string &extension, bool print, bool save, bool enable)
 {
     this->path = path + "_" + (withDate ? std::to_string(std::time(0)) : "") + "." + extension;
     logs = "";
@@ -24,7 +24,7 @@ void LogManager::print()
     std::cout << logs << "\n";
 }
 
-void LogManager::log(std::string message)
+void LogManager::log(const std::string &message)
 {
     // ["time"] : "message"
     if (isLogging)
@@ -39,7 +39,7 @@ void LogManager::log(std::string message)
     }
 }
 
-void LogManager::log(std::string message, int frame)
+void LogManager::log(const std::string &message, int frame)
 {
     // ["time"]["frame"] : "message"
     if (isLogging)
@@ -55,7 +55,7 @@ void LogManager::log(std::string message, int frame)
     }
 }
 
-void LogManager::error(std::string message)
+void LogManager::error(const std::string &message)
 {
     // ["time"] : "ERROR: message"
     if (isLogging)
@@ -71,7 +71,7 @@ void LogManager::error(std::string message)
     }
 }
 
-void LogManager::error(std::string message, int frame)
+void LogManager::error(const std::string &message, int frame)
 {
     // ["time"]["frame"] : "ERROR: message"
     if (isLogging)
@@ -121,7 +121,7 @@ void LogManager::save()
     file.close();
 }
 
-void LogManager::save(std::string path)
+void LogManager::save(const std::string &path)
 {
     log("Saving logs to '" + path + "'");
     std::ofstream file;
@@ -137,12 +137,12 @@ void LogManager::setFlags(bool print, bool save, bool enable)
     isLogging = enable;
 }
 
-void Log::log(std::string message)
+void Log::log(const std::string &message)
 {
     logsQueue.push_back(message);
 }
 
-void Log::error(std::string message)
+void Log::error(const std::string &message)
 {
     logsQueue.push_back("ERROR: " + message);
 }

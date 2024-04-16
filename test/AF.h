@@ -489,7 +489,7 @@ namespace AF
      * @param vsync Whether the window has V-sync enabled
      * @return The initialized application
      */
-    Application *init(iVector2 windowSize, std::string windowTitle, bool fullscreen, bool resizable, bool decorated, bool vsync);
+    Application *init(const iVector2 &windowSize, const std::string &windowTitle, bool fullscreen, bool resizable, bool decorated, bool vsync);
 
     /*! @brief Quits the application
      * @param app The application to quit
@@ -529,13 +529,13 @@ namespace AF
      * @param app The application to set the context in
      * @param label The label of the context
      */
-    void setCurrentContext(Application *app, std::string label);
+    void setCurrentContext(Application *app, const std::string &label);
 
     /*! @brief Loads a context
      * @param app The application to load the context in
      * @param path The path of the context
      */
-    void loadContext(Application *app, std::string path);
+    void loadContext(Application *app, const std::string &path);
 
     /*! @brief Destroys a context
      * @param app The application to destroy the context in
@@ -547,7 +547,7 @@ namespace AF
      * @param app The application to destroy the context in
      * @param label The label of the context
      */
-    void destroyContext(Application *app, std::string label);
+    void destroyContext(Application *app, const std::string &label);
 
     /*! @brief Clears the contexts apart from the current one
      * @param app The application to clear the contexts in
@@ -577,6 +577,12 @@ namespace AF
      * @return The time from the start of the application
      */
     double getTime(Application *app);
+
+    /*! @brief Gets the delta time from the previous frame
+     * @param app The application to get the delta time from
+     * @return The delta time from the previous frame
+     */
+    double getDeltaTime(Application *app);
 
     /*! @brief Namespace for input functions
      */
@@ -743,7 +749,7 @@ namespace AF
          * @param app The application the mouse is in
          * @param position The position to set
          */
-        void setMousePosition(Application *app, dVector2 position);
+        void setMousePosition(Application *app, const dVector2 &position);
 
         /*! @brief Checks if a key is pressed
          * @param app The application to check the key in
@@ -820,7 +826,7 @@ namespace AF
          * @param fragmentPath The path of the fragment shader
          * @return The index of the created object
          */
-        uInt create(Application *app, uInt type, dVector2 position, dVector2 scale, double rotation, std::string verticesPath, std::string texturePath, std::string vertexPath, std::string fragmentPath);
+        uInt create(Application *app, uInt type, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &verticesPath, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath);
 
         /*! @brief Creates an object
          * @param app The application to create the object in
@@ -833,7 +839,7 @@ namespace AF
          * @param fragmentPath The path of the fragment shader
          * @return The index of the created object
          */
-        uInt create(Application *app, std::string text, dVector2 position, dVector2 scale, double rotation, std::string fontPath, std::string vertexPath, std::string fragmentPath);
+        uInt create(Application *app, const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath);
 
         /*! @brief Destroys an object
          * @param app The application to destroy the object in
@@ -845,7 +851,7 @@ namespace AF
          * @param app The application to destroy the object in
          * @param label The label of the object
          */
-        void destroy(Application *app, std::string label);
+        void destroy(Application *app, const std::string &label);
 
         /*! @brief Clears the objects
          * @param app The application to clear the objects in
@@ -865,7 +871,7 @@ namespace AF
          * @param label The label of the object
          * @return Whether the object is clicked
          */
-        bool isClicked(Application *app, std::string label);
+        bool isClicked(Application *app, const std::string &label);
 
         /*! @brief Checks if an object is hovered
          * @param app The application to check the object in
@@ -879,35 +885,35 @@ namespace AF
          * @param label The label of the object
          * @return Whether the object is hovered
          */
-        bool isHovered(Application *app, std::string label);
+        bool isHovered(Application *app, const std::string &label);
 
         /*! @brief Moves the object by a vector
          * @param app The application to move the object in
          * @param index The index of the object
          * @param transform The vector to move the object by
          */
-        void transformPosition(Application *app, uInt index, dVector2 transform);
+        void transformPosition(Application *app, uInt index, const dVector2 &transform);
 
         /*! @brief Moves the object by a vector
          * @param app The application to move the object in
          * @param label The label of the object
          * @param transform The vector to move the object by
          */
-        void transformPosition(Application *app, std::string label, dVector2 transform);
+        void transformPosition(Application *app, const std::string &label, const dVector2 &transform);
 
         /*! @brief Changes the scale of the object by a vector
          * @param app The application to scale the object in
          * @param index The index of the object
          * @param transform The vector to add to the scale
          */
-        void transformScale(Application *app, uInt index, dVector2 transform);
+        void transformScale(Application *app, uInt index, const dVector2 &transform);
 
         /*! @brief Changes the scale of the object by a vector
          * @param app The application to scale the object in
          * @param label The label of the object
          * @param transform The vector to add to the scale
          */
-        void transformScale(Application *app, std::string label, dVector2 transform);
+        void transformScale(Application *app, const std::string &label, const dVector2 &transform);
 
         /*! @brief Rotates the object by an angle
          * @param app The application to rotate the object in
@@ -921,63 +927,63 @@ namespace AF
          * @param label The label of the object
          * @param angle The angle to rotate the object by
          */
-        void transformRotation(Application *app, std::string label, double angle);
+        void transformRotation(Application *app, const std::string &label, double angle);
 
         /*! @brief Sets the position of an object in the world coordinates
          * @param app The application to set the object in
          * @param index The index of the object
          * @param position The position to set
          */
-        void setPositionWorld(Application *app, uInt index, dVector2 position);
+        void setPositionWorld(Application *app, uInt index, const dVector2 &position);
 
         /*! @brief Sets the position of an object in the world coordinates
          * @param app The application to set the object in
          * @param label The label of the object
          * @param position The position to set
          */
-        void setPositionWorld(Application *app, std::string label, dVector2 position);
+        void setPositionWorld(Application *app, const std::string &label, const dVector2 &position);
 
         /*! @brief Sets the position of an object in the window coordinates
          * @param app The application to set the object in
          * @param index The index of the object
          * @param position The position to set
          */
-        void setPositionWindow(Application *app, uInt index, dVector2 position);
+        void setPositionWindow(Application *app, uInt index, const dVector2 &position);
 
         /*! @brief Sets the position of an object in the window coordinates
          * @param app The application to set the object in
          * @param label The label of the object
          * @param position The position to set
          */
-        void setPositionWindow(Application *app, std::string label, dVector2 position);
+        void setPositionWindow(Application *app, const std::string &label, const dVector2 &position);
 
         /*! @brief Sets the scale of an object in the world coordinates
          * @param app The application to set the object in
          * @param index The index of the object
          * @param scale The scale to set
          */
-        void setScaleWorld(Application *app, uInt index, dVector2 scale);
+        void setScaleWorld(Application *app, uInt index, const dVector2 &scale);
 
         /*! @brief Sets the scale of an object in the world coordinates
          * @param app The application to set the object in
          * @param label The label of the object
          * @param scale The scale to set
          */
-        void setScaleWorld(Application *app, std::string label, dVector2 scale);
+        void setScaleWorld(Application *app, const std::string &label, const dVector2 &scale);
 
         /*! @brief Sets the scale of an object in the window coordinates
          * @param app The application to set the object in
          * @param index The index of the object
          * @param scale The scale to set
          */
-        void setScaleWindow(Application *app, uInt index, dVector2 scale);
+        void setScaleWindow(Application *app, uInt index, const dVector2 &scale);
 
         /*! @brief Sets the scale of an object in the window coordinates
          * @param app The application to set the object in
          * @param label The label of the object
          * @param scale The scale to set
          */
-        void setScaleWindow(Application *app, std::string label, dVector2 scale);
+        void setScaleWindow(Application *app, const std::string &label, const dVector2 &scale);
 
         /*! @brief Sets the rotation of an object
          * @param app The application to set the object in
@@ -991,7 +997,7 @@ namespace AF
          * @param label The label of the object
          * @param rotation The rotation to set
          */
-        void setRotation(Application *app, std::string label, double rotation);
+        void setRotation(Application *app, const std::string &label, double rotation);
 
         /*! @brief Gets the position of an object in the world coordinates
          * @param app The application to set the object in
@@ -1005,7 +1011,7 @@ namespace AF
          * @param label The label of the object
          * @return The position of the object
          */
-        dVector2 getPositionWorld(Application *app, std::string label);
+        dVector2 getPositionWorld(Application *app, const std::string &label);
 
         /*! @brief Gets the position of an object in the window coordinates
          * @param app The application to set the object in
@@ -1019,7 +1025,7 @@ namespace AF
          * @param label The label of the object
          * @return The position of the object
          */
-        dVector2 getPositionWindow(Application *app, std::string label);
+        dVector2 getPositionWindow(Application *app, const std::string &label);
 
         /*! @brief Gets the scale of an object in the world coordinates
          * @param app The application to set the object in
@@ -1033,7 +1039,7 @@ namespace AF
          * @param label The label of the object
          * @return The scale of the object
          */
-        dVector2 getScaleWorld(Application *app, std::string label);
+        dVector2 getScaleWorld(Application *app, const std::string &label);
 
         /*! @brief Gets the scale of an object in the window coordinates
          * @param app The application to set the object in
@@ -1047,7 +1053,7 @@ namespace AF
          * @param label The label of the object
          * @return The scale of the object
          */
-        dVector2 getScaleWindow(Application *app, std::string label);
+        dVector2 getScaleWindow(Application *app, const std::string &label);
 
         /*! @brief Gets the rotation of an object
          * @param app The application to set the object in
@@ -1061,7 +1067,7 @@ namespace AF
          * @param label The label of the object
          * @return The rotation of the object
          */
-        double getRotation(Application *app, std::string label);
+        double getRotation(Application *app, const std::string &label);
     }
 
     /*! @brief Namespace containing functions for log operations */
@@ -1070,12 +1076,12 @@ namespace AF
         /*! @brief Logs a message
          * @param message The message to log
          */
-        void log(std::string message);
+        void log(const std::string &message);
 
         /*! @brief Logs an error
          * @param error The error to log
          */
-        void error(std::string error);
+        void error(const std::string &error);
 
         /*! @brief Sets the flags for log manager
          * @param app The application the log manager is in
