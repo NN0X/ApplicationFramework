@@ -6,6 +6,32 @@ void Utility::wait(uInt milliseconds)
     std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 }
 
+uInt Utility::genID() // generate a 32-bit unsigned integer
+{
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    static std::uniform_int_distribution<uInt> dis(0, UINT32_MAX);
+
+    return dis(gen);
+}
+
+uInt Utility::genUniqueID() // generate a unique 32-bit unsigned integer
+{
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    static std::uniform_int_distribution<uInt> dis(0, UINT32_MAX);
+    static std::set<uInt> generated_ids;
+
+    uInt new_id;
+    do
+    {
+        new_id = dis(gen);
+    } while (generated_ids.find(new_id) != generated_ids.end());
+
+    generated_ids.insert(new_id);
+    return new_id;
+}
+
 void Utility::saveBinary(const std::vector<double> &doubles, const std::string &path)
 {
     Log::log("Saving binary data to '" + path + "'");

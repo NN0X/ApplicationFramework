@@ -15,7 +15,7 @@ Application::Application()
     frames = 0;
     isRunningInternal = true;
 
-    currentContextIndex = createContext();
+    currentContextID = createContext();
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -53,12 +53,10 @@ Application::Application(const iVector2 &windowSize, const std::string &windowTi
 
     this->windowSize = windowSize;
     this->windowTitle = windowTitle;
-    currentContextIndex = 0;
+    currentContextID = createContext();
     startTime = glfwGetTime();
     frames = 0;
     isRunningInternal = true;
-
-    createContext();
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -96,7 +94,7 @@ Application::Application(const iVector2 &windowSize, const std::string &windowTi
 Application::~Application()
 {
     clearContexts();
-    delete contexts[currentContextIndex];
+    delete contexts[currentContextID];
 
     double sum = glfwGetTime() - startTime;
     Log::log("Application destroyed");
@@ -120,7 +118,7 @@ void Application::update()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    contexts[currentContextIndex]->draw();
+    contexts[currentContextID]->draw();
 
     glfwSwapBuffers(window);
 
@@ -143,26 +141,52 @@ void Application::setIsRunning(bool isRunning)
 
 uInt Application::createContext()
 {
-    contexts.push_back(new Context());
-
-    return contexts.size() - 1;
+    Context *context = new Context();
+    context->setID(contexts.size());
+    contexts[context->getID()] = context;
+    return context->getID();
 }
 
-void Application::setCurrentContext(uInt index)
+void Application::setContextLabel(uInt id, const std::string &label)
 {
-    if (index < contexts.size())
-        currentContextIndex = index;
-    else
-        Log::log("Context index out of range");
+    if (contexts.find(id) != contexts.end())
+    {
+        contexts[id]->setLabel(label);
+        contextLabels[label] = id;
+        return;
+    }
+    if (contextLabels.find(label) != contextLabels.end())
+    {
+        Log::log("Context label already exists");
+        return;
+    }
+    if (contexts[currentContextID]->getLabel() != "")
+    {
+        contextLabels.erase(contexts[currentContextID]->getLabel());
+        contexts[currentContextID]->setLabel(label);
+        contextLabels[label] = currentContextID;
+        return;
+    }
+    Log::log("Context ID not found");
+}
+
+void Application::setCurrentContext(uInt id)
+{
+    if (contexts.find(id) != contexts.end())
+    {
+        currentContextID = id;
+        return;
+    }
+    Log::log("Context ID not found");
 }
 
 void Application::setCurrentContext(const std::string &label) // temporary solution
 {
-    for (int i = 0; i < contexts.size(); i++)
+    for (auto &context : contexts)
     {
-        if (contexts[i]->getLabel() == label)
+        if (context.second->getLabel() == label)
         {
-            currentContextIndex = i;
+            currentContextID = context.first;
             return;
         }
     }
@@ -191,8 +215,8 @@ void Application::loadContext(const std::string &path) // WiP
             std::string vertexPath = nds.getString("vertexPath", group);
             std::string fragmentPath = nds.getString("fragmentPath", group);
 
-            uInt index = createObject2D(position, scale, rotation, windowSize, verticesPath, texturePath, vertexPath, fragmentPath);
-            contexts[currentContextIndex]->getObject2D(index)->setLabel(group);
+            uInt id = createObject2D(position, scale, rotation, windowSize, verticesPath, texturePath, vertexPath, fragmentPath);
+            contexts[currentContextID]->setObjectLabel(id, group);
         }
         else if (type == "TEXT")
         {
@@ -205,8 +229,8 @@ void Application::loadContext(const std::string &path) // WiP
             std::string vertexPath = nds.getString("vertexPath", group);
             std::string fragmentPath = nds.getString("fragmentPath", group);
 
-            uInt index = createText(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
-            contexts[currentContextIndex]->getText(index)->setLabel(group);
+            uInt id = createText(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
+            contexts[currentContextID]->setObjectLabel(id, group);
         }
         else
         {
@@ -217,30 +241,30 @@ void Application::loadContext(const std::string &path) // WiP
     Log::log("Context loaded from '" + path + "'");
 }
 
-void Application::destroyContext(uInt index)
+void Application::destroyContext(uInt id)
 {
-    if (index >= contexts.size())
+    if (id != currentContextID)
     {
-        Log::log("Context index out of range");
+        delete contexts[id];
+        contexts.erase(id);
         return;
     }
-    if (index != currentContextIndex)
-        contexts.erase(contexts.begin() + index);
-    else
-        Log::log("Cannot destroy current context");
+    Log::log("Cannot destroy current context");
 }
 
-void Application::destroyContext(const std::string &label) // temporary solution
+void Application::destroyContext(const std::string &label)
 {
-    for (int i = 0; i < contexts.size(); i++)
+    for (auto &context : contexts)
     {
-        if (contexts[i]->getLabel() == label)
+        if (context.second->getLabel() == label)
         {
-            if (i != currentContextIndex)
-                contexts.erase(contexts.begin() + i);
-            else
-                Log::log("Cannot destroy current context");
-            return;
+            if (context.first != currentContextID)
+            {
+                delete context.second;
+                contexts.erase(context.first);
+                return;
+            }
+            Log::log("Cannot destroy current context");
         }
     }
     Log::log("Context label not found");
@@ -248,23 +272,15 @@ void Application::destroyContext(const std::string &label) // temporary solution
 
 void Application::clearContexts()
 {
-    if (contexts.size() == 1)
-    {
-        return;
-    }
-
     Log::log("Clearing contexts");
 
-    for (int i = 0; i < contexts.size(); i++)
+    for (auto &context : contexts)
     {
-        if (i != currentContextIndex)
-        {
-            delete contexts[i];
-            contexts.erase(contexts.begin() + i);
-        }
+        if (context.first != currentContextID)
+            delete context.second;
     }
 
-    Log::log("Contexts cleared");
+    contexts.clear();
 }
 
 InputManager *Application::getInput()
@@ -277,24 +293,19 @@ LogManager *Application::getLog()
     return logManager;
 }
 
-ObjectID Application::getObjectID(uInt index)
+ObjectPtr Application::getObject(uInt id)
 {
-    return contexts[currentContextIndex]->getObjectID(index);
+    return contexts[currentContextID]->getObject(id);
 }
 
-ObjectID Application::getObjectID(const std::string &label)
+ObjectPtr Application::getObject(const std::string &label)
 {
-    return contexts[currentContextIndex]->getObjectID(label);
+    return contexts[currentContextID]->getObject(label);
 }
 
-bool Application::inObject2DHitbox(uInt index, const dVector2 &position)
+bool Application::inObjectHitbox(uInt id, const dVector2 &position)
 {
-    return contexts[currentContextIndex]->inObject2DHitbox(index, position);
-}
-
-bool Application::inTextHitbox(uInt index, const dVector2 &position)
-{
-    return contexts[currentContextIndex]->inTextHitbox(index, position);
+    return contexts[currentContextID]->inObjectHitbox(id, position);
 }
 
 uInt Application::createObject2D(dVector2 position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &verticesPath, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath)
@@ -304,22 +315,7 @@ uInt Application::createObject2D(dVector2 position, const dVector2 &scale, doubl
     double aspectRatio = double(windowSize.x) / double(windowSize.y);                                         // temporary solution
     position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1}); // temporary solution
 
-    return contexts[currentContextIndex]->createObject2D(position, scale, rotation, vertices, windowSize, texturePath, vertexPath, fragmentPath);
-}
-
-Object2D *Application::getObject2D(uInt index)
-{
-    return contexts[currentContextIndex]->getObject2D(index);
-}
-
-void Application::destroyObject2D(uInt index)
-{
-    contexts[currentContextIndex]->destroyObject2D(index);
-}
-
-void Application::clearObjects2D()
-{
-    contexts[currentContextIndex]->clearObjects2D();
+    return contexts[currentContextID]->createObject2D(position, scale, rotation, vertices, windowSize, texturePath, vertexPath, fragmentPath);
 }
 
 uInt Application::createText(const std::string &text, dVector2 position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath)
@@ -327,22 +323,27 @@ uInt Application::createText(const std::string &text, dVector2 position, const d
     double aspectRatio = double(windowSize.x) / double(windowSize.y);                                         // temporary solution
     position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1}); // temporary solution
 
-    return contexts[currentContextIndex]->createText(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
+    return contexts[currentContextID]->createText(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
 }
 
-Text *Application::getText(uInt index)
+void Application::destroyObject(uInt id)
 {
-    return contexts[currentContextIndex]->getText(index);
+    contexts[currentContextID]->destroyObject(id);
 }
 
-void Application::destroyText(uInt index)
+void Application::clearObjects()
 {
-    contexts[currentContextIndex]->destroyText(index);
+    contexts[currentContextID]->clearObjects();
+}
+
+void Application::clearObjects2D()
+{
+    contexts[currentContextID]->clearObjects2D();
 }
 
 void Application::clearTexts()
 {
-    contexts[currentContextIndex]->clearTexts();
+    contexts[currentContextID]->clearTexts();
 }
 
 std::string Application::getWindowTitle()
@@ -355,9 +356,9 @@ iVector2 Application::getWindowSize()
     return windowSize;
 }
 
-uInt Application::getCurrentContextIndex()
+uInt Application::getCurrentContextID()
 {
-    return currentContextIndex;
+    return currentContextID;
 }
 
 double Application::getTime()

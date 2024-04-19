@@ -12,14 +12,14 @@ Object::~Object()
     Log::log("Object destroyed");
 }
 
-void Object::setIndex(uInt index)
+void Object::setID(uInt id)
 {
-    this->index = index;
+    this->id = id;
 }
 
-uInt Object::getIndex()
+uInt Object::getID()
 {
-    return index;
+    return id;
 }
 
 void Object::setLabel(const std::string &label)

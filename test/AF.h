@@ -515,15 +515,22 @@ namespace AF
 
     /*! @brief Creates a context
      * @param app The application to create the context in
-     * @return The index of the created context
+     * @return The id of the created context
      */
     uInt createContext(Application *app);
 
+    /*! @brief Sets the label of a context
+     * @param app The application to set the label in
+     * @param id The id of the context
+     * @param label The label to set
+     */
+    void setContextLabel(Application *app, uInt id, const std::string &label);
+
     /*! @brief Sets the current context
      * @param app The application to set the context in
-     * @param index The index of the context
+     * @param id The id of the context
      */
-    void setCurrentContext(Application *app, uInt index);
+    void setCurrentContext(Application *app, uInt id);
 
     /*! @brief Sets the current context
      * @param app The application to set the context in
@@ -539,9 +546,9 @@ namespace AF
 
     /*! @brief Destroys a context
      * @param app The application to destroy the context in
-     * @param index The index of the context
+     * @param id The id of the context
      */
-    void destroyContext(Application *app, uInt index);
+    void destroyContext(Application *app, uInt id);
 
     /*! @brief Destroys a context
      * @param app The application to destroy the context in
@@ -566,11 +573,11 @@ namespace AF
      */
     iVector2 getWindowSize(Application *app);
 
-    /*! @brief Gets the current context index of the application
-     * @param app The application to get the current context index from
-     * @return The current context index
+    /*! @brief Gets the current context id of the application
+     * @param app The application to get the current context id from
+     * @return The current context id
      */
-    uInt getCurrentContextIndex(Application *app);
+    uInt getCurrentContextID(Application *app);
 
     /*! @brief Gets the time from the start of the application
      * @param app The application to get the time from
@@ -824,7 +831,7 @@ namespace AF
          * @param texturePath The path of the texture
          * @param vertexPath The path of the vertex shader
          * @param fragmentPath The path of the fragment shader
-         * @return The index of the created object
+         * @return The id of the created object
          */
         uInt create(Application *app, uInt type, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &verticesPath, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath);
 
@@ -837,15 +844,22 @@ namespace AF
          * @param fontPath The path of the font
          * @param vertexPath The path of the vertex shader
          * @param fragmentPath The path of the fragment shader
-         * @return The index of the created object
+         * @return The id of the created object
          */
         uInt create(Application *app, const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath);
 
+        /*! @brief Sets the label of an object
+         * @param app The application to set the object in
+         * @param id The id of the object
+         * @param label The label to set
+         */
+        void setLabel(Application *app, uInt id, const std::string &label);
+
         /*! @brief Destroys an object
          * @param app The application to destroy the object in
-         * @param index The index of the object
+         * @param id The id of the object
          */
-        void destroy(Application *app, uInt index);
+        void destroy(Application *app, uInt id);
 
         /*! @brief Destroys an object
          * @param app The application to destroy the object in
@@ -861,10 +875,10 @@ namespace AF
 
         /*! @brief Checks if an object is clicked
          * @param app The application to check the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @return Whether the object is clicked
          */
-        bool isClicked(Application *app, uInt index);
+        bool isClicked(Application *app, uInt id);
 
         /*! @brief Checks if an object is clicked
          * @param app The application to check the object in
@@ -875,10 +889,10 @@ namespace AF
 
         /*! @brief Checks if an object is hovered
          * @param app The application to check the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @return Whether the object is hovered
          */
-        bool isHovered(Application *app, uInt index);
+        bool isHovered(Application *app, uInt id);
 
         /*! @brief Checks if an object is hovered
          * @param app The application to check the object in
@@ -889,10 +903,10 @@ namespace AF
 
         /*! @brief Moves the object by a vector
          * @param app The application to move the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @param transform The vector to move the object by
          */
-        void transformPosition(Application *app, uInt index, const dVector2 &transform);
+        void transformPosition(Application *app, uInt id, const dVector2 &transform);
 
         /*! @brief Moves the object by a vector
          * @param app The application to move the object in
@@ -903,10 +917,10 @@ namespace AF
 
         /*! @brief Changes the scale of the object by a vector
          * @param app The application to scale the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @param transform The vector to add to the scale
          */
-        void transformScale(Application *app, uInt index, const dVector2 &transform);
+        void transformScale(Application *app, uInt id, const dVector2 &transform);
 
         /*! @brief Changes the scale of the object by a vector
          * @param app The application to scale the object in
@@ -917,10 +931,10 @@ namespace AF
 
         /*! @brief Rotates the object by an angle
          * @param app The application to rotate the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @param angle The angle to rotate the object by
          */
-        void transformRotation(Application *app, uInt index, double angle);
+        void transformRotation(Application *app, uInt id, double angle);
 
         /*! @brief Rotates the object by an angle
          * @param app The application to rotate the object in
@@ -931,10 +945,10 @@ namespace AF
 
         /*! @brief Sets the position of an object in the world coordinates
          * @param app The application to set the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @param position The position to set
          */
-        void setPositionWorld(Application *app, uInt index, const dVector2 &position);
+        void setPositionWorld(Application *app, uInt id, const dVector2 &position);
 
         /*! @brief Sets the position of an object in the world coordinates
          * @param app The application to set the object in
@@ -945,10 +959,10 @@ namespace AF
 
         /*! @brief Sets the position of an object in the window coordinates
          * @param app The application to set the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @param position The position to set
          */
-        void setPositionWindow(Application *app, uInt index, const dVector2 &position);
+        void setPositionWindow(Application *app, uInt id, const dVector2 &position);
 
         /*! @brief Sets the position of an object in the window coordinates
          * @param app The application to set the object in
@@ -959,10 +973,10 @@ namespace AF
 
         /*! @brief Sets the scale of an object in the world coordinates
          * @param app The application to set the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @param scale The scale to set
          */
-        void setScaleWorld(Application *app, uInt index, const dVector2 &scale);
+        void setScaleWorld(Application *app, uInt id, const dVector2 &scale);
 
         /*! @brief Sets the scale of an object in the world coordinates
          * @param app The application to set the object in
@@ -973,10 +987,10 @@ namespace AF
 
         /*! @brief Sets the scale of an object in the window coordinates
          * @param app The application to set the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @param scale The scale to set
          */
-        void setScaleWindow(Application *app, uInt index, const dVector2 &scale);
+        void setScaleWindow(Application *app, uInt id, const dVector2 &scale);
 
         /*! @brief Sets the scale of an object in the window coordinates
          * @param app The application to set the object in
@@ -987,10 +1001,10 @@ namespace AF
 
         /*! @brief Sets the rotation of an object
          * @param app The application to set the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @param rotation The rotation to set
          */
-        void setRotation(Application *app, uInt index, double rotation);
+        void setRotation(Application *app, uInt id, double rotation);
 
         /*! @brief Sets the rotation of an object
          * @param app The application to set the object in
@@ -1001,10 +1015,10 @@ namespace AF
 
         /*! @brief Gets the position of an object in the world coordinates
          * @param app The application to set the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @return The position of the object
          */
-        dVector2 getPositionWorld(Application *app, uInt index);
+        dVector2 getPositionWorld(Application *app, uInt id);
 
         /*! @brief Gets the position of an object in the world coordinates
          * @param app The application to set the object in
@@ -1015,10 +1029,10 @@ namespace AF
 
         /*! @brief Gets the position of an object in the window coordinates
          * @param app The application to set the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @return The position of the object
          */
-        dVector2 getPositionWindow(Application *app, uInt index);
+        dVector2 getPositionWindow(Application *app, uInt id);
 
         /*! @brief Gets the position of an object in the window coordinates
          * @param app The application to set the object in
@@ -1029,10 +1043,10 @@ namespace AF
 
         /*! @brief Gets the scale of an object in the world coordinates
          * @param app The application to set the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @return The scale of the object
          */
-        dVector2 getScaleWorld(Application *app, uInt index);
+        dVector2 getScaleWorld(Application *app, uInt id);
 
         /*! @brief Gets the scale of an object in the world coordinates
          * @param app The application to set the object in
@@ -1043,10 +1057,10 @@ namespace AF
 
         /*! @brief Gets the scale of an object in the window coordinates
          * @param app The application to set the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @return The scale of the object
          */
-        dVector2 getScaleWindow(Application *app, uInt index);
+        dVector2 getScaleWindow(Application *app, uInt id);
 
         /*! @brief Gets the scale of an object in the window coordinates
          * @param app The application to set the object in
@@ -1057,10 +1071,10 @@ namespace AF
 
         /*! @brief Gets the rotation of an object
          * @param app The application to set the object in
-         * @param index The index of the object
+         * @param id The id of the object
          * @return The rotation of the object
          */
-        double getRotation(Application *app, uInt index);
+        double getRotation(Application *app, uInt id);
 
         /*! @brief Gets the rotation of an object
          * @param app The application to set the object in
@@ -1090,6 +1104,19 @@ namespace AF
          * @param enable Whether to enable the logs
          */
         void setFlags(Application *app, bool print, bool save, bool enable);
+    }
+
+    namespace Utils
+    {
+        /*! @brief Waits for a given amount of time
+         * @param miliseconds The amount of time to wait
+         */
+        void wait(uInt miliseconds);
+
+        /*! @brief Generates a random 32-bit unsigned integer
+         * @return The generated 32-bit unsigned integer
+         */
+        uInt genID();
     }
 }
 

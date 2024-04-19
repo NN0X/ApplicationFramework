@@ -3,169 +3,227 @@
 Context::Context()
 {
     label = "";
-    objects2d = std::vector<Object2D *>();
-    texts = std::vector<Text *>();
+    objectLabels = std::unordered_map<std::string, uInt>();
+    objects = std::unordered_map<uInt, ObjectPtr>();
     Log::log("Context created");
 }
 
 Context::~Context()
 {
-    clearObjects2D();
-    clearTexts();
+    clearObjects();
     Log::log("Context destroyed");
 }
 
 void Context::draw()
 {
-    for (uInt i = 0; i < objects2d.size(); i++)
+    for (auto &object : objects)
     {
-        objects2d[i]->draw();
-    }
-    for (uInt i = 0; i < texts.size(); i++)
-    {
-        texts[i]->draw();
+        if (object.second.type == ObjectType::OBJECT2D)
+        {
+            object.second.object2d->draw();
+        }
+        else if (object.second.type == ObjectType::TEXT)
+        {
+            object.second.text->draw();
+        }
     }
 }
 
-ObjectID Context::getObjectID(uInt index)
+ObjectPtr Context::getObject(uInt id)
 {
-    if (index < objects.size())
+    if (objects.find(id) != objects.end())
     {
-        return objects[index];
+        return objects[id];
     }
-    Log::log("Object index out of range");
-    return ObjectID(-1, -1);
+    Log::log("Object ID not found");
+    return ObjectPtr();
 }
 
-ObjectID Context::getObjectID(const std::string &label) // temporary solution
+ObjectPtr Context::getObject(const std::string &label) // temporary solution
 {
-    for (ObjectID object : objects)
+    if (objectLabels.find(label) != objectLabels.end())
     {
-        if (object.type == ObjectType::OBJECT2D && objects2d[object.index]->getLabel() == label)
-        {
-            return object;
-        }
-        else if (object.type == ObjectType::TEXT && texts[object.index]->getLabel() == label)
-        {
-            return object;
-        }
+        return objects[objectLabels[label]];
     }
     Log::log("Object label not found");
-    return ObjectID(-1, -1);
+    return ObjectPtr();
 }
 
-bool Context::inObject2DHitbox(uInt index, const dVector2 &position)
+bool Context::inObjectHitbox(uInt id, const dVector2 &position)
 {
-    return objects2d[objects[index].index]->inHitbox(position);
-}
-
-bool Context::inTextHitbox(uInt index, const dVector2 &position)
-{
-    return texts[objects[index].index]->inHitbox(position);
+    if (objects.find(id) != objects.end())
+    {
+        if (objects[id].type == ObjectType::OBJECT2D)
+        {
+            return objects[id].object2d->inHitbox(position);
+        }
+        else if (objects[id].type == ObjectType::TEXT)
+        {
+            return objects[id].text->inHitbox(position);
+        }
+        else
+            Log::log("Wrong object type");
+    }
+    Log::log("Object ID not found");
+    return false;
 }
 
 uInt Context::createObject2D(const dVector2 &position, const dVector2 &scale, double rotation, const std::vector<double> &vertices, const iVector2 &windowSize, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath)
 {
-    objects2d.push_back(new Object2D(position, scale, rotation, vertices, windowSize, texturePath, vertexPath, fragmentPath));
-    objects.push_back({int(objects2d.size() - 1), ObjectType::OBJECT2D});
-    return objects.size() - 1;
+    Object2D *object2d = new Object2D(position, scale, rotation, vertices, windowSize, texturePath, vertexPath, fragmentPath);
+    object2d->setID(Utility::genUniqueID());
+    objects[object2d->getID()] = {ObjectType::OBJECT2D, object2d};
+    return object2d->getID();
 }
 
-Object2D *Context::getObject2D(uInt index)
+uInt Context::createText(const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath)
 {
-    return objects2d[objects[index].index];
+    Text *textObject = new Text(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
+    textObject->setID(Utility::genUniqueID());
+    objects[textObject->getID()] = {ObjectType::TEXT, textObject};
+    return textObject->getID();
 }
 
-void Context::destroyObject2D(uInt index)
+void Context::setObjectLabel(uInt id, const std::string &label)
 {
-    if (index < objects.size())
+    if (objects.find(id) != objects.end())
     {
-        if (objects[index].type == ObjectType::OBJECT2D)
+        if (objectLabels.find(label) != objectLabels.end())
         {
-            delete objects2d[objects[index].index];
-            objects2d.erase(objects2d.begin() + objects[index].index);
-            objects.erase(objects.begin() + index);
+            Log::log("Object label already exists");
+            return;
+        }
+        if (objects[id].type == ObjectType::OBJECT2D && objects[id].object2d->getLabel() == "")
+        {
+            objects[id].object2d->setLabel(label);
+        }
+        else if (objects[id].type == ObjectType::OBJECT2D)
+        {
+            objectLabels.erase(objects[id].object2d->getLabel());
+            objects[id].object2d->setLabel(label);
+        }
+        else if (objects[id].type == ObjectType::TEXT && objects[id].text->getLabel() == "")
+        {
+            objects[id].text->setLabel(label);
+        }
+        else if (objects[id].type == ObjectType::TEXT)
+        {
+            objectLabels.erase(objects[id].text->getLabel());
+            objects[id].text->setLabel(label);
+        }
+
+        objectLabels[label] = id;
+        return;
+    }
+    Log::log("Object ID not found");
+}
+
+void Context::destroyObject(uInt id)
+{
+    if (objects.find(id) != objects.end())
+    {
+        if (objects[id].type == ObjectType::OBJECT2D)
+        {
+            delete objects[id].object2d;
+            objects.erase(id);
+            return;
+        }
+        else if (objects[id].type == ObjectType::TEXT)
+        {
+            delete objects[id].text;
+            objects.erase(id);
             return;
         }
         else
             Log::log("Wrong object type");
     }
-    Log::log("Object index out of range");
+    Log::log("Object ID not found");
+}
+
+void Context::clearObjects()
+{
+    Log::log("Clearing objects");
+
+    for (auto &object : objects)
+    {
+        if (object.second.type == ObjectType::OBJECT2D)
+        {
+            delete object.second.object2d;
+        }
+        else if (object.second.type == ObjectType::TEXT)
+        {
+            delete object.second.text;
+        }
+    }
+
+    objects.clear();
+    objectLabels.clear();
+
+    Log::log("Objects cleared");
 }
 
 void Context::clearObjects2D()
 {
     Log::log("Clearing objects 2D");
 
-    for (Object2D *object2d : objects2d)
+    for (auto &object : objects)
     {
-        delete object2d;
-    }
-
-    for (int i = 0; i < objects.size(); i++)
-    {
-        if (objects[i].type == ObjectType::OBJECT2D)
+        if (object.second.type == ObjectType::OBJECT2D)
         {
-            objects.erase(objects.begin() + i);
-            i--;
+            delete object.second.object2d;
         }
     }
 
-    objects2d.clear();
-
-    Log::log("Objects 2D cleared");
-}
-
-uInt Context::createText(const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath)
-{
-    texts.push_back(new Text(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath));
-    objects.push_back({int(texts.size() - 1), ObjectType::TEXT});
-    return objects.size() - 1;
-}
-
-Text *Context::getText(uInt index)
-{
-    return texts[objects[index].index];
-}
-
-void Context::destroyText(uInt index)
-{
-    if (index < objects.size())
+    for (auto it = objects.begin(); it != objects.end();)
     {
-        if (objects[index].type == ObjectType::TEXT)
+        if (it->second.type == ObjectType::OBJECT2D)
         {
-            delete texts[objects[index].index];
-            texts.erase(texts.begin() + objects[index].index);
-            objects.erase(objects.begin() + index);
-            return;
+            it = objects.erase(it);
         }
         else
-            Log::log("Wrong object type");
+        {
+            it++;
+        }
     }
-    Log::log("Object index out of range");
+
+    Log::log("Objects 2D cleared");
 }
 
 void Context::clearTexts()
 {
     Log::log("Clearing texts");
 
-    for (Text *text : texts)
+    for (auto &object : objects)
     {
-        delete text;
-    }
-
-    for (int i = 0; i < objects.size(); i++)
-    {
-        if (objects[i].type == ObjectType::TEXT)
+        if (object.second.type == ObjectType::TEXT)
         {
-            objects.erase(objects.begin() + i);
-            i--;
+            delete object.second.text;
         }
     }
 
-    texts.clear();
+    for (auto it = objects.begin(); it != objects.end();)
+    {
+        if (it->second.type == ObjectType::TEXT)
+        {
+            it = objects.erase(it);
+        }
+        else
+        {
+            it++;
+        }
+    }
 
     Log::log("Texts cleared");
+}
+
+void Context::setID(uInt id)
+{
+    this->id = id;
+}
+
+uInt Context::getID()
+{
+    return id;
 }
 
 void Context::setLabel(const std::string &label)

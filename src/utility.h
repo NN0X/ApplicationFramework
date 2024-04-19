@@ -9,6 +9,9 @@ namespace Utility
 {
     void wait(uInt milliseconds);
 
+    uInt genID();
+    uInt genUniqueID();
+
     void saveBinary(const std::vector<double> &doubles, const std::string &path);
     void saveBinary(const std::vector<std::string> &strings, const std::string &path);
 

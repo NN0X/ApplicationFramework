@@ -42,6 +42,11 @@ namespace AF
         return app->createContext();
     }
 
+    void setContextLabel(Application *app, uInt index, const std::string &label)
+    {
+        app->setContextLabel(index, label);
+    }
+
     void setCurrentContext(Application *app, uInt index)
     {
         app->setCurrentContext(index);
@@ -82,9 +87,9 @@ namespace AF
         return app->getWindowSize();
     }
 
-    uInt getCurrentContextIndex(Application *app)
+    uInt getCurrentContextID(Application *app)
     {
-        return app->getCurrentContextIndex();
+        return app->getCurrentContextID();
     }
 
     double getTime(Application *app)
@@ -188,16 +193,31 @@ namespace AF
             return app->createText(text, position, scale, rotation, app->getWindowSize(), fontPath, vertexPath, fragmentPath);
         }
 
-        void destroy(Application *app, uInt index)
+        void setLabel(Application *app, uInt id, const std::string &label)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->destroyObject2D(object.index);
+                object.object2d->setLabel(label);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->destroyText(object.index);
+                object.text->setLabel(label);
+            }
+            else
+                Log::log("Unknown object type");
+        }
+
+        void destroy(Application *app, uInt id)
+        {
+            ObjectPtr object = app->getObject(id);
+            if (object.type == ObjectType::OBJECT2D)
+            {
+                app->destroyObject(object.object2d->getID());
+            }
+            else if (object.type == ObjectType::TEXT)
+            {
+                app->destroyObject(object.text->getID());
             }
             else
                 Log::log("Unknown object type");
@@ -205,14 +225,14 @@ namespace AF
 
         void destroy(Application *app, const std::string &label)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->destroyObject2D(object.index);
+                app->destroyObject(object.object2d->getID());
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->destroyText(object.index);
+                app->destroyObject(object.text->getID());
             }
             else
                 Log::log("Unknown object type");
@@ -232,26 +252,26 @@ namespace AF
                 Log::log("Unknown object type");
         }
 
-        bool isClicked(Application *app, uInt index)
+        bool isClicked(Application *app, uInt id)
         {
             if (app->getInput()->isMouseButtonPressed(MOUSE_LEFT))
             {
-                ObjectID object = app->getObjectID(index);
+                ObjectPtr object = app->getObject(id);
                 if (object.type == ObjectType::OBJECT2D)
                 {
-                    bool clicked = app->inObject2DHitbox(object.index, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+                    bool clicked = app->inObjectHitbox(object.object2d->getID(), app->getInput()->getMousePositionWorld(app->getWindowSize()));
                     if (clicked)
                     {
-                        Log::log("Object " + std::to_string(index) + " clicked");
+                        Log::log("Object " + std::to_string(id) + " clicked");
                         return true;
                     }
                 }
                 else if (object.type == ObjectType::TEXT)
                 {
-                    bool clicked = app->inTextHitbox(object.index, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+                    bool clicked = app->inObjectHitbox(object.text->getID(), app->getInput()->getMousePositionWorld(app->getWindowSize()));
                     if (clicked)
                     {
-                        Log::log("Object " + std::to_string(index) + " clicked");
+                        Log::log("Object " + std::to_string(id) + " clicked");
                         return true;
                     }
                 }
@@ -266,10 +286,10 @@ namespace AF
         {
             if (app->getInput()->isMouseButtonPressed(MOUSE_LEFT))
             {
-                ObjectID object = app->getObjectID(label);
+                ObjectPtr object = app->getObject(label);
                 if (object.type == ObjectType::OBJECT2D)
                 {
-                    bool clicked = app->inObject2DHitbox(object.index, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+                    bool clicked = app->inObjectHitbox(object.object2d->getID(), app->getInput()->getMousePositionWorld(app->getWindowSize()));
                     if (clicked)
                     {
                         Log::log("Object " + label + " clicked");
@@ -278,7 +298,7 @@ namespace AF
                 }
                 else if (object.type == ObjectType::TEXT)
                 {
-                    bool clicked = app->inTextHitbox(object.index, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+                    bool clicked = app->inObjectHitbox(object.text->getID(), app->getInput()->getMousePositionWorld(app->getWindowSize()));
                     if (clicked)
                     {
                         Log::log("Object " + label + " clicked");
@@ -292,24 +312,24 @@ namespace AF
             return false;
         }
 
-        bool isHovered(Application *app, uInt index)
+        bool isHovered(Application *app, uInt id)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                bool hovered = app->inObject2DHitbox(object.index, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+                bool hovered = app->inObjectHitbox(object.object2d->getID(), app->getInput()->getMousePositionWorld(app->getWindowSize()));
                 if (hovered)
                 {
-                    Log::log("Object " + std::to_string(index) + " hovered");
+                    Log::log("Object " + std::to_string(id) + " hovered");
                     return true;
                 }
             }
             else if (object.type == ObjectType::TEXT)
             {
-                bool hovered = app->inTextHitbox(object.index, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+                bool hovered = app->inObjectHitbox(object.text->getID(), app->getInput()->getMousePositionWorld(app->getWindowSize()));
                 if (hovered)
                 {
-                    Log::log("Object " + std::to_string(index) + " hovered");
+                    Log::log("Object " + std::to_string(id) + " hovered");
                     return true;
                 }
             }
@@ -320,10 +340,10 @@ namespace AF
 
         bool isHovered(Application *app, const std::string &label)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                bool hovered = app->inObject2DHitbox(object.index, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+                bool hovered = app->inObjectHitbox(object.object2d->getID(), app->getInput()->getMousePositionWorld(app->getWindowSize()));
                 if (hovered)
                 {
                     Log::log("Object " + label + " hovered");
@@ -332,7 +352,7 @@ namespace AF
             }
             else if (object.type == ObjectType::TEXT)
             {
-                bool hovered = app->inTextHitbox(object.index, app->getInput()->getMousePositionWorld(app->getWindowSize()));
+                bool hovered = app->inObjectHitbox(object.text->getID(), app->getInput()->getMousePositionWorld(app->getWindowSize()));
                 if (hovered)
                 {
                     Log::log("Object " + label + " hovered");
@@ -344,16 +364,16 @@ namespace AF
             return false;
         }
 
-        void transformPosition(Application *app, uInt index, const dVector2 &transform)
+        void transformPosition(Application *app, uInt id, const dVector2 &transform)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->transformPosition(transform);
+                object.object2d->transformPosition(transform);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->transformPosition(transform);
+                object.text->transformPosition(transform);
             }
             else
                 Log::log("Unknown object type");
@@ -361,29 +381,29 @@ namespace AF
 
         void transformPosition(Application *app, const std::string &label, const dVector2 &transform)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->transformPosition(transform);
+                object.object2d->transformPosition(transform);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->transformPosition(transform);
+                object.text->transformPosition(transform);
             }
             else
                 Log::log("Unknown object type");
         }
 
-        void transformScale(Application *app, uInt index, const dVector2 &transform)
+        void transformScale(Application *app, uInt id, const dVector2 &transform)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->transformScale(transform);
+                object.object2d->transformScale(transform);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->transformScale(transform);
+                object.text->transformScale(transform);
             }
             else
                 Log::log("Unknown object type");
@@ -391,29 +411,29 @@ namespace AF
 
         void transformScale(Application *app, const std::string &label, const dVector2 &transform)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->transformScale(transform);
+                object.object2d->transformScale(transform);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->transformScale(transform);
+                object.text->transformScale(transform);
             }
             else
                 Log::log("Unknown object type");
         }
 
-        void transformRotation(Application *app, uInt index, double transform)
+        void transformRotation(Application *app, uInt id, double transform)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->transformRotation(transform);
+                object.object2d->transformRotation(transform);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->transformRotation(transform);
+                object.text->transformRotation(transform);
             }
             else
                 Log::log("Unknown object type");
@@ -421,29 +441,29 @@ namespace AF
 
         void transformRotation(Application *app, const std::string &label, double transform)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->transformRotation(transform);
+                object.object2d->transformRotation(transform);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->transformRotation(transform);
+                object.text->transformRotation(transform);
             }
             else
                 Log::log("Unknown object type");
         }
 
-        void setPositionWorld(Application *app, uInt index, const dVector2 &position)
+        void setPositionWorld(Application *app, uInt id, const dVector2 &position)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->setPositionWorld(position);
+                object.object2d->setPositionWorld(position);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->setPositionWorld(position);
+                object.text->setPositionWorld(position);
             }
             else
                 Log::log("Unknown object type");
@@ -451,29 +471,29 @@ namespace AF
 
         void setPositionWorld(Application *app, const std::string &label, const dVector2 &position)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->setPositionWorld(position);
+                object.object2d->setPositionWorld(position);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->setPositionWorld(position);
+                object.text->setPositionWorld(position);
             }
             else
                 Log::log("Unknown object type");
         }
 
-        void setPositionWindow(Application *app, uInt index, const dVector2 &position)
+        void setPositionWindow(Application *app, uInt id, const dVector2 &position)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->setPositionWindow(position, app->getWindowSize());
+                object.object2d->setPositionWindow(position, app->getWindowSize());
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->setPositionWindow(position, app->getWindowSize());
+                object.text->setPositionWindow(position, app->getWindowSize());
             }
             else
                 Log::log("Unknown object type");
@@ -481,29 +501,29 @@ namespace AF
 
         void setPositionWindow(Application *app, const std::string &label, const dVector2 &position)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->setPositionWindow(position, app->getWindowSize());
+                object.object2d->setPositionWindow(position, app->getWindowSize());
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->setPositionWindow(position, app->getWindowSize());
+                object.text->setPositionWindow(position, app->getWindowSize());
             }
             else
                 Log::log("Unknown object type");
         }
 
-        void setScaleWorld(Application *app, uInt index, const dVector2 &scale)
+        void setScaleWorld(Application *app, uInt id, const dVector2 &scale)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->setScaleWorld(scale);
+                object.object2d->setScaleWorld(scale);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->setScaleWorld(scale);
+                object.text->setScaleWorld(scale);
             }
             else
                 Log::log("Unknown object type");
@@ -511,29 +531,29 @@ namespace AF
 
         void setScaleWorld(Application *app, const std::string &label, const dVector2 &scale)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->setScaleWorld(scale);
+                object.object2d->setScaleWorld(scale);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->setScaleWorld(scale);
+                object.text->setScaleWorld(scale);
             }
             else
                 Log::log("Unknown object type");
         }
 
-        void setScaleWindow(Application *app, uInt index, const dVector2 &scale)
+        void setScaleWindow(Application *app, uInt id, const dVector2 &scale)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->setScaleWindow(scale, app->getWindowSize());
+                object.object2d->setScaleWindow(scale, app->getWindowSize());
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->setScaleWindow(scale, app->getWindowSize());
+                object.text->setScaleWindow(scale, app->getWindowSize());
             }
             else
                 Log::log("Unknown object type");
@@ -541,29 +561,29 @@ namespace AF
 
         void setScaleWindow(Application *app, const std::string &label, const dVector2 &scale)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->setScaleWindow(scale, app->getWindowSize());
+                object.object2d->setScaleWindow(scale, app->getWindowSize());
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->setScaleWindow(scale, app->getWindowSize());
+                object.text->setScaleWindow(scale, app->getWindowSize());
             }
             else
                 Log::log("Unknown object type");
         }
 
-        void setRotation(Application *app, uInt index, double rotation)
+        void setRotation(Application *app, uInt id, double rotation)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->setRotation(rotation);
+                object.object2d->setRotation(rotation);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->setRotation(rotation);
+                object.text->setRotation(rotation);
             }
             else
                 Log::log("Unknown object type");
@@ -571,29 +591,29 @@ namespace AF
 
         void setRotation(Application *app, const std::string &label, double rotation)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                app->getObject2D(object.index)->setRotation(rotation);
+                object.object2d->setRotation(rotation);
             }
             else if (object.type == ObjectType::TEXT)
             {
-                app->getText(object.index)->setRotation(rotation);
+                object.text->setRotation(rotation);
             }
             else
                 Log::log("Unknown object type");
         }
 
-        dVector2 getPositionWorld(Application *app, uInt index)
+        dVector2 getPositionWorld(Application *app, uInt id)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                return app->getObject2D(object.index)->getPositionWorld();
+                return object.object2d->getPositionWorld();
             }
             else if (object.type == ObjectType::TEXT)
             {
-                return app->getText(object.index)->getPositionWorld();
+                return object.text->getPositionWorld();
             }
             else
                 Log::log("Unknown object type");
@@ -602,30 +622,30 @@ namespace AF
 
         dVector2 getPositionWorld(Application *app, const std::string &label)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                return app->getObject2D(object.index)->getPositionWorld();
+                return object.object2d->getPositionWorld();
             }
             else if (object.type == ObjectType::TEXT)
             {
-                return app->getText(object.index)->getPositionWorld();
+                return object.text->getPositionWorld();
             }
             else
                 Log::log("Unknown object type");
             return dVector2();
         }
 
-        dVector2 getPositionWindow(Application *app, uInt index)
+        dVector2 getPositionWindow(Application *app, uInt id)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                return app->getObject2D(object.index)->getPositionWindow(app->getWindowSize());
+                return object.object2d->getPositionWindow(app->getWindowSize());
             }
             else if (object.type == ObjectType::TEXT)
             {
-                return app->getText(object.index)->getPositionWindow(app->getWindowSize());
+                return object.text->getPositionWindow(app->getWindowSize());
             }
             else
                 Log::log("Unknown object type");
@@ -634,30 +654,30 @@ namespace AF
 
         dVector2 getPositionWindow(Application *app, const std::string &label)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                return app->getObject2D(object.index)->getPositionWindow(app->getWindowSize());
+                return object.object2d->getPositionWindow(app->getWindowSize());
             }
             else if (object.type == ObjectType::TEXT)
             {
-                return app->getText(object.index)->getPositionWindow(app->getWindowSize());
+                return object.text->getPositionWindow(app->getWindowSize());
             }
             else
                 Log::log("Unknown object type");
             return dVector2();
         }
 
-        dVector2 getScaleWorld(Application *app, uInt index)
+        dVector2 getScaleWorld(Application *app, uInt id)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                return app->getObject2D(object.index)->getScaleWorld();
+                return object.object2d->getScaleWorld();
             }
             else if (object.type == ObjectType::TEXT)
             {
-                return app->getText(object.index)->getScaleWorld();
+                return object.text->getScaleWorld();
             }
             else
                 Log::log("Unknown object type");
@@ -666,30 +686,30 @@ namespace AF
 
         dVector2 getScaleWorld(Application *app, const std::string &label)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                return app->getObject2D(object.index)->getScaleWorld();
+                return object.object2d->getScaleWorld();
             }
             else if (object.type == ObjectType::TEXT)
             {
-                return app->getText(object.index)->getScaleWorld();
+                return object.text->getScaleWorld();
             }
             else
                 Log::log("Unknown object type");
             return dVector2();
         }
 
-        dVector2 getScaleWindow(Application *app, uInt index)
+        dVector2 getScaleWindow(Application *app, uInt id)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                return app->getObject2D(object.index)->getScaleWindow(app->getWindowSize());
+                return object.object2d->getScaleWindow(app->getWindowSize());
             }
             else if (object.type == ObjectType::TEXT)
             {
-                return app->getText(object.index)->getScaleWindow(app->getWindowSize());
+                return object.text->getScaleWindow(app->getWindowSize());
             }
             else
                 Log::log("Unknown object type");
@@ -698,30 +718,30 @@ namespace AF
 
         dVector2 getScaleWindow(Application *app, const std::string &label)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                return app->getObject2D(object.index)->getScaleWindow(app->getWindowSize());
+                return object.object2d->getScaleWindow(app->getWindowSize());
             }
             else if (object.type == ObjectType::TEXT)
             {
-                return app->getText(object.index)->getScaleWindow(app->getWindowSize());
+                return object.text->getScaleWindow(app->getWindowSize());
             }
             else
                 Log::log("Unknown object type");
             return dVector2();
         }
 
-        double getRotation(Application *app, uInt index)
+        double getRotation(Application *app, uInt id)
         {
-            ObjectID object = app->getObjectID(index);
+            ObjectPtr object = app->getObject(id);
             if (object.type == ObjectType::OBJECT2D)
             {
-                return app->getObject2D(object.index)->getRotation();
+                return object.object2d->getRotation();
             }
             else if (object.type == ObjectType::TEXT)
             {
-                return app->getText(object.index)->getRotation();
+                return object.text->getRotation();
             }
             else
                 Log::log("Unknown object type");
@@ -730,14 +750,14 @@ namespace AF
 
         double getRotation(Application *app, const std::string &label)
         {
-            ObjectID object = app->getObjectID(label);
+            ObjectPtr object = app->getObject(label);
             if (object.type == ObjectType::OBJECT2D)
             {
-                return app->getObject2D(object.index)->getRotation();
+                return object.object2d->getRotation();
             }
             else if (object.type == ObjectType::TEXT)
             {
-                return app->getText(object.index)->getRotation();
+                return object.text->getRotation();
             }
             else
                 Log::log("Unknown object type");
@@ -759,6 +779,19 @@ namespace AF
         void setFlags(Application *app, bool print, bool save, bool enable)
         {
             app->getLog()->setFlags(print, save, enable);
+        }
+    }
+
+    namespace Utils
+    {
+        void wait(uInt milliseconds)
+        {
+            Utility::wait(milliseconds);
+        }
+
+        uInt genID()
+        {
+            return Utility::genID();
         }
     }
 }

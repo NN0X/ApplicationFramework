@@ -17,15 +17,15 @@ enum ObjectType
 class Object
 {
 protected:
-    uInt index;
+    uInt id;
     std::string label;
 
 public:
     Object();
     ~Object();
 
-    void setIndex(uInt index);
-    uInt getIndex();
+    void setID(uInt id);
+    uInt getID();
 
     void setLabel(const std::string &label);
     std::string getLabel();
