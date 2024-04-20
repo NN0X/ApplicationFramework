@@ -404,6 +404,7 @@ void Text::setText(const std::string &text)
 {
     this->text = text;
     genText(text);
+    genAttributes();
 }
 
 std::string Text::getText()

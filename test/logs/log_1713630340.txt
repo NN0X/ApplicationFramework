@@ -1,0 +1,21 @@
+[0.000000] : LogManager initialized
+[0.326701][0] : Context created
+[0.326738][0] : InputManager initialized
+[0.326746][0] : Application initialized
+[0.326753][0] : Loading context from 'resources/database/default.ndl'
+[0.326760][0] : Loading binary data from 'resources/meshes/rectangle.msh'
+[0.326767][0] : Binary data loaded from 'resources/meshes/rectangle.msh'
+[0.326773][0] : Object created
+[0.326778][0] : Object created
+[0.326785][0] : Loading binary data from 'resources/fonts/arial/arial.fc'
+[0.326791][0] : Binary data loaded from 'resources/fonts/arial/arial.fc'
+[0.326797][0] : Loading binary data from 'resources/fonts/arial/arial.msh'
+[0.326803][0] : Binary data loaded from 'resources/fonts/arial/arial.msh'
+[0.326809][0] : Context loaded from 'resources/database/default.ndl'
+[2.213893][10141] : Object exit clicked
+[2.213929][10142] : Clearing contexts
+[2.213937][10142] : Application destroyed
+[2.213954] : Frames: 10142
+[2.213958] : Average FPS: 4581.170279
+[2.213963] : LogManager destroyed
+[2.213969] : Saving logs to 'logs/log_1713630340.txt'

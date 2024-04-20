@@ -42,14 +42,19 @@ namespace AF
         return app->createContext();
     }
 
-    void setContextLabel(Application *app, uInt index, const std::string &label)
+    void setContextLabel(Application *app, uInt id, const std::string &label)
     {
-        app->setContextLabel(index, label);
+        app->setContextLabel(id, label);
     }
 
-    void setCurrentContext(Application *app, uInt index)
+    void setCurrentContextLabel(Application *app, const std::string &label)
     {
-        app->setCurrentContext(index);
+        app->setContextLabel(app->getCurrentContextID(), label);
+    }
+
+    void setCurrentContext(Application *app, uInt id)
+    {
+        app->setCurrentContext(id);
     }
 
     void setCurrentContext(Application *app, const std::string &label)
@@ -62,9 +67,9 @@ namespace AF
         app->loadContext(path);
     }
 
-    void destroyContext(Application *app, uInt index)
+    void destroyContext(Application *app, uInt id)
     {
-        app->destroyContext(index);
+        app->destroyContext(id);
     }
 
     void destroyContext(Application *app, const std::string &label)
@@ -100,6 +105,11 @@ namespace AF
     double getDeltaTime(Application *app)
     {
         return app->getDeltaTime();
+    }
+
+    double getFPS(Application *app)
+    {
+        return app->getFPS();
     }
 
     namespace Input
@@ -188,7 +198,7 @@ namespace AF
             return 0;
         }
 
-        uInt create(Application *app, const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath)
+        uInt createText(Application *app, const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath)
         {
             return app->createText(text, position, scale, rotation, app->getWindowSize(), fontPath, vertexPath, fragmentPath);
         }
@@ -203,6 +213,53 @@ namespace AF
             else if (object.type == ObjectType::TEXT)
             {
                 object.text->setLabel(label);
+            }
+            else
+                Log::log("Unknown object type");
+        }
+
+        uInt getID(Application *app, const std::string &label)
+        {
+            ObjectPtr object = app->getObject(label);
+            if (object.type == ObjectType::OBJECT2D)
+            {
+                return object.object2d->getID();
+            }
+            else if (object.type == ObjectType::TEXT)
+            {
+                return object.text->getID();
+            }
+            else
+                Log::log("Unknown object type");
+            return 0;
+        }
+
+        void setText(Application *app, uInt id, const std::string &text)
+        {
+            ObjectPtr object = app->getObject(id);
+            if (object.type == ObjectType::OBJECT2D)
+            {
+                Log::log("Object " + std::to_string(id) + " is not a text object");
+            }
+            else if (object.type == ObjectType::TEXT)
+            {
+                object.text->setText(text);
+            }
+            else
+                Log::log("Unknown object type");
+        }
+
+        void setText(Application *app, const std::string &label, const std::string &text)
+        {
+            ObjectPtr object = app->getObject(label);
+            if (object.type == ObjectType::OBJECT2D)
+            {
+                Log::log("Object '" + label + "' is not a text object");
+            }
+            else if (object.type == ObjectType::TEXT)
+            {
+                if (object.text->getText() != text)
+                    object.text->setText(text);
             }
             else
                 Log::log("Unknown object type");

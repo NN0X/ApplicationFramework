@@ -308,6 +308,11 @@ bool Application::inObjectHitbox(uInt id, const dVector2 &position)
     return contexts[currentContextID]->inObjectHitbox(id, position);
 }
 
+bool Application::inObjectHitbox(const std::string &label, const dVector2 &position)
+{
+    return contexts[currentContextID]->inObjectHitbox(label, position);
+}
+
 uInt Application::createObject2D(dVector2 position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &verticesPath, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath)
 {
     std::vector<double> vertices = Utility::loadBinaryDoubles(verticesPath);
@@ -369,4 +374,9 @@ double Application::getTime()
 double Application::getDeltaTime()
 {
     return currentTime - previousTime;
+}
+
+double Application::getFPS()
+{
+    return 1 / getDeltaTime();
 }

@@ -1,6 +1,3 @@
 ﻿  AF.cpp
-  application.cpp
-D:\Dev\ApplicationFramework\src\application.cpp(145,33): warning C4267: "argument": konwersja z "size_t" do "uInt", możliwa utrata danych
-  Generowanie kodu...
-D:\Dev\ApplicationFramework\src\AF.cpp(82): warning C4172: zwracanie adresu lokalnej zmiennej lub tymczasowej
+D:\Dev\ApplicationFramework\src\AF.cpp(87): warning C4172: zwracanie adresu lokalnej zmiennej lub tymczasowej
   AF.vcxproj -> D:\Dev\ApplicationFramework\test\AF.lib

@@ -36,6 +36,7 @@ public:
     ObjectPtr getObject(const std::string &label);
 
     bool inObjectHitbox(uInt id, const dVector2 &position);
+    bool inObjectHitbox(const std::string &label, const dVector2 &position);
 
     uInt createObject2D(const dVector2 &position, const dVector2 &scale, double rotation, const std::vector<double> &vertices, const iVector2 &windowSize, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath);
     uInt createText(const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath);

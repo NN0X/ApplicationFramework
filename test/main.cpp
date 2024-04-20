@@ -4,10 +4,11 @@
 
 int main()
 {
-    Application *app = AF::init(AF_FHD, "Test", false, true, true, false);
+    Application *app = AF::init(AF::FHD, "Test", false, true, true, false);
     AF::Logs::setFlags(app, false, true, true);
 
     AF::loadContext(app, "resources/database/default.ndl");
+    AF::setCurrentContextLabel(app, "default");
 
     // dVector2(0.025, 0.025) is the offset so the position is from the right top corner (scale / dVector2(2, 1))
     // this should be done actually in window coordinate system so this is an approximation

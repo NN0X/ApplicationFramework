@@ -9,19 +9,10 @@
  * (LICENSE THERE)
  *************************************************************************/
 
-// ADD NEW FUNCTIONALITIES
-
 #ifndef APPLICATIONFRAMEWORK_H
 #define APPLICATIONFRAMEWORK_H
 
-// defines
-
 typedef unsigned int uInt;
-
-#define AF_WQHD iVector2(2560, 1440)
-#define AF_FHD iVector2(1920, 1080)
-#define AF_HD iVector2(1280, 720)
-#define AF_SD iVector2(640, 480)
 
 /*! @brief The main class of the framework used to create and manage the application and its contexts
  */
@@ -469,6 +460,11 @@ namespace AF
         TEXT
     };
 
+    const iVector2 WQHD = iVector2(2560, 1440);
+    const iVector2 FHD = iVector2(1920, 1080);
+    const iVector2 HD = iVector2(1280, 720);
+    const iVector2 SD = iVector2(640, 360);
+
     /*! @brief Initializes the application with default values
      *  @param windowSize The size of the window: iVector2(1280, 720)
      *  @param windowTitle The title of the window: "Application"
@@ -525,6 +521,12 @@ namespace AF
      * @param label The label to set
      */
     void setContextLabel(Application *app, uInt id, const std::string &label);
+
+    /*! @brief Sets the label of the current context
+     * @param app The application to set the label in
+     * @param label The label to set
+     */
+    void setCurrentContextLabel(Application *app, const std::string &label);
 
     /*! @brief Sets the current context
      * @param app The application to set the context in
@@ -590,6 +592,12 @@ namespace AF
      * @return The delta time from the previous frame
      */
     double getDeltaTime(Application *app);
+
+    /*! @brief Gets the frames per second of the application
+     * @param app The application to get the frames per second from
+     * @return The frames per second of the application
+     */
+    double getFPS(Application *app);
 
     /*! @brief Namespace for input functions
      */
@@ -835,7 +843,7 @@ namespace AF
          */
         uInt create(Application *app, uInt type, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &verticesPath, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath);
 
-        /*! @brief Creates an object
+        /*! @brief Creates an text object
          * @param app The application to create the object in
          * @param text The text to display
          * @param position The position of the object
@@ -846,7 +854,7 @@ namespace AF
          * @param fragmentPath The path of the fragment shader
          * @return The id of the created object
          */
-        uInt create(Application *app, const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath);
+        uInt createText(Application *app, const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath);
 
         /*! @brief Sets the label of an object
          * @param app The application to set the object in
@@ -854,6 +862,27 @@ namespace AF
          * @param label The label to set
          */
         void setLabel(Application *app, uInt id, const std::string &label);
+
+        /*! @brief Gets the id of an object
+         * @param app The application to get the object from
+         * @param label The label of the object
+         * @return The id of the object
+         */
+        uInt getID(Application *app, const std::string &label);
+
+        /*! @brief Sets the text of an object
+         * @param app The application to set the object in
+         * @param id The id of the object
+         * @param text The text to set
+         */
+        void setText(Application *app, uInt id, const std::string &text);
+
+        /*! @brief Sets the text of an object
+         * @param app The application to set the object in
+         * @param label The label of the object
+         * @param text The text to set
+         */
+        void setText(Application *app, const std::string &label, const std::string &text);
 
         /*! @brief Destroys an object
          * @param app The application to destroy the object in

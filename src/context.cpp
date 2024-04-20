@@ -68,6 +68,25 @@ bool Context::inObjectHitbox(uInt id, const dVector2 &position)
     return false;
 }
 
+bool Context::inObjectHitbox(const std::string &label, const dVector2 &position)
+{
+    if (objectLabels.find(label) != objectLabels.end())
+    {
+        if (objects[objectLabels[label]].type == ObjectType::OBJECT2D)
+        {
+            return objects[objectLabels[label]].object2d->inHitbox(position);
+        }
+        else if (objects[objectLabels[label]].type == ObjectType::TEXT)
+        {
+            return objects[objectLabels[label]].text->inHitbox(position);
+        }
+        else
+            Log::log("Wrong object type");
+    }
+    Log::log("Object label not found");
+    return false;
+}
+
 uInt Context::createObject2D(const dVector2 &position, const dVector2 &scale, double rotation, const std::vector<double> &vertices, const iVector2 &windowSize, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath)
 {
     Object2D *object2d = new Object2D(position, scale, rotation, vertices, windowSize, texturePath, vertexPath, fragmentPath);
