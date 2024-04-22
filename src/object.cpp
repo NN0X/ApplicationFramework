@@ -4,42 +4,57 @@
 
 Object::Object()
 {
-    Log::log("Object created");
+    Logger::log("Object created");
 }
 
 Object::~Object()
 {
-    Log::log("Object destroyed");
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "' destroyed");
 }
 
-void Object::setID(uInt id)
+void Object::addChild(uInt childID)
 {
-    this->id = id;
+    childrenIDs.push_back(childID);
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Child '" + std::to_string(childID) + "' added");
 }
 
-uInt Object::getID()
+void Object::removeChild(uInt childID)
 {
-    return id;
+    for (int i = 0; i < childrenIDs.size(); i++)
+    {
+        if (childrenIDs[i] == childID)
+        {
+            childrenIDs.erase(childrenIDs.begin() + i);
+
+            Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Child '" + std::to_string(childID) + "' removed");
+
+            break;
+        }
+    }
 }
 
-void Object::setLabel(const std::string &label)
+std::vector<uInt> Object::getChildren()
 {
-    this->label = label;
+    return childrenIDs;
 }
 
-std::string Object::getLabel()
+void Object::clearChildren()
 {
-    return label;
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Clearing children");
+    childrenIDs.clear();
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Children cleared");
 }
 
 // class Object2D : public Object
 
 Object2D::Object2D()
 {
+    Logger::log("Object2D created");
 }
 
-Object2D::Object2D(const dVector2 &position, const dVector2 &scale, double rotation, const std::vector<double> &vertices, const iVector2 &windowSize, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath)
+Object2D::Object2D(uInt id, const dVector2 &position, const dVector2 &scale, double rotation, const std::vector<double> &vertices, const iVector2 &windowSize, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath)
 {
+    this->id = id;
     this->position = position;
     this->scale = scale;
     this->rotation = rotation;
@@ -60,6 +75,8 @@ Object2D::Object2D(const dVector2 &position, const dVector2 &scale, double rotat
     genAttributes();
     genShader(vertexPath, fragmentPath);
     genTexture(texturePath);
+
+    Logger::log("Object2D '" + std::to_string(id) + "' created");
 }
 
 Object2D::~Object2D()
@@ -68,6 +85,8 @@ Object2D::~Object2D()
     glDeleteBuffers(1, &attributes);
     glDeleteTextures(1, &texture);
     glDeleteProgram(shader);
+
+    Logger::log("Object2D '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "' destroyed");
 }
 
 void Object2D::draw()
@@ -105,23 +124,33 @@ void Object2D::transformRotation(double transform)
 
 void Object2D::genVertices(const std::vector<double> &vertices)
 {
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Generating vertices");
+
     sizeOfVertices = vertices.size();
     glGenBuffers(1, &this->vertices);
     glBindBuffer(GL_ARRAY_BUFFER, this->vertices);
     glBufferData(GL_ARRAY_BUFFER, sizeOfVertices * sizeof(double), &vertices[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Vertices generated");
 }
 
 void Object2D::genHitbox(const std::vector<double> &vertices)
 {
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Generating hitbox");
+
     for (int i = 0; i < vertices.size(); i += 4)
     {
         hitbox.push_back({vertices[i], vertices[i + 1]});
     }
+
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Hitbox generated");
 }
 
 void Object2D::genTexture(const std::string &texturePath)
 {
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Generating texture");
+
     iVector2 size;
     int numberOfColumns;
 
@@ -140,10 +169,14 @@ void Object2D::genTexture(const std::string &texturePath)
 
     stbi_image_free(data);
     glBindTexture(GL_TEXTURE_2D, 0);
+
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Texture generated");
 }
 
 void Object2D::genShader(const std::string &vertexPath, const std::string &fragmentPath)
 {
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Generating shader");
+
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -179,10 +212,14 @@ void Object2D::genShader(const std::string &vertexPath, const std::string &fragm
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Shader generated");
 }
 
 void Object2D::genAttributes()
 {
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Generating attributes");
+
     glGenVertexArrays(1, &attributes);
     glBindVertexArray(attributes);
     glBindBuffer(GL_ARRAY_BUFFER, vertices);
@@ -193,6 +230,8 @@ void Object2D::genAttributes()
     glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);
+
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Attributes generated");
 }
 
 bool Object2D::inHitbox(const dVector2 &point)
@@ -215,32 +254,18 @@ bool Object2D::inHitbox(const dVector2 &point)
     return in;
 }
 
-void Object2D::setPositionWorld(const dVector2 &position)
+void Object2D::setPosition(const dVector2 &position)
 {
     translationMatrix.identity();
     translationMatrix.translate({position.x, position.y, 0.0});
     this->position = position;
 }
 
-void Object2D::setScaleWorld(const dVector2 &scale)
+void Object2D::setScale(const dVector2 &scale)
 {
     scaleMatrix.identity();
     scaleMatrix.scale({scale.x, scale.y, 1.0});
     this->scale = scale;
-}
-
-void Object2D::setPositionWindow(dVector2 position, const iVector2 &windowSize)
-{
-    double aspectRatio = double(windowSize.x) / double(windowSize.y);
-    position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1});
-    setPositionWorld(position);
-}
-
-void Object2D::setScaleWindow(dVector2 scale, const iVector2 &windowSize)
-{
-    double aspectRatio = double(windowSize.x) / double(windowSize.y);
-    scale = Vector::convertCoordinateSystem(scale, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1});
-    setScaleWorld(scale);
 }
 
 void Object2D::setRotation(double rotation)
@@ -250,31 +275,14 @@ void Object2D::setRotation(double rotation)
     this->rotation = rotation;
 }
 
-std::vector<dVector2> Object2D::getHitbox()
-{
-    return hitbox;
-}
-
-dVector2 Object2D::getPositionWorld()
+dVector2 Object2D::getPosition()
 {
     return position;
 }
 
-dVector2 Object2D::getScaleWorld()
+dVector2 Object2D::getScale()
 {
     return scale;
-}
-
-dVector2 Object2D::getPositionWindow(const iVector2 &windowSize)
-{
-    double aspectRatio = double(windowSize.x) / double(windowSize.y);
-    return Vector::convertCoordinateSystem(position, {-1, 2 / aspectRatio - 1}, {1, -1}, {0, 1}, {1, 0});
-}
-
-dVector2 Object2D::getScaleWindow(const iVector2 &windowSize)
-{
-    double aspectRatio = double(windowSize.x) / double(windowSize.y);
-    return Vector::convertCoordinateSystem(scale, {-1, 2 / aspectRatio - 1}, {1, -1}, {0, 1}, {1, 0});
 }
 
 double Object2D::getRotation()
@@ -284,8 +292,9 @@ double Object2D::getRotation()
 
 // class Text : public Object2D
 
-Text::Text(const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath)
+Text::Text(uInt id, const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath)
 {
+    this->id = id;
     this->position = position;
     this->scale = scale;
     this->rotation = rotation;
@@ -306,6 +315,8 @@ Text::Text(const std::string &text, const dVector2 &position, const dVector2 &sc
     genAttributes();
     genShader(vertexPath, fragmentPath);
     genTexture(fontPath + ".png");
+
+    Logger::log("Text object '" + std::to_string(id) + "' created");
 }
 
 Text::~Text()
@@ -314,10 +325,14 @@ Text::~Text()
     glDeleteBuffers(1, &attributes);
     glDeleteTextures(1, &texture);
     glDeleteProgram(shader);
+
+    Logger::log("Text object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "' destroyed");
 }
 
 void Text::genText(const std::string &text)
 {
+    Logger::log("Text object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Generating text");
+
     std::vector<double> vertices;
 
     std::vector<std::string> textVector;
@@ -326,7 +341,7 @@ void Text::genText(const std::string &text)
     std::vector<bool> newLines;
 
     std::set<std::string> fontCharacters;
-    for (std::string character : Utility::loadBinaryStrings(fontPath + ".fc"))
+    for (std::string character : Utils::loadBinaryStrings(fontPath + ".fc"))
     {
         fontCharacters.insert(character);
     }
@@ -342,7 +357,6 @@ void Text::genText(const std::string &text)
         }
         else if (character != '\n')
         {
-            Log::log("Character not found in font '" + fontPath + "': " + characterString);
         }
         if (character == '\n')
             newLines.push_back(true);
@@ -357,7 +371,7 @@ void Text::genText(const std::string &text)
         newLines.push_back(false);
     }
 
-    std::vector<double> fontVertices = Utility::loadBinaryDoubles(fontPath + ".msh");
+    std::vector<double> fontVertices = Utils::loadBinaryDoubles(fontPath + ".msh");
 
     const double characterSize = 1.8;
     int line = 0;
@@ -398,6 +412,8 @@ void Text::genText(const std::string &text)
 
     genVertices(vertices);
     genHitbox(vertices);
+
+    Logger::log("Text object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Text generated");
 }
 
 void Text::setText(const std::string &text)

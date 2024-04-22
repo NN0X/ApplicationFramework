@@ -5,7 +5,7 @@
 #include "defines.h"
 #include "log.h"
 
-namespace Utility
+namespace Utils
 {
     void wait(uInt milliseconds);
 

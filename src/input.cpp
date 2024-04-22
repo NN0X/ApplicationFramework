@@ -14,12 +14,12 @@ InputManager::InputManager()
         mouseButtonsReleased[i] = false;
     }
 
-    Log::log("InputManager initialized");
+    Logger::log("Input manager initialized");
 }
 
 InputManager::~InputManager()
 {
-    Log::log("InputManager destroyed");
+    Logger::log("Input manager destroyed");
 }
 
 void InputManager::update(GLFWwindow *window)
@@ -76,7 +76,8 @@ void InputManager::setKeyPressed(uInt key)
         keysReleased[key] = false;
         return;
     }
-    Log::log("Key code out of range: " + std::to_string(key));
+
+    Logger::error("Key code out of range: '" + std::to_string(key) + "'");
 }
 
 void InputManager::setKeyReleased(uInt key)
@@ -87,7 +88,8 @@ void InputManager::setKeyReleased(uInt key)
         keysReleased[key] = true;
         return;
     }
-    Log::log("Key code out of range: " + std::to_string(key));
+
+    Logger::error("Key code out of range: '" + std::to_string(key) + "'");
 }
 
 void InputManager::setMouseButtonPressed(uInt button)
@@ -98,7 +100,8 @@ void InputManager::setMouseButtonPressed(uInt button)
         mouseButtonsReleased[button] = false;
         return;
     }
-    Log::log("Mouse button code out of range: " + std::to_string(button));
+
+    Logger::error("Mouse button code out of range: '" + std::to_string(button) + "'");
 }
 
 void InputManager::setMouseButtonReleased(uInt button)
@@ -109,7 +112,8 @@ void InputManager::setMouseButtonReleased(uInt button)
         mouseButtonsReleased[button] = true;
         return;
     }
-    Log::log("Mouse button code out of range: " + std::to_string(button));
+
+    Logger::error("Mouse button code out of range: '" + std::to_string(button) + "'");
 }
 
 void InputManager::setMousePosition(const dVector2 &position)
@@ -123,7 +127,9 @@ bool InputManager::isKeyPressed(uInt key)
     {
         return keysPressed[key];
     }
-    Log::log("Key code out of range: " + std::to_string(key));
+
+    Logger::error("Key code out of range: '" + std::to_string(key) + "'");
+
     return false;
 }
 
@@ -135,7 +141,9 @@ bool InputManager::wasKeyReleased(uInt key)
         keysReleased[key] = false;
         return temp;
     }
-    Log::log("Key code out of range: " + std::to_string(key));
+
+    Logger::error("Key code out of range: '" + std::to_string(key) + "'");
+
     return false;
 }
 
@@ -145,7 +153,9 @@ bool InputManager::isMouseButtonPressed(uInt button)
     {
         return mouseButtonsPressed[button];
     }
-    Log::log("Mouse button code out of range: " + std::to_string(button));
+
+    Logger::error("Mouse button code out of range: '" + std::to_string(button) + "'");
+
     return false;
 }
 
@@ -157,7 +167,9 @@ bool InputManager::wasMouseButtonReleased(uInt button)
         mouseButtonsReleased[button] = false;
         return temp;
     }
-    Log::log("Mouse button code out of range: " + std::to_string(button));
+
+    Logger::error("Mouse button code out of range: '" + std::to_string(button) + "'");
+
     return false;
 }
 

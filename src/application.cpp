@@ -1,52 +1,16 @@
 #include "application.h"
 
-Application::Application()
-{
-    logManager = new LogManager("logs/log", true, "txt", true, true, true);
-
-    if (!glfwInit())
-    {
-        Log::log("GLFW initialization failed");
-    }
-
-    windowSize = FHD;
-    windowTitle = "Application";
-    startTime = glfwGetTime();
-    frames = 0;
-    isRunningInternal = true;
-
-    currentContextID = createContext();
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-    glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
-
-    window = glfwCreateWindow(windowSize.x, windowSize.y, windowTitle.data(), NULL, NULL);
-
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(0);
-    gladLoadGL();
-
-    glViewport(0, 0, windowSize.x, windowSize.y);
-    glClearColor(0, 0, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glfwSwapBuffers(window);
-
-    inputManager = new InputManager();
-
-    Log::log("Application initialized");
-}
-
 Application::Application(const iVector2 &windowSize, const std::string &windowTitle, bool fullscreen, bool resizable, bool decorated, bool vsync)
 {
-    logManager = new LogManager("logs/log", true, "txt", true, true, true);
+    if (!Logger::checkInit())
+        Logger::init("logs", true, "txt", false, true, true);
+
+    Logger::log("Initializing application");
 
     if (!glfwInit())
     {
-        Log::log("GLFW initialization failed");
+        Logger::error("GLFW initialization failed");
+        return;
     }
 
     GLFWmonitor *monitor = glfwGetPrimaryMonitor();
@@ -88,29 +52,26 @@ Application::Application(const iVector2 &windowSize, const std::string &windowTi
 
     inputManager = new InputManager();
 
-    Log::log("Application initialized");
+    Logger::log("Application initialized");
 }
 
 Application::~Application()
 {
     clearContexts();
+    clearLabels();
     delete contexts[currentContextID];
+    delete inputManager;
 
-    double sum = glfwGetTime() - startTime;
-    Log::log("Application destroyed");
-    logManager->logQueue(frames);
-    Log::log("Frames: " + std::to_string(frames));
-    Log::log("Average FPS: " + std::to_string(frames / sum));
-    logManager->logQueue();
+    Logger::log("Application destroyed");
+    Logger::quit();
 
-    delete logManager;
     glfwDestroyWindow(window);
     glfwTerminate();
 }
 
 void Application::update()
 {
-    previousTime = currentTime;
+    previousTime = applicationTime;
     glClearColor(0, 0, 0, 1);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -123,10 +84,10 @@ void Application::update()
     glfwSwapBuffers(window);
 
     inputManager->update(window);
-    logManager->logQueue(frames);
 
     frames++;
-    currentTime = glfwGetTime();
+    applicationTime = glfwGetTime();
+    Logger::update(frames);
 }
 
 bool Application::isRunning()
@@ -141,64 +102,30 @@ void Application::setIsRunning(bool isRunning)
 
 uInt Application::createContext()
 {
-    Context *context = new Context();
-    context->setID(contexts.size());
-    contexts[context->getID()] = context;
-    return context->getID();
-}
-
-void Application::setContextLabel(uInt id, const std::string &label)
-{
-    if (contexts.find(id) != contexts.end())
-    {
-        contexts[id]->setLabel(label);
-        contextLabels[label] = id;
-        return;
-    }
-    if (contextLabels.find(label) != contextLabels.end())
-    {
-        Log::log("Context label already exists");
-        return;
-    }
-    if (contexts[currentContextID]->getLabel() != "")
-    {
-        contextLabels.erase(contexts[currentContextID]->getLabel());
-        contexts[currentContextID]->setLabel(label);
-        contextLabels[label] = currentContextID;
-        return;
-    }
-    Log::log("Context ID not found");
+    uInt id = Utils::genUniqueID();
+    contexts[id] = new Context(id);
+    return id;
 }
 
 void Application::setCurrentContext(uInt id)
 {
-    if (contexts.find(id) != contexts.end())
+    if (contexts.find(id) == contexts.end())
     {
-        currentContextID = id;
+        Logger::error("Context '" + std::to_string(id) + "' not found");
         return;
     }
-    Log::log("Context ID not found");
+    currentContextID = id;
+    Logger::log("Current context set to '" + std::to_string(id) + "'");
 }
 
-void Application::setCurrentContext(const std::string &label) // temporary solution
+uInt Application::loadContext(const std::string &path) // WiP
 {
-    for (auto &context : contexts)
-    {
-        if (context.second->getLabel() == label)
-        {
-            currentContextID = context.first;
-            return;
-        }
-    }
-    Log::log("Context label not found");
-}
-
-void Application::loadContext(const std::string &path) // WiP
-{
-    Log::log("Loading context from '" + path + "'");
+    Logger::log("Loading context from '" + path + "'");
 
     NDS nds(path);
     nds.loadNDL();
+
+    uInt id = createContext();
 
     for (std::string group : nds.getGroupNames())
     {
@@ -206,149 +133,143 @@ void Application::loadContext(const std::string &path) // WiP
         if (type == "OBJECT2D")
         {
             dVector2 position = dVector2(nds.getDoubleList("positionWindow", group)[0], nds.getDoubleList("positionWindow", group)[1]);
-            position.convertCoordinateSystem({0, 0}, {1, 1}, {-1, -1}, {1, 1});
             dVector2 scale = dVector2(nds.getDoubleList("scaleWorld", group)[0], nds.getDoubleList("scaleWorld", group)[1]);
             position -= scale / dVector2(2, 1); // temporary solution
+            double aspectRatio = double(windowSize.x) / double(windowSize.y);
+            position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1});
             double rotation = nds.getDouble("rotation", group);
             std::string texturePath = nds.getString("texturePath", group);
             std::string verticesPath = nds.getString("verticesPath", group);
             std::string vertexPath = nds.getString("vertexPath", group);
             std::string fragmentPath = nds.getString("fragmentPath", group);
 
-            uInt id = createObject2D(position, scale, rotation, windowSize, verticesPath, texturePath, vertexPath, fragmentPath);
-            contexts[currentContextID]->setObjectLabel(id, group);
+            uInt objectID = contexts[id]->createObject2D(position, scale, rotation, Utils::loadBinaryDoubles(verticesPath), windowSize, texturePath, vertexPath, fragmentPath);
+            addLabel(group, objectID);
+
+            Logger::log("Object2D '" + group + "' loaded with ID '" + std::to_string(objectID) + "'");
         }
         else if (type == "TEXT")
         {
             std::string text = nds.getString("text", group);
             dVector2 position = dVector2(nds.getDoubleList("positionWindow", group)[0], nds.getDoubleList("positionWindow", group)[1]);
-            // position.convertCoordinateSystem({0, 0}, {1, 1}, {-1, -1}, {1, 1}); why changes position to 0 0?
             dVector2 scale = dVector2(nds.getDoubleList("scaleWorld", group)[0], nds.getDoubleList("scaleWorld", group)[1]);
+            double aspectRatio = double(windowSize.x) / double(windowSize.y);
+            position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1});
             double rotation = nds.getDouble("rotation", group);
             std::string fontPath = nds.getString("fontPath", group);
             std::string vertexPath = nds.getString("vertexPath", group);
             std::string fragmentPath = nds.getString("fragmentPath", group);
 
-            uInt id = createText(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
-            contexts[currentContextID]->setObjectLabel(id, group);
+            uInt objectID = contexts[id]->createText(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
+            addLabel(group, objectID);
+
+            Logger::log("Text object '" + group + "' loaded with ID '" + std::to_string(objectID) + "'");
         }
         else
         {
-            Log::log("Unknown type");
+            Logger::error("Invalid object type '" + type + "'");
         }
     }
 
-    Log::log("Context loaded from '" + path + "'");
+    Logger::log("Context '" + std::to_string(id) + "' loaded from '" + path + "'");
+
+    return id;
 }
 
 void Application::destroyContext(uInt id)
 {
-    if (id != currentContextID)
+    if (id == currentContextID)
     {
-        delete contexts[id];
-        contexts.erase(id);
+        Logger::error("Cannot destroy current context");
         return;
     }
-    Log::log("Cannot destroy current context");
-}
-
-void Application::destroyContext(const std::string &label)
-{
-    for (auto &context : contexts)
-    {
-        if (context.second->getLabel() == label)
-        {
-            if (context.first != currentContextID)
-            {
-                delete context.second;
-                contexts.erase(context.first);
-                return;
-            }
-            Log::log("Cannot destroy current context");
-        }
-    }
-    Log::log("Context label not found");
+    delete contexts[id];
+    contexts.erase(id);
+    removeLabel(id);
 }
 
 void Application::clearContexts()
 {
-    Log::log("Clearing contexts");
+    Logger::log("Clearing contexts");
 
     for (auto &context : contexts)
     {
-        if (context.first != currentContextID)
-            delete context.second;
+        if (context.first == currentContextID)
+        {
+            continue;
+        }
+        delete context.second;
+        removeLabel(context.first);
     }
-
     contexts.clear();
+
+    Logger::log("Contexts cleared");
 }
 
-InputManager *Application::getInput()
+Context *Application::getCurrentContext()
+{
+    return contexts[currentContextID];
+}
+
+Context *Application::getContext(uInt id)
+{
+    if (contexts.find(id) == contexts.end())
+    {
+        Logger::error("Context '" + std::to_string(id) + "' not found");
+        return NULL;
+    }
+    return contexts[id];
+}
+
+InputManager *Application::getInputManager()
 {
     return inputManager;
 }
 
-LogManager *Application::getLog()
+void Application::addLabel(const std::string &label, uInt id)
 {
-    return logManager;
+    if (labels.find(label) != labels.end())
+    {
+        Logger::error("Label '" + label + "' already points to '" + std::to_string(labels[label]) + "'");
+        return;
+    }
+    labels[label] = id;
+
+    Logger::log("Label '" + label + "' pointing to '" + std::to_string(id) + "' added");
 }
 
-ObjectPtr Application::getObject(uInt id)
+void Application::removeLabel(uInt id)
 {
-    return contexts[currentContextID]->getObject(id);
+    for (auto &label : labels)
+    {
+        if (label.second == id)
+        {
+            labels.erase(label.first);
+
+            Logger::log("Label '" + label.first + "' pointing to '" + std::to_string(id) + "' removed");
+
+            return;
+        }
+    }
+
+    Logger::error("Label pointing to '" + std::to_string(id) + "' not found");
 }
 
-ObjectPtr Application::getObject(const std::string &label)
+void Application::clearLabels()
 {
-    return contexts[currentContextID]->getObject(label);
+    Logger::log("Clearing labels");
+    labels.clear();
+    Logger::log("Labels cleared");
 }
 
-bool Application::inObjectHitbox(uInt id, const dVector2 &position)
+uInt Application::getID(const std::string &label)
 {
-    return contexts[currentContextID]->inObjectHitbox(id, position);
-}
-
-bool Application::inObjectHitbox(const std::string &label, const dVector2 &position)
-{
-    return contexts[currentContextID]->inObjectHitbox(label, position);
-}
-
-uInt Application::createObject2D(dVector2 position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &verticesPath, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath)
-{
-    std::vector<double> vertices = Utility::loadBinaryDoubles(verticesPath);
-
-    double aspectRatio = double(windowSize.x) / double(windowSize.y);                                         // temporary solution
-    position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1}); // temporary solution
-
-    return contexts[currentContextID]->createObject2D(position, scale, rotation, vertices, windowSize, texturePath, vertexPath, fragmentPath);
-}
-
-uInt Application::createText(const std::string &text, dVector2 position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath)
-{
-    double aspectRatio = double(windowSize.x) / double(windowSize.y);                                         // temporary solution
-    position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1}); // temporary solution
-
-    return contexts[currentContextID]->createText(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
-}
-
-void Application::destroyObject(uInt id)
-{
-    contexts[currentContextID]->destroyObject(id);
-}
-
-void Application::clearObjects()
-{
-    contexts[currentContextID]->clearObjects();
-}
-
-void Application::clearObjects2D()
-{
-    contexts[currentContextID]->clearObjects2D();
-}
-
-void Application::clearTexts()
-{
-    contexts[currentContextID]->clearTexts();
+    if (labels.find(label) == labels.end())
+    {
+        Logger::error("Label '" + label + "' not found");
+        return -1;
+    }
+    return labels[label];
 }
 
 std::string Application::getWindowTitle()
@@ -361,22 +282,23 @@ iVector2 Application::getWindowSize()
     return windowSize;
 }
 
-uInt Application::getCurrentContextID()
+double Application::getApplicationTime()
 {
-    return currentContextID;
-}
-
-double Application::getTime()
-{
-    return currentTime;
+    return applicationTime;
 }
 
 double Application::getDeltaTime()
 {
-    return currentTime - previousTime;
+    return applicationTime - previousTime;
 }
 
 double Application::getFPS()
 {
+    double deltaTime = getDeltaTime();
+    if (deltaTime == 0)
+    {
+        Logger::error("Delta time is 0");
+        return 0;
+    }
     return 1 / getDeltaTime();
 }

@@ -5,7 +5,7 @@ d:\dev\applicationframework\x64\debug\vector.obj
 d:\dev\applicationframework\x64\debug\utility.obj
 d:\dev\applicationframework\x64\debug\object.obj
 d:\dev\applicationframework\x64\debug\matrix.obj
-d:\dev\applicationframework\x64\debug\log.obj
+d:\dev\applicationframework\x64\debug\Logger.obj
 d:\dev\applicationframework\x64\debug\input.obj
 d:\dev\applicationframework\x64\debug\context.obj
 d:\dev\applicationframework\x64\debug\application.obj
@@ -13,10 +13,10 @@ d:\dev\applicationframework\x64\debug\af.obj
 d:\dev\applicationframework\x64\debug\stb.obj
 d:\dev\applicationframework\x64\debug\nds.obj
 d:\dev\applicationframework\test\af.lib
-d:\dev\applicationframework\x64\debug\af.tlog\cl.command.1.tlog
-d:\dev\applicationframework\x64\debug\af.tlog\cl.items.tlog
-d:\dev\applicationframework\x64\debug\af.tlog\cl.read.1.tlog
-d:\dev\applicationframework\x64\debug\af.tlog\cl.write.1.tlog
-d:\dev\applicationframework\x64\debug\af.tlog\lib-link.read.1.tlog
-d:\dev\applicationframework\x64\debug\af.tlog\lib-link.write.1.tlog
-d:\dev\applicationframework\x64\debug\af.tlog\lib.command.1.tlog
+d:\dev\applicationframework\x64\debug\af.tLogger\cl.command.1.tLogger
+d:\dev\applicationframework\x64\debug\af.tLogger\cl.items.tLogger
+d:\dev\applicationframework\x64\debug\af.tLogger\cl.read.1.tLogger
+d:\dev\applicationframework\x64\debug\af.tLogger\cl.write.1.tLogger
+d:\dev\applicationframework\x64\debug\af.tLogger\lib-link.read.1.tLogger
+d:\dev\applicationframework\x64\debug\af.tLogger\lib-link.write.1.tLogger
+d:\dev\applicationframework\x64\debug\af.tLogger\lib.command.1.tLogger

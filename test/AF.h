@@ -453,28 +453,19 @@ namespace Matrix
  */
 namespace AF
 {
-    enum ObjectType
+    enum
     {
-        OBJECT = -1,
-        OBJECT2D = 0,
-        TEXT
+        NONE = -1,
+        OBJECT = 0,
+        OBJECT2D,
+        TEXT,
+        DATA
     };
 
     const iVector2 WQHD = iVector2(2560, 1440);
     const iVector2 FHD = iVector2(1920, 1080);
     const iVector2 HD = iVector2(1280, 720);
     const iVector2 SD = iVector2(640, 360);
-
-    /*! @brief Initializes the application with default values
-     *  @param windowSize The size of the window: iVector2(1280, 720)
-     *  @param windowTitle The title of the window: "Application"
-     *  @param fullscreen Whether the window is fullscreen: false
-     *  @param resizable Whether the window is resizable: true
-     *  @param decorated Whether the window is decorated: true
-     *  @param vsync Whether the window has V-sync enabled: false
-     * @return The initialized application
-     */
-    Application *init();
 
     /*! @brief Initializes the application with the given values
      * @param windowSize The size of the window
@@ -515,18 +506,19 @@ namespace AF
      */
     uInt createContext(Application *app);
 
-    /*! @brief Sets the label of a context
+    /*! @brief Sets the label of an entity
      * @param app The application to set the label in
-     * @param id The id of the context
+     * @param id The id of the entity
      * @param label The label to set
      */
-    void setContextLabel(Application *app, uInt id, const std::string &label);
+    void addLabel(Application *app, uInt id, const std::string &label);
 
-    /*! @brief Sets the label of the current context
-     * @param app The application to set the label in
-     * @param label The label to set
+    /*! @brief Gets the id of an entity
+     * @param app The application to get the id from
+     * @param label The label of the entity
+     * @return The id of the entity
      */
-    void setCurrentContextLabel(Application *app, const std::string &label);
+    uInt getID(Application *app, const std::string &label);
 
     /*! @brief Sets the current context
      * @param app The application to set the context in
@@ -543,8 +535,9 @@ namespace AF
     /*! @brief Loads a context
      * @param app The application to load the context in
      * @param path The path of the context
+     * @return The id of the loaded context
      */
-    void loadContext(Application *app, const std::string &path);
+    uInt loadContext(Application *app, const std::string &path);
 
     /*! @brief Destroys a context
      * @param app The application to destroy the context in
@@ -575,17 +568,11 @@ namespace AF
      */
     iVector2 getWindowSize(Application *app);
 
-    /*! @brief Gets the current context id of the application
-     * @param app The application to get the current context id from
-     * @return The current context id
-     */
-    uInt getCurrentContextID(Application *app);
-
     /*! @brief Gets the time from the start of the application
      * @param app The application to get the time from
      * @return The time from the start of the application
      */
-    double getTime(Application *app);
+    double getApplicationTime(Application *app);
 
     /*! @brief Gets the delta time from the previous frame
      * @param app The application to get the delta time from
@@ -829,19 +816,18 @@ namespace AF
      */
     namespace Object
     {
-        /*! @brief Creates an object
+        /*! @brief Creates a 2D object
          * @param app The application to create the object in
-         * @param type The type of the object
          * @param position The position of the object
          * @param scale The scale of the object
          * @param rotation The rotation of the object
-         * @param verticesPath The path of the vertices
+         * @param vertices The vertices of the object
          * @param texturePath The path of the texture
          * @param vertexPath The path of the vertex shader
          * @param fragmentPath The path of the fragment shader
          * @return The id of the created object
          */
-        uInt create(Application *app, uInt type, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &verticesPath, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath);
+        uInt createObject2D(Application *app, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &verticesPath, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath);
 
         /*! @brief Creates an text object
          * @param app The application to create the object in
@@ -855,20 +841,6 @@ namespace AF
          * @return The id of the created object
          */
         uInt createText(Application *app, const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath);
-
-        /*! @brief Sets the label of an object
-         * @param app The application to set the object in
-         * @param id The id of the object
-         * @param label The label to set
-         */
-        void setLabel(Application *app, uInt id, const std::string &label);
-
-        /*! @brief Gets the id of an object
-         * @param app The application to get the object from
-         * @param label The label of the object
-         * @return The id of the object
-         */
-        uInt getID(Application *app, const std::string &label);
 
         /*! @brief Sets the text of an object
          * @param app The application to set the object in
@@ -1113,29 +1085,43 @@ namespace AF
         double getRotation(Application *app, const std::string &label);
     }
 
-    /*! @brief Namespace containing functions for log operations */
-    namespace Logs
+    /*! @brief Namespace containing functions for Logger operations */
+    namespace Log
     {
-        /*! @brief Logs a message
+        /*! @brief Initializes the logger
+         * @param directory The directory to save the log to
+         * @param withTime Whether to include the time in the log
+         * @param extension The extension of the log file
+         * @param print Whether to print the log
+         * @param save Whether to save the log
+         * @param enable Whether to enable the logger
+         */
+        void init(const std::string &directory, bool withTime, const std::string &extension, bool print, bool save, bool enable);
+
+        /*! @brief Logs a message to the logger
          * @param message The message to log
          */
         void log(const std::string &message);
 
-        /*! @brief Logs an error
-         * @param error The error to log
+        /*! @brief Logs a warning to the logger
+         * @param message The warning to log
          */
-        void error(const std::string &error);
+        void error(const std::string &message);
 
-        /*! @brief Sets the flags for log manager
-         * @param app The application the log manager is in
-         * @param print Whether to print the logs
-         * @param save Whether to save the logs
-         * @param enable Whether to enable the logs
+        /*! @brief Saves the log to a file
+         * @param path The path to save the log to
          */
-        void setFlags(Application *app, bool print, bool save, bool enable);
+        void save(const std::string &path);
+
+        /*! @brief Sets the flags of the logger
+         * @param print Whether to print the log
+         * @param save Whether to save the log
+         * @param enable Whether to enable the logger
+         */
+        void setFlags(bool print, bool save, bool enable);
     }
 
-    namespace Utils
+    namespace Utility
     {
         /*! @brief Waits for a given amount of time
          * @param miliseconds The amount of time to wait

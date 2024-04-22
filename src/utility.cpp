@@ -1,21 +1,25 @@
 ﻿#include "utility.h"
 
-void Utility::wait(uInt milliseconds)
+void Utils::wait(uInt milliseconds)
 {
-    Log::log("Waiting " + std::to_string(milliseconds) + " milliseconds");
+    Logger::log("Waiting for " + std::to_string(milliseconds) + " milliseconds");
     std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 }
 
-uInt Utility::genID() // generate a 32-bit unsigned integer
+uInt Utils::genID() // generate a 32-bit unsigned integer
 {
     static std::random_device rd;
     static std::mt19937 gen(rd());
     static std::uniform_int_distribution<uInt> dis(0, UINT32_MAX);
 
-    return dis(gen);
+    uInt id = dis(gen);
+
+    Logger::log("Generated ID '" + std::to_string(id) + "'");
+
+    return id;
 }
 
-uInt Utility::genUniqueID() // generate a unique 32-bit unsigned integer
+uInt Utils::genUniqueID() // generate a unique 32-bit unsigned integer
 {
     static std::random_device rd;
     static std::mt19937 gen(rd());
@@ -29,12 +33,15 @@ uInt Utility::genUniqueID() // generate a unique 32-bit unsigned integer
     } while (generated_ids.find(new_id) != generated_ids.end());
 
     generated_ids.insert(new_id);
+
+    Logger::log("Generated unique ID '" + std::to_string(new_id) + "'");
+
     return new_id;
 }
 
-void Utility::saveBinary(const std::vector<double> &doubles, const std::string &path)
+void Utils::saveBinary(const std::vector<double> &doubles, const std::string &path)
 {
-    Log::log("Saving binary data to '" + path + "'");
+    Logger::log("Saving binary data to '" + path + "'");
 
     std::ofstream file(path);
 
@@ -45,12 +52,13 @@ void Utility::saveBinary(const std::vector<double> &doubles, const std::string &
 
     file.close();
 
-    Log::log("Binary data saved to '" + path + "'");
+    Logger::log("Binary data saved to '" + path + "'");
 }
 
-void Utility::saveBinary(const std::vector<std::string> &strings, const std::string &path)
+void Utils::saveBinary(const std::vector<std::string> &strings, const std::string &path)
 {
-    Log::log("Saving binary data to '" + path + "'");
+
+    Logger::log("Saving binary data to '" + path + "'");
 
     std::ofstream file(path);
 
@@ -63,12 +71,12 @@ void Utility::saveBinary(const std::vector<std::string> &strings, const std::str
 
     file.close();
 
-    Log::log("Binary data saved to '" + path + "'");
+    Logger::log("Binary data saved to '" + path + "'");
 }
 
-std::vector<double> Utility::loadBinaryDoubles(const std::string &path)
+std::vector<double> Utils::loadBinaryDoubles(const std::string &path)
 {
-    Log::log("Loading binary data from '" + path + "'");
+    Logger::log("Loading binary data from '" + path + "'");
 
     std::vector<double> data;
     std::ifstream file(path);
@@ -81,14 +89,14 @@ std::vector<double> Utility::loadBinaryDoubles(const std::string &path)
 
     file.close();
 
-    Log::log("Binary data loaded from '" + path + "'");
+    Logger::log("Binary data loaded from '" + path + "'");
 
     return data;
 }
 
-std::vector<std::string> Utility::loadBinaryStrings(const std::string &path)
+std::vector<std::string> Utils::loadBinaryStrings(const std::string &path)
 {
-    Log::log("Loading binary data from '" + path + "'");
+    Logger::log("Loading binary data from '" + path + "'");
 
     std::vector<std::string> data;
     std::ifstream file(path);
@@ -104,13 +112,15 @@ std::vector<std::string> Utility::loadBinaryStrings(const std::string &path)
 
     file.close();
 
-    Log::log("Binary data loaded from '" + path + "'");
+    Logger::log("Binary data loaded from '" + path + "'");
 
     return data;
 }
 
-void Utility::genFontFiles()
+void Utils::genFontFiles()
 {
+    Logger::log("Generating font files");
+
     std::string testChars = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
     std::vector<double> fontVertices;
@@ -135,17 +145,19 @@ void Utility::genFontFiles()
         }
     }
 
-    Utility::saveBinary(fontVertices, "../resources/fonts/arial/arial.msh"); // msh = mesh
+    Utils::saveBinary(fontVertices, "../resources/fonts/arial/arial.msh"); // msh = mesh
 
     std::vector<std::string> save;
     for (char c : testChars)
     {
         save.push_back(std::string(1, c));
     }
-    Utility::saveBinary(save, "../resources/fonts/arial/arial.fc"); // fc = font characters
+    Utils::saveBinary(save, "../resources/fonts/arial/arial.fc"); // fc = font characters
+
+    Logger::log("Font files generated");
 }
 
-/*std::vector<double> Utility::loadOBJ(std::string path)
+/*std::vector<double> Utils::loadOBJ(std::string path)
 {
     std::vector<std::string> data;
     std::string dataline;

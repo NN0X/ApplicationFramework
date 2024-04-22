@@ -2,19 +2,21 @@ exit:{
     string;type:"OBJECT2D"
     double[];positionWindow:[1.0, 1.0]
     double[];scaleWorld:[0.05, 0.05]
-    double;rotation:0
+    double;rotation:0.0
     string;texturePath:"resources/textures/default.png"
     string;verticesPath:"resources/meshes/rectangle.msh"
     string;vertexPath:"resources/shaders/default2dVertex.glsl"
     string;fragmentPath:"resources/shaders/default2dFragment.glsl"
 }
 
+#when double is 45 it is read as 0.45 - FIX
+
 text:{
     string;type:"TEXT"
     string;text:"test"
     double[];positionWindow:[0.5, 0.5]
     double[];scaleWorld:[0.05, 0.05]
-    double;rotation:0
+    double;rotation:0.0
     string;fontPath:"resources/fonts/arial/arial"
     string;vertexPath:"resources/shaders/default2dVertex.glsl"
     string;fragmentPath:"resources/shaders/default2dFragment.glsl"

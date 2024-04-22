@@ -1,3 +1,2 @@
-﻿  AF.cpp
-D:\Dev\ApplicationFramework\src\AF.cpp(87): warning C4172: zwracanie adresu lokalnej zmiennej lub tymczasowej
+﻿  application.cpp
   AF.vcxproj -> D:\Dev\ApplicationFramework\test\AF.lib

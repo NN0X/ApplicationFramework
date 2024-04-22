@@ -2,44 +2,34 @@
 #define LOG_H
 
 #include "include.h"
+#include "utility.h"
 
-static std::vector<std::string> logsQueue;
-
-class LogManager
+namespace Logger
 {
-private:
-    std::string path;
-    std::string logs;
-    bool printLog;
-    bool saveLog;
-    bool isLogging;
+    static std::string path;
+    static std::string logs;
+    static int frame;
+    static bool printLog;
+    static bool saveLog;
+    static bool isLogging;
 
-public:
-    LogManager(const std::string &path, bool withDate, const std::string &extension, bool print, bool save, bool enable);
-    ~LogManager();
+    void init(const std::string &directory, bool withTime, const std::string &extension, bool print, bool save, bool enable);
+    void quit();
+
+    void update(int frame);
+
+    bool checkInit();
 
     void print();
 
     void log(const std::string &message);
-    void log(const std::string &message, int frame);
-
     void error(const std::string &message);
-    void error(const std::string &message, int frame);
-
-    // update the log queue on separate thread for more accurate timing
-    void logQueue();
-    void logQueue(int frame);
 
     void save();
     void save(const std::string &path);
 
     void setFlags(bool print, bool save, bool enable);
-};
 
-namespace Log
-{
-    void log(const std::string &message);
-    void error(const std::string &message);
 }
 
 #endif

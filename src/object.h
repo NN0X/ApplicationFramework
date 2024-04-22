@@ -7,28 +7,21 @@
 #include "utility.h"
 #include "log.h"
 
-enum ObjectType
-{
-    OBJECT = -1,
-    OBJECT2D = 0,
-    TEXT
-};
-
 class Object
 {
 protected:
     uInt id;
-    std::string label;
+    uInt parentID;
+    std::vector<uInt> childrenIDs = std::vector<uInt>();
 
 public:
     Object();
     ~Object();
 
-    void setID(uInt id);
-    uInt getID();
-
-    void setLabel(const std::string &label);
-    std::string getLabel();
+    void addChild(uInt childID);
+    void removeChild(uInt childID);
+    std::vector<uInt> getChildren();
+    void clearChildren();
 };
 
 class Object2D : public Object
@@ -51,7 +44,7 @@ protected:
 
 public:
     Object2D();
-    Object2D(const dVector2 &position, const dVector2 &scale, double rotation, const std::vector<double> &vertices, const iVector2 &windowSize, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath);
+    Object2D(uInt id, const dVector2 &position, const dVector2 &scale, double rotation, const std::vector<double> &vertices, const iVector2 &windowSize, const std::string &texturePath, const std::string &vertexPath, const std::string &fragmentPath);
     ~Object2D();
 
     void draw();
@@ -68,22 +61,12 @@ public:
 
     bool inHitbox(const dVector2 &point);
 
-    void setPositionWorld(const dVector2 &position);
-    void setScaleWorld(const dVector2 &scale);
-
-    void setPositionWindow(dVector2 position, const iVector2 &windowSize);
-    void setScaleWindow(dVector2 scale, const iVector2 &windowSize);
-
+    void setPosition(const dVector2 &position);
+    void setScale(const dVector2 &scale);
     void setRotation(double rotation);
 
-    std::vector<dVector2> getHitbox();
-
-    dVector2 getPositionWorld();
-    dVector2 getScaleWorld();
-
-    dVector2 getPositionWindow(const iVector2 &windowSize);
-    dVector2 getScaleWindow(const iVector2 &windowSize);
-
+    dVector2 getPosition();
+    dVector2 getScale();
     double getRotation();
 };
 
@@ -94,7 +77,7 @@ private:
     std::string fontPath;
 
 public:
-    Text(const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath);
+    Text(uInt id, const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const iVector2 &windowSize, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath);
     ~Text();
 
     void genText(const std::string &text);
