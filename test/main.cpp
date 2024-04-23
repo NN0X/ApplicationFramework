@@ -10,6 +10,9 @@ int main()
     AF::addLabel(app, AF::loadContext(app, "resources/database/default.ndl"), "default");
     AF::setCurrentContext(app, "default");
 
+    AF::addLabel(app, AF::Object::createObject2D(app, {0.5, 0.5}, {0.5, 0.5}, 0, "resources/meshes/rectangle.msh", "resources/textures/logo.png", "resources/shaders/default2dVertex.glsl", "resources/shaders/default2dFragment.glsl"), "child");
+    AF::Object::addChild(app, "text", "child");
+
     while (AF::isRunning(app))
     {
         if (AF::Input::isKeyPressed(app, AF::Input::KEY_ESCAPE))

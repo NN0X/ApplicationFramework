@@ -1,11 +1,12 @@
-D:\Dev\ApplicationFramework - Dev\inc\glad\glad.c;D:\Dev\ApplicationFramework - Dev\x64\Release\glad.obj
-D:\Dev\ApplicationFramework - Dev\inc\NDS\nds.cpp;D:\Dev\ApplicationFramework - Dev\x64\Release\nds.obj
-D:\Dev\ApplicationFramework - Dev\inc\stb\stb.cpp;D:\Dev\ApplicationFramework - Dev\x64\Release\stb.obj
-D:\Dev\ApplicationFramework - Dev\src\AF.cpp;D:\Dev\ApplicationFramework - Dev\x64\Release\AF.obj
-D:\Dev\ApplicationFramework - Dev\src\application.cpp;D:\Dev\ApplicationFramework - Dev\x64\Release\application.obj
-D:\Dev\ApplicationFramework - Dev\src\context.cpp;D:\Dev\ApplicationFramework - Dev\x64\Release\context.obj
-D:\Dev\ApplicationFramework - Dev\src\input.cpp;D:\Dev\ApplicationFramework - Dev\x64\Release\input.obj
-D:\Dev\ApplicationFramework - Dev\src\matrix.cpp;D:\Dev\ApplicationFramework - Dev\x64\Release\matrix.obj
-D:\Dev\ApplicationFramework - Dev\src\object.cpp;D:\Dev\ApplicationFramework - Dev\x64\Release\object.obj
-D:\Dev\ApplicationFramework - Dev\src\utility.cpp;D:\Dev\ApplicationFramework - Dev\x64\Release\utility.obj
-D:\Dev\ApplicationFramework - Dev\src\vector.cpp;D:\Dev\ApplicationFramework - Dev\x64\Release\vector.obj
+D:\Dev\ApplicationFramework\inc\glad\glad.c;D:\Dev\ApplicationFramework\x64\Release\glad.obj
+D:\Dev\ApplicationFramework\inc\NDS\nds.cpp;D:\Dev\ApplicationFramework\x64\Release\nds.obj
+D:\Dev\ApplicationFramework\inc\stb\stb.cpp;D:\Dev\ApplicationFramework\x64\Release\stb.obj
+D:\Dev\ApplicationFramework\src\AF.cpp;D:\Dev\ApplicationFramework\x64\Release\AF.obj
+D:\Dev\ApplicationFramework\src\application.cpp;D:\Dev\ApplicationFramework\x64\Release\application.obj
+D:\Dev\ApplicationFramework\src\context.cpp;D:\Dev\ApplicationFramework\x64\Release\context.obj
+D:\Dev\ApplicationFramework\src\input.cpp;D:\Dev\ApplicationFramework\x64\Release\input.obj
+D:\Dev\ApplicationFramework\src\log.cpp;D:\Dev\ApplicationFramework\x64\Release\log.obj
+D:\Dev\ApplicationFramework\src\matrix.cpp;D:\Dev\ApplicationFramework\x64\Release\matrix.obj
+D:\Dev\ApplicationFramework\src\object.cpp;D:\Dev\ApplicationFramework\x64\Release\object.obj
+D:\Dev\ApplicationFramework\src\utility.cpp;D:\Dev\ApplicationFramework\x64\Release\utility.obj
+D:\Dev\ApplicationFramework\src\vector.cpp;D:\Dev\ApplicationFramework\x64\Release\vector.obj

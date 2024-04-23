@@ -842,6 +842,34 @@ namespace AF
          */
         uInt createText(Application *app, const std::string &text, const dVector2 &position, const dVector2 &scale, double rotation, const std::string &fontPath, const std::string &vertexPath, const std::string &fragmentPath);
 
+        /*! @brief Adds child to an object
+         * @param app The application to add the child to
+         * @param parentID The id of the parent object
+         * @param childID The id of the child object
+         */
+        void addChild(Application *app, uInt parentID, uInt childID);
+
+        /*! @brief Adds child to an object
+         * @param app The application to add the child to
+         * @param parentLabel The label of the parent object
+         * @param childLabel The label of the child object
+         */
+        void addChild(Application *app, const std::string &parentLabel, const std::string &childLabel);
+
+        /*! @brief Removes child from an object
+         * @param app The application to remove the child from
+         * @param parentID The id of the parent object
+         * @param childID The id of the child object
+         */
+        void removeChild(Application *app, uInt parentID, uInt childID);
+
+        /*! @brief Removes child from an object
+         * @param app The application to remove the child from
+         * @param parentLabel The label of the parent object
+         * @param childLabel The label of the child object
+         */
+        void removeChild(Application *app, const std::string &parentLabel, const std::string &childLabel);
+
         /*! @brief Sets the text of an object
          * @param app The application to set the object in
          * @param id The id of the object

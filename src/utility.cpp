@@ -14,6 +14,9 @@ uInt Utils::genID() // generate a 32-bit unsigned integer
 
     uInt id = dis(gen);
 
+    if (id == 0)
+        id++;
+
     Logger::log("Generated ID '" + std::to_string(id) + "'");
 
     return id;
@@ -30,6 +33,8 @@ uInt Utils::genUniqueID() // generate a unique 32-bit unsigned integer
     do
     {
         new_id = dis(gen);
+        if (new_id == 0)
+            new_id++;
     } while (generated_ids.find(new_id) != generated_ids.end());
 
     generated_ids.insert(new_id);

@@ -187,6 +187,26 @@ namespace AF
             return app->getCurrentContext()->createText(text, position, scale, rotation, app->getWindowSize(), fontPath, vertexPath, fragmentPath);
         }
 
+        void addChild(Application *app, uInt parentID, uInt childID)
+        {
+            app->getCurrentContext()->addChildToObject(parentID, childID);
+        }
+
+        void addChild(Application *app, const std::string &parentLabel, const std::string &childLabel)
+        {
+            app->getCurrentContext()->addChildToObject(app->getID(parentLabel), app->getID(childLabel));
+        }
+
+        void removeChild(Application *app, uInt parentID, uInt childID)
+        {
+            app->getCurrentContext()->removeChildFromObject(parentID, childID);
+        }
+
+        void removeChild(Application *app, const std::string &parentLabel, const std::string &childLabel)
+        {
+            app->getCurrentContext()->removeChildFromObject(app->getID(parentLabel), app->getID(childLabel));
+        }
+
         void setText(Application *app, uInt id, const std::string &text)
         {
             app->getCurrentContext()->getObject(id).text->setText(text);

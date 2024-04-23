@@ -62,6 +62,10 @@ Application::~Application()
     delete contexts[currentContextID];
     delete inputManager;
 
+    Logger::log("Total frames: '" + std::to_string(frames) + "'");
+    Logger::log("Total time: '" + std::to_string(applicationTime - startTime) + "'");
+    Logger::log("Average FPS: '" + std::to_string(frames / (applicationTime - startTime)) + "'");
+
     Logger::log("Application destroyed");
     Logger::quit();
 

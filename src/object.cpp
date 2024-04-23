@@ -4,6 +4,7 @@
 
 Object::Object()
 {
+    parentID = 0;
     Logger::log("Object created");
 }
 
@@ -12,9 +13,20 @@ Object::~Object()
     Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "' destroyed");
 }
 
-void Object::addChild(uInt childID)
+void Object::setParent(uInt parentID)
 {
-    childrenIDs.push_back(childID);
+    this->parentID = parentID;
+    Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Parent set to '" + (parentID == 0 ? "NONE" : std::to_string(parentID)) + "'");
+}
+
+uInt Object::getParent()
+{
+    return parentID;
+}
+
+void Object::addChild(uInt childID, ObjectPtr &objectPtr)
+{
+    children[childID] = objectPtr;
     Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Child '" + std::to_string(childID) + "' added");
 }
 
@@ -24,16 +36,15 @@ void Object::removeChild(uInt childID)
     {
         if (childrenIDs[i] == childID)
         {
+            children.erase(childID);
             childrenIDs.erase(childrenIDs.begin() + i);
-
             Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Child '" + std::to_string(childID) + "' removed");
-
             break;
         }
     }
 }
 
-std::vector<uInt> Object::getChildren()
+std::vector<uInt> Object::getChildrenIDs()
 {
     return childrenIDs;
 }
@@ -42,6 +53,7 @@ void Object::clearChildren()
 {
     Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Clearing children");
     childrenIDs.clear();
+    children.clear();
     Logger::log("Object '" + (id == 0 ? "UNKNOWN" : std::to_string(id)) + "': Children cleared");
 }
 
@@ -107,6 +119,31 @@ void Object2D::transformPosition(const dVector2 &transform)
     translationMatrix.translate({transform.x, transform.y, 0.0});
     position.x += transform.x; // change
     position.y += transform.y; // change
+
+    for (auto &child : children)
+    {
+        switch (child.second.type)
+        {
+        case NONE:
+            break;
+
+        case OBJECT:
+            break;
+
+        case OBJECT2D:
+            child.second.object2d->transformPosition(transform);
+            break;
+
+        case TEXT:
+            child.second.text->transformPosition(transform);
+
+        case DATA:
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 void Object2D::transformScale(const dVector2 &transform)
@@ -114,12 +151,62 @@ void Object2D::transformScale(const dVector2 &transform)
     scale.x *= transform.x; // change
     scale.y *= transform.y; // change
     scaleMatrix.scale({transform.x, transform.y, 1.0});
+
+    for (auto &child : children)
+    {
+        switch (child.second.type)
+        {
+        case NONE:
+            break;
+
+        case OBJECT:
+            break;
+
+        case OBJECT2D:
+            child.second.object2d->transformScale(transform);
+            break;
+
+        case TEXT:
+            child.second.text->transformScale(transform);
+
+        case DATA:
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 void Object2D::transformRotation(double transform)
 {
     rotation += transform; // change
     rotationMatrix.rotate(0.0, 0.0, transform * PI / 180.0);
+
+    for (auto &child : children)
+    {
+        switch (child.second.type)
+        {
+        case NONE:
+            break;
+
+        case OBJECT:
+            break;
+
+        case OBJECT2D:
+            child.second.object2d->transformRotation(transform);
+            break;
+
+        case TEXT:
+            child.second.text->transformRotation(transform);
+
+        case DATA:
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 void Object2D::genVertices(const std::vector<double> &vertices)
@@ -259,6 +346,31 @@ void Object2D::setPosition(const dVector2 &position)
     translationMatrix.identity();
     translationMatrix.translate({position.x, position.y, 0.0});
     this->position = position;
+
+    for (auto &child : children)
+    {
+        switch (child.second.type)
+        {
+        case NONE:
+            break;
+
+        case OBJECT:
+            break;
+
+        case OBJECT2D:
+            child.second.object2d->setPosition(child.second.object2d->position + position);
+            break;
+
+        case TEXT:
+            child.second.text->setPosition(child.second.text->position + position);
+
+        case DATA:
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 void Object2D::setScale(const dVector2 &scale)
@@ -266,6 +378,31 @@ void Object2D::setScale(const dVector2 &scale)
     scaleMatrix.identity();
     scaleMatrix.scale({scale.x, scale.y, 1.0});
     this->scale = scale;
+
+    for (auto &child : children)
+    {
+        switch (child.second.type)
+        {
+        case NONE:
+            break;
+
+        case OBJECT:
+            break;
+
+        case OBJECT2D:
+            child.second.object2d->setScale(child.second.object2d->scale + scale);
+            break;
+
+        case TEXT:
+            child.second.text->setScale(child.second.text->scale + scale);
+
+        case DATA:
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 void Object2D::setRotation(double rotation)
@@ -273,6 +410,31 @@ void Object2D::setRotation(double rotation)
     rotationMatrix.identity();
     rotationMatrix.rotate(0.0, 0.0, rotation * PI / 180.0);
     this->rotation = rotation;
+
+    for (auto &child : children)
+    {
+        switch (child.second.type)
+        {
+        case NONE:
+            break;
+
+        case OBJECT:
+            break;
+
+        case OBJECT2D:
+            child.second.object2d->setRotation(child.second.object2d->rotation + rotation);
+            break;
+
+        case TEXT:
+            child.second.text->setRotation(child.second.text->rotation + rotation);
+
+        case DATA:
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 dVector2 Object2D::getPosition()

@@ -85,6 +85,54 @@ uInt Context::createText(const std::string &text, const dVector2 &position, cons
     return id;
 }
 
+void Context::addChildToObject(uInt parentID, uInt childID)
+{
+    if (objects.find(parentID) == objects.end())
+    {
+        Logger::error("Context '" + std::to_string(id) + "': Object '" + std::to_string(parentID) + "' not found");
+        return;
+    }
+
+    if (objects.find(childID) == objects.end())
+    {
+        Logger::error("Context '" + std::to_string(id) + "': Object '" + std::to_string(childID) + "' not found");
+        return;
+    }
+
+    if (objects[childID].object2d->getParent() != 0)
+    {
+        Logger::error("Context '" + std::to_string(id) + "': Object '" + std::to_string(childID) + "' already has a parent");
+        return;
+    }
+
+    objects[parentID].object2d->addChild(childID, objects[childID]);
+    objects[childID].object2d->setParent(parentID);
+}
+
+void Context::removeChildFromObject(uInt parentID, uInt childID)
+{
+    if (objects.find(parentID) == objects.end())
+    {
+        Logger::error("Context '" + std::to_string(id) + "': Object '" + std::to_string(parentID) + "' not found");
+        return;
+    }
+
+    if (objects.find(childID) == objects.end())
+    {
+        Logger::error("Context '" + std::to_string(id) + "': Object '" + std::to_string(childID) + "' not found");
+        return;
+    }
+
+    if (objects[childID].object2d->getParent() != parentID)
+    {
+        Logger::error("Context '" + std::to_string(id) + "': Object '" + std::to_string(childID) + "' is not a child of object '" + std::to_string(parentID) + "'");
+        return;
+    }
+
+    objects[parentID].object2d->removeChild(childID);
+    objects[childID].object2d->setParent(0);
+}
+
 ObjectPtr Context::getObject(uInt id)
 {
     if (objects.find(id) == objects.end())

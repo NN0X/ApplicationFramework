@@ -7,34 +7,62 @@
 #include "utility.h"
 #include "log.h"
 
+class Object;
+class Object2D;
+class Text;
+
+struct ObjectPtr
+{
+    int type;
+    union
+    {
+        Object *object;
+        Object2D *object2d;
+        Text *text;
+    };
+};
+
+enum
+{
+    NONE = -1,
+    OBJECT = 0,
+    OBJECT2D,
+    TEXT,
+    DATA
+};
+
 class Object
 {
 protected:
     uInt id;
     uInt parentID;
-    std::vector<uInt> childrenIDs = std::vector<uInt>();
+    std::vector<uInt> childrenIDs;
+    std::unordered_map<uInt, ObjectPtr> children;
 
 public:
     Object();
     ~Object();
 
-    void addChild(uInt childID);
+    void setParent(uInt parentID);
+    uInt getParent();
+
+    void addChild(uInt childID, ObjectPtr &objectPtr);
     void removeChild(uInt childID);
-    std::vector<uInt> getChildren();
+    std::vector<uInt> getChildrenIDs();
     void clearChildren();
 };
 
 class Object2D : public Object
 {
 protected:
-    dVector2 position = dVector2();
-    dVector2 scale = dVector2();
-    std::vector<dVector2> hitbox = std::vector<dVector2>();
+    dVector2 position;
+    dVector2 scale;
+    std::vector<dVector2> hitbox;
     double rotation;
-    fMatrix4 translationMatrix = fMatrix4();
-    fMatrix4 rotationMatrix = fMatrix4();
-    fMatrix4 scaleMatrix = fMatrix4();
-    fMatrix4 projectionMatrix = fMatrix4();
+    fMatrix4 translationMatrix;
+    fMatrix4 rotationMatrix;
+    fMatrix4 scaleMatrix;
+    fMatrix4 projectionMatrix;
     GLuint vertices;
     GLuint attributes;
     GLuint texture;
@@ -54,7 +82,7 @@ public:
     void transformRotation(double transform);
 
     void genVertices(const std::vector<double> &vertices);
-    void genHitbox(const std::vector<double> &vertices);
+    void genHitbox(const std::vector<double> &vertices); // fix for Text
     void genTexture(const std::string &texturePath);
     void genShader(const std::string &vertexPath, const std::string &fragmentPath);
     void genAttributes();
