@@ -128,35 +128,52 @@ uInt Application::loadContext(const std::string &path) // WiP
 
     NDS nds(path);
     nds.loadNDL();
-
     uInt id = createContext();
+
+    struct Parentage
+    {
+        std::string parent;
+        std::string child;
+    };
+
+    std::vector<Parentage> parentages;
 
     for (std::string group : nds.getGroupNames())
     {
         std::string type = nds.getString("type", group);
         if (type == "OBJECT2D")
         {
-            dVector2 position = dVector2(nds.getDoubleList("positionWindow", group)[0], nds.getDoubleList("positionWindow", group)[1]);
-            dVector2 scale = dVector2(nds.getDoubleList("scaleWorld", group)[0], nds.getDoubleList("scaleWorld", group)[1]);
+            std::string label = nds.getString("label", group);
+            dVector2 position = dVector2(nds.getDoubleFromArray("positionWindow", group, 0), nds.getDoubleFromArray("positionWindow", group, 1));
+            dVector2 scale = dVector2(nds.getDoubleFromArray("scaleWorld", group, 0), nds.getDoubleFromArray("scaleWorld", group, 1));
             position -= scale / dVector2(2, 1); // temporary solution
             double aspectRatio = double(windowSize.x) / double(windowSize.y);
             position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1});
             double rotation = nds.getDouble("rotation", group);
             std::string texturePath = nds.getString("texturePath", group);
-            std::string verticesPath = nds.getString("verticesPath", group);
+            std::string meshPath = nds.getString("meshPath", group);
             std::string vertexPath = nds.getString("vertexPath", group);
             std::string fragmentPath = nds.getString("fragmentPath", group);
 
-            uInt objectID = contexts[id]->createObject2D(position, scale, rotation, Utils::loadBinaryDoubles(verticesPath), windowSize, texturePath, vertexPath, fragmentPath);
-            addLabel(group, objectID);
+            if (nds.getStringArray("children", group)[0] != "")
+            {
+                for (std::string child : nds.getStringArray("children", group))
+                {
+                    parentages.push_back({label, child});
+                }
+            }
+
+            uInt objectID = contexts[id]->createObject2D(position, scale, rotation, Utils::loadBinaryDoubles(meshPath), windowSize, texturePath, vertexPath, fragmentPath);
+            addLabel(label, objectID);
 
             Logger::log("Object2D '" + group + "' loaded with ID '" + std::to_string(objectID) + "'");
         }
         else if (type == "TEXT")
         {
+            std::string label = nds.getString("label", group);
             std::string text = nds.getString("text", group);
-            dVector2 position = dVector2(nds.getDoubleList("positionWindow", group)[0], nds.getDoubleList("positionWindow", group)[1]);
-            dVector2 scale = dVector2(nds.getDoubleList("scaleWorld", group)[0], nds.getDoubleList("scaleWorld", group)[1]);
+            dVector2 position = dVector2(nds.getDoubleFromArray("positionWindow", group, 0), nds.getDoubleFromArray("positionWindow", group, 1));
+            dVector2 scale = dVector2(nds.getDoubleFromArray("scaleWorld", group, 0), nds.getDoubleFromArray("scaleWorld", group, 1));
             double aspectRatio = double(windowSize.x) / double(windowSize.y);
             position = Vector::convertCoordinateSystem(position, {0, 1}, {1, 0}, {-1, 2 / aspectRatio - 1}, {1, -1});
             double rotation = nds.getDouble("rotation", group);
@@ -164,8 +181,16 @@ uInt Application::loadContext(const std::string &path) // WiP
             std::string vertexPath = nds.getString("vertexPath", group);
             std::string fragmentPath = nds.getString("fragmentPath", group);
 
+            if (nds.getStringArray("children", group)[0] != "")
+            {
+                for (std::string child : nds.getStringArray("children", group))
+                {
+                    parentages.push_back({label, child});
+                }
+            }
+
             uInt objectID = contexts[id]->createText(text, position, scale, rotation, windowSize, fontPath, vertexPath, fragmentPath);
-            addLabel(group, objectID);
+            addLabel(label, objectID);
 
             Logger::log("Text object '" + group + "' loaded with ID '" + std::to_string(objectID) + "'");
         }
@@ -173,6 +198,11 @@ uInt Application::loadContext(const std::string &path) // WiP
         {
             Logger::error("Invalid object type '" + type + "'");
         }
+    }
+
+    for (Parentage parentage : parentages)
+    {
+        contexts[id]->addChildToObject(getID(parentage.parent), getID(parentage.child));
     }
 
     Logger::log("Context '" + std::to_string(id) + "' loaded from '" + path + "'");

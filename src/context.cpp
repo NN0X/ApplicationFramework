@@ -107,6 +107,40 @@ void Context::addChildToObject(uInt parentID, uInt childID)
 
     objects[parentID].object2d->addChild(childID, objects[childID]);
     objects[childID].object2d->setParent(parentID);
+
+    switch (objects[parentID].type)
+    {
+    case OBJECT2D:
+        switch (objects[childID].type)
+        {
+        case OBJECT2D:
+            objects[childID].object2d->transformPosition(objects[parentID].object2d->getPosition());
+            break;
+        case TEXT:
+            objects[childID].text->transformPosition(objects[parentID].object2d->getPosition());
+            break;
+        default:
+            break;
+        }
+        break;
+
+    case TEXT:
+        switch (objects[childID].type)
+        {
+        case OBJECT2D:
+            objects[childID].object2d->transformPosition(objects[parentID].text->getPosition());
+            break;
+        case TEXT:
+            objects[childID].text->transformPosition(objects[parentID].text->getPosition());
+            break;
+        default:
+            break;
+        }
+        break;
+
+    default:
+        break;
+    }
 }
 
 void Context::removeChildFromObject(uInt parentID, uInt childID)

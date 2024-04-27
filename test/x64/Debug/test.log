@@ -1,17 +1,1 @@
-﻿  main.cpp
-AF.lib(input.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(input.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(window.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(window.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(init.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(init.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(monitor.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(monitor.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(context.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(context.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(win32_window.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(win32_window.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(win32_joystick.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(win32_joystick.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(win32_time.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(win32_time.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(win32_thread.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(win32_thread.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(win32_init.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(win32_init.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(win32_monitor.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(win32_monitor.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(vulkan.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(vulkan.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(wgl_context.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(wgl_context.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(egl_context.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(egl_context.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-AF.lib(osmesa_context.obj) : warning LNK4099: nie znaleziono pliku PDB "" z elementem "AF.lib(osmesa_context.obj)" lub w pozycji ""; obiekt zostanie skonsolidowany bez informacji debugowania
-  test.vcxproj -> D:\Dev\ApplicationFramework\test\test.exe
+﻿  test.vcxproj -> D:\Dev\ApplicationFramework\test\test.exe

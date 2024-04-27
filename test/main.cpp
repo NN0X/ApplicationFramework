@@ -4,14 +4,11 @@
 
 int main()
 {
-    AF::Log::init("logs", true, "txt", false, true, true);
+    AF::Log::init("logs", true, "txt", true, true, true);
     Application *app = AF::init(AF::FHD, "Test", false, true, true, false);
 
-    AF::addLabel(app, AF::loadContext(app, "resources/database/default.ndl"), "default");
+    AF::addLabel(app, AF::loadContext(app, "resources/database/default"), "default");
     AF::setCurrentContext(app, "default");
-
-    AF::addLabel(app, AF::Object::createObject2D(app, {0.5, 0.5}, {0.5, 0.5}, 0, "resources/meshes/rectangle.msh", "resources/textures/logo.png", "resources/shaders/default2dVertex.glsl", "resources/shaders/default2dFragment.glsl"), "child");
-    AF::Object::addChild(app, "text", "child");
 
     while (AF::isRunning(app))
     {
